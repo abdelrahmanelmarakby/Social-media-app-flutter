@@ -17,13 +17,13 @@ class SignupView extends GetView<SignupController> {
           const StepHeader(),
           Expanded(
               child: PageView(
-            onPageChanged: (value) {
+              onPageChanged: (value) {
               controller.currentPage = value + 1;
               controller.update();
             },
-            physics: const NeverScrollableScrollPhysics(),
-            controller: controller.pageController,
-            children: const [
+              physics: const NeverScrollableScrollPhysics(),
+              controller: controller.pageController,
+              children: const [
               CompleteProfileForm(),
               MobileNumberForm(),
               OtpVerificationForm(),
