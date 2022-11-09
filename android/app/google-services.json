@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "403353607960",
+    "project_id": "futurechat",
+    "storage_bucket": "futurechat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403353607960:android:e91dfc2d5b1b3f87c1c86d",
+        "android_client_info": {
+          "package_name": "com.metamisr.future_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403353607960-i7hl1qj4r9o6f59i823s0o92ter5p6vb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.metamisr.future_chat",
+            "certificate_hash": "066fc4a918ff40f27581e518e484d8602cad8612"
+          }
+        },
+        {
+          "client_id": "403353607960-f0dt8e8urbrbmc20bamq1mr6vksjnc45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD0PgzMXAibTikQHUO5g452Fw742hkVKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403353607960-f0dt8e8urbrbmc20bamq1mr6vksjnc45.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "403353607960-57ch62uhg7iaobacnrkblbb43gdc6dda.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.metamisr.futureChat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

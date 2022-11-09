@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>403353607960-57ch62uhg7iaobacnrkblbb43gdc6dda.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.403353607960-57ch62uhg7iaobacnrkblbb43gdc6dda</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>403353607960-i7hl1qj4r9o6f59i823s0o92ter5p6vb.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB81BgUH3JKert5tIqNbijycaO2ttLWZ5c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>403353607960</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.metamisr.futureChat</string>
+	<key>PROJECT_ID</key>
+	<string>futurechat</string>
+	<key>STORAGE_BUCKET</key>
+	<string>futurechat.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:403353607960:ios:53a978e83731198ac1c86d</string>
+</dict>
+</plist>
