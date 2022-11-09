@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -147,7 +148,13 @@ class SignupController extends GetxController {
                     email: userCredential.user?.email,
                     photoUrl: imageUploadedUrl,
                     phoneNumber: userCredential.user!.phoneNumber,
-                    lastName: lastName.text))
+                    lastName: lastName.text,
+                    posts: <PostModel>[],
+                    following: [],
+                    followers: [],
+                    address: '',
+                    stories: <Story>[],
+                    comments: <Comment>[]))
             .then((user) {
           if (user.uid != null) {
             authUserID = user.uid!;
