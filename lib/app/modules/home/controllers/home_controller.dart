@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:story_view/story_view.dart';
 
 class HomeController extends GetxController {
   addStory() {
@@ -14,4 +15,6 @@ class HomeController extends GetxController {
     //upload image
     //add story to user
   }
+
+  StoryController storyController = StoryController();
 }

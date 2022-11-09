@@ -9,54 +9,81 @@ import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:future_chat/core/services/firebase/upload_files.dart';
 
 import 'package:get/get.dart';
+import 'package:story_view/story_view.dart';
 
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const HomeAppBar(),
         body: Column(
-          children: [
-            StoryList(
-              itemBuilder: (context, index) {
-                return SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Image.network(
-                    "https://picsum.photos/${index * 300}",
-                    fit: BoxFit.cover,
-                  ),
-                );
-              },
-              itemCount: 10,
-              image: Image.network(
-                UserService.myUser?.photoUrl ?? '',
-                fit: BoxFit.cover,
-              ),
-              onPressedIcon: () => {
-                UploadServices()
-                    .pickImage(type: "Story")
-                    .then((value) => UserService().addStoryToUser(
-                        uid: authUserID,
-                        story: Story(
-                          createdAt: DateTime.now(),
-                          storyImageUrl: value?[0],
-                          userName:
-                              '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
-                          userPhotoUrl: UserService.myUser?.photoUrl ?? '',
-                          userId: authUserID,
-                        )))
-              },
-              text: Text(
-                UserService.myUser?.firstName ?? '',
-                style: getLightTextStyle(color: ColorsManger.primary),
-              ),
-            )
-          ],
+          children: const [Stories()],
         ));
+  }
+}
+
+class Stories extends GetWidget<HomeController> {
+  const Stories({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StoryList(
+      itemMargin: 20,
+      itemBuilder: (context, index) {
+        return SizedBox(
+            height: 100,
+            width: 100,
+            child: ListView.builder(
+              itemBuilder: (context, index) => GestureDetector(
+                child: Image.network('http://picsum.photos/${index * 100}*5'),
+                onTap: () {
+                  Get.to(
+                    StoryView(
+                      storyItems: [
+                        StoryItem(
+                            Image.network(
+                              'http://picsum.photos/${index * 100}*5',
+                              fit: BoxFit.cover,
+                            ),
+                            duration: const Duration(seconds: 5)),
+                      ],
+                      controller: controller.storyController,
+                    ),
+                  );
+                },
+              ),
+            ));
+      },
+      itemCount: 10,
+      image: Image.network(
+        UserService.myUser?.photoUrl ?? '',
+        fit: BoxFit.cover,
+      ),
+      onPressedIcon: () => {
+        UploadServices()
+            .pickImage(type: "Story")
+            .then((value) => UserService().addStoryToUser(
+                uid: authUserID,
+                story: Story(
+                  createdAt: DateTime.now(),
+                  storyImageUrl: value?[0],
+                  userName:
+                      '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
+                  userPhotoUrl: UserService.myUser?.photoUrl ?? '',
+                  userId: authUserID,
+                )))
+      },
+      text: Text(
+        UserService.myUser?.firstName ?? '',
+        style: getLightTextStyle(color: ColorsManger.primary),
+      ),
+    );
   }
 }
 
