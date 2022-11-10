@@ -68,7 +68,7 @@ class LoginController extends GetxController {
           isLoading.value = false;
           // ignore: unnecessary_this
           this.verId = id;
-
+          nextPage();
           authStatus.value = "login successfully";
         },
         codeAutoRetrievalTimeout: (String id) {

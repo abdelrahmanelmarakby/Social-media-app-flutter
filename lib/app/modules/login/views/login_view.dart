@@ -29,6 +29,7 @@ class LoginView extends GetView<LoginController> {
           ),
           Expanded(
               child: PageView(
+            controller: controller.pageController,
             physics: const NeverScrollableScrollPhysics(),
             children: const [
               MobileNumberLoginForm(),

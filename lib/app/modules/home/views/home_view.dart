@@ -21,7 +21,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
         appBar: const HomeAppBar(),
         body: Column(
-          children: const [Stories()],
+          children: const [],
         ));
   }
 }

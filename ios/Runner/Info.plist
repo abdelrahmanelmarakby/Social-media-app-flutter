@@ -15,22 +15,13 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>future_chat</string>
+	<string>96 Winner</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This is required to pick images to add in posts , stories and in chats</string>
-
-	<key>NSCameraUsageDescription</key>
-	<string>This is required to pick images to add in posts , stories and in chats</string>
-
-	<key>NSMicrophoneUsageDescription</key>
-	<string>This is required to record videos to add in posts , stories and in chats</string>
-
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -46,6 +37,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This is required to pick images to add in posts , stories and in chats</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This is required to record videos to add in posts , stories and in chats</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This is required to pick images to add in posts , stories and in chats</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
