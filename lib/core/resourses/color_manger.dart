@@ -17,6 +17,7 @@ class ColorsManger {
   static const Color lightBlue = Color(0xFF009AE2);
   static const Color pink = Color(0xFFF72585);
   static const Color yellow = Color(0xFFFDC500);
+  static const Color light = Color(0xFFEFF4F8);
 
   static const LinearGradient simpleGradients = LinearGradient(
     begin: Alignment.topCenter,

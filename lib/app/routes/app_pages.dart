@@ -16,6 +16,8 @@ import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/share_bottom_sheet/bindings/share_bottom_sheet_binding.dart';
+import '../modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 
@@ -71,6 +73,11 @@ class AppPages {
       name: _Paths.NOTIFICATIONS,
       page: () => const NotificationsView(),
       binding: NotificationsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHARE_BOTTOM_SHEET,
+      page: () => const ShareBottomSheetView(),
+      binding: ShareBottomSheetBinding(),
     ),
   ];
 }

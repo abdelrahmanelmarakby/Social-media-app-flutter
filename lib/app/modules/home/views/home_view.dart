@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_story_list/flutter_story_list.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/app/modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
 import 'package:future_chat/core/global/var.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
@@ -21,7 +22,14 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
         appBar: const HomeAppBar(),
         body: Column(
-          children: const [],
+
+          children:  [
+            OutlinedButton(
+              onPressed:()=> Get.to(()=>ShareBottomSheetView()),
+              child: const Text('Open'),
+            )
+
+          ],
         ));
   }
 }
@@ -54,7 +62,7 @@ class Stories extends GetWidget<HomeController> {
                             duration: const Duration(seconds: 5)),
                       ],
                       controller: controller.storyController,
-                    ),
+                    ),transition: Transition.size,
                   );
                 },
               ),

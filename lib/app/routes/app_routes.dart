@@ -14,6 +14,7 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const CHATS = _Paths.CHATS;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
+  static const SHARE_BOTTOM_SHEET = _Paths.SHARE_BOTTOM_SHEET;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const CHATS = '/chats';
   static const NOTIFICATIONS = '/notifications';
+  static const SHARE_BOTTOM_SHEET = '/share-bottom-sheet';
 }

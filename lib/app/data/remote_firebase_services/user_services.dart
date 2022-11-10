@@ -8,6 +8,7 @@ class UserService {
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   static SocialMediaUser? myUser;
+
   Future<SocialMediaUser> getProfile(String uid) async {
     final DocumentSnapshot<Map<String, dynamic>> doc =
         await firebaseFirestore.collection('Users').doc(uid).get();
@@ -40,7 +41,7 @@ class UserService {
   }
 
   void updateUser(
-      {required String roomId, required SocialMediaUser user}) async {
+      { required SocialMediaUser user}) async {
     DocumentReference documentReference =
         firebaseFirestore.collection("Users").doc(user.uid);
     FirebaseFirestore.instance.runTransaction((transaction) async {

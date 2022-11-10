@@ -121,7 +121,7 @@ class Fluff {
         text: doc.get('text'),
         image: doc.get('image'),
         video: doc.get('video'),
-        read: doc.get('read') ?? true,
+        read: doc.get('read') ?? false,
       );
     }).toList();
   }
@@ -132,7 +132,7 @@ class Fluff {
         text = json['text'],
         image = json['image'],
         video = json['video'],
-        read = json['read'] ?? true;
+        read = json['read'] ?? false;
 
   Map<String, dynamic> toJson() {
     return {
