@@ -5,6 +5,7 @@ class Assets {
   static final fonts = _AssetsFonts._();
   static final images = _AssetsImages._();
   static final locales = _AssetsLocales._();
+  static final lottie = _AssetsLottie._();
 
 }
 
@@ -12,6 +13,11 @@ class _AssetsFonts {
   _AssetsFonts._();
 
 
+  final poppinsBoldTTF = 'assets/fonts/Poppins-Bold.ttf';
+  final poppinsLightTTF = 'assets/fonts/Poppins-Light.ttf';
+  final poppinsMediumTTF = 'assets/fonts/Poppins-Medium.ttf';
+  final poppinsRegularTTF = 'assets/fonts/Poppins-Regular.ttf';
+  final poppinsSemiBoldTTF = 'assets/fonts/Poppins-SemiBold.ttf';
   final tajawalBoldTTF = 'assets/fonts/Tajawal_Bold.ttf';
   final tajawalLightTTF = 'assets/fonts/Tajawal_Light.ttf';
   final tajawalMediumTTF = 'assets/fonts/Tajawal_Medium.ttf';
@@ -54,4 +60,15 @@ class _AssetsLocales {
 
   final arJSON = 'assets/locales/ar.json';
   final enJSON = 'assets/locales/en.json';
+}
+
+class _AssetsLottie {
+  _AssetsLottie._();
+
+
+  final angryJSON = 'assets/lottie/angry.json';
+  final careJSON = 'assets/lottie/care.json';
+  final hahaJSON = 'assets/lottie/haha.json';
+  final likeJSON = 'assets/lottie/like.json';
+  final loveJSON = 'assets/lottie/love.json';
 }

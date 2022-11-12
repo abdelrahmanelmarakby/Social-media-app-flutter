@@ -20,6 +20,7 @@ dependencies:
   flashy_tab_bar2: ^0.0.4
   flutter:
     sdk: flutter
+  flutter_feed_reaction: ^0.0.5
   flutter_localizations:
     sdk: flutter
   flutter_social_textfield: ^0.1.2
@@ -28,13 +29,16 @@ dependencies:
   font_awesome: ^5.10.1
   font_awesome_flutter: ^10.2.1
   freezed_annotation: ^2.2.0
+  geolocator: ^9.0.2
   get: ^4.6.5
   get_storage: ^2.0.3
   google_sign_in: ^5.1.1
+  iconsax: ^0.0.8
   image_picker: ^0.8.6
   internet_connection_checker: ^1.0.0+1
   intl: ^0.17.0
   intl_phone_field: ^3.1.0
+  lottie: ^2.0.0
   permission_handler: ^10.2.0
   pin_code_fields: ^7.4.0
   pretty_dio_logger: ^1.1.1
@@ -43,7 +47,6 @@ dependencies:
   sentry_flutter: ^6.14.0
   shared_preferences: ^2.0.15
   story_view: ^0.14.0
-  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_lints: 2.0.1
@@ -56,6 +59,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/locales/
+    - assets/lottie/
 
   fonts:
     - family: Poppins

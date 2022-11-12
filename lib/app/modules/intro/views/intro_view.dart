@@ -100,50 +100,59 @@ class IntroView extends GetView<IntroController> {
             const Spacer(
               flex: 2,
             ),
-            Center(
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: context.width,
-                    height: 48,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+            FutureBuilder(
+              future: controller.position,
+              builder: (context, snapshot) {
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: context.width,
+                        height: 48,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          onPressed: () {
+                            Get.toNamed(Routes.SIGNUP, arguments: {
+                              "position": snapshot.data,
+                            });
+                          },
+                          child: Text(
+                            "Get Started ",
+                            style: getBoldTextStyle(color: Colors.black),
+                          ),
+                        ).paddingSymmetric(horizontal: 20),
                       ),
-                      onPressed: () {
-                        Get.toNamed(Routes.SIGNUP);
-                      },
-                      child: Text(
-                        "Get Started ",
-                        style: getBoldTextStyle(color: Colors.black),
+                      const SizedBox(height: AppSize.size4),
+                      SizedBox(
+                        width: context.width,
+                        height: 48,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            // backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          onPressed: () {
+                            Get.toNamed(Routes.LOGIN, arguments: {
+                              "position": snapshot.data,
+                            });
+                          },
+                          child: Text(
+                            "Existing account ? Login",
+                            style: getRegularTextStyle(color: Colors.white),
+                          ),
+                        ).paddingSymmetric(horizontal: 20),
                       ),
-                    ).paddingSymmetric(horizontal: 20),
+                    ],
                   ),
-                  const SizedBox(height: AppSize.size4),
-                  SizedBox(
-                    width: context.width,
-                    height: 48,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        // backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      onPressed: () {
-                        Get.toNamed(Routes.LOGIN);
-                      },
-                      child: Text(
-                        "Existing account ? Login",
-                        style: getRegularTextStyle(color: Colors.white),
-                      ),
-                    ).paddingSymmetric(horizontal: 20),
-                  ),
-                ],
-              ),
+                );
+              },
             ),
             const Spacer(
               flex: 1,

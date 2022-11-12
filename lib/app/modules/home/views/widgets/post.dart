@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
+import 'reaction_button.dart';
 
 class PostList extends StatelessWidget {
   const PostList({
@@ -81,21 +82,7 @@ class PostWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  InkWell(
-                    splashColor: ColorsManger.primary,
-                    onTap: () {},
-                    child: Row(
-                      children: const [
-                        CircleAvatar(
-                            backgroundColor: ColorsManger.grey1,
-                            child: Icon(Iconsax.like)),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text('1.2k')
-                      ],
-                    ),
-                  ),
+                  ReactionButton(),
                   Row(
                     children: const [
                       CircleAvatar(
