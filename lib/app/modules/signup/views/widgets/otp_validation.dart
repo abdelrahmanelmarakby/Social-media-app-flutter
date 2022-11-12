@@ -133,10 +133,12 @@ class _OtpVerificationFormState extends State<OtpVerificationForm> {
                 ),
               )),
           Container(
+            width: 342,
+            height: 50,
             margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
             decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(5),
+                gradient: ColorsManger.buttonGradient,
+                borderRadius: BorderRadius.circular(50),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black.withOpacity(.1),
@@ -156,10 +158,8 @@ class _OtpVerificationFormState extends State<OtpVerificationForm> {
                 child: Center(
                     child: Text(
                   "VERIFY".toUpperCase(),
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                  style: getBoldTextStyle(fontSize: 18,
+                      color: ColorsManger.white),
                 )),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/modules/signup/controllers/signup_controller.dart';
+import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/font_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
@@ -80,6 +81,8 @@ class CompleteProfileForm extends GetWidget<SignupController> {
                         decoration: const InputDecoration(
                           hintText: 'First Name',
                           border: OutlineInputBorder(),
+                          fillColor:  ColorsManger.grey1,
+                          filled: true,
                         ),
                       ),
                     ],
@@ -106,6 +109,8 @@ class CompleteProfileForm extends GetWidget<SignupController> {
                         decoration: const InputDecoration(
                           hintText: 'Last Name',
                           border: OutlineInputBorder(),
+                          filled: true,
+                          fillColor: ColorsManger.grey1,
                         ),
                       ),
                     ],
@@ -118,19 +123,21 @@ class CompleteProfileForm extends GetWidget<SignupController> {
             flex: 1,
           ),
           //next button
-          SizedBox(
-            width: double.infinity,
+          Container(
+            width: 342,
             height: 50,
-            child: ElevatedButton(
+            decoration:  BoxDecoration(
+              gradient: ColorsManger.buttonGradient,
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: TextButton(
               onPressed: () {
                 controller.nextPage();
               },
-              child: Text(
-                "Next",
-                style: getBoldTextStyle(),
+              child:  Text("Next",
+                style: getBoldTextStyle(fontSize: 18,color: ColorsManger.white)),
               ),
-            ).paddingSymmetric(horizontal: 12),
-          ),
+            ),
           const Spacer(
             flex: 3,
           ),

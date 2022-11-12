@@ -6,6 +6,8 @@ import '../modules/bottom_nav_bar/bindings/bottom_nav_bar_binding.dart';
 import '../modules/bottom_nav_bar/views/bottom_nav_bar_view.dart';
 import '../modules/chats/bindings/chats_binding.dart';
 import '../modules/chats/views/chats_view.dart';
+import '../modules/comments/bindings/comments_binding.dart';
+import '../modules/comments/views/comments_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/intro/bindings/intro_binding.dart';
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.SHARE_BOTTOM_SHEET,
       page: () => const ShareBottomSheetView(),
       binding: ShareBottomSheetBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMMENTS,
+      page: () => const CommentsView(),
+      binding: CommentsBinding(),
     ),
   ];
 }

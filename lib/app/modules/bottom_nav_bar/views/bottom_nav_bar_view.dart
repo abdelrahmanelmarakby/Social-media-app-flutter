@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../controllers/bottom_nav_bar_controller.dart';
 
@@ -32,7 +33,7 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
                 inactiveColor: ColorsManger.primary,
                 activeColor: Colors.black,
                 icon: const Icon(
-                  CupertinoIcons.home,
+                  Iconsax.home_2,
 
                   //  color: Colors.green,
                 ),
@@ -43,7 +44,7 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
                 inactiveColor: ColorsManger.primary,
                 activeColor: Colors.black,
                 icon: const Icon(
-                  CupertinoIcons.chat_bubble_2,
+                  Iconsax.messages,
                   //color: Colors.green,
                 ),
                 title: const Text("Chats")),
@@ -51,21 +52,21 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
                 inactiveColor: ColorsManger.primary,
                 activeColor: Colors.black,
                 icon: const Icon(
-                  Icons.add,
+                  Iconsax.add,
                 ),
                 title: const Text("profile")),
             FlashyTabBarItem(
                 inactiveColor: ColorsManger.primary,
                 activeColor: Colors.black,
                 icon: const Icon(
-                  Icons.notifications_outlined,
+                  Iconsax.notification,
                 ),
                 title: const Text("news")),
             FlashyTabBarItem(
                 inactiveColor: ColorsManger.primary,
                 activeColor: Colors.black,
                 icon: const Icon(
-                  Icons.account_circle_outlined,
+                  Iconsax.user,
                 ),
                 title: const Text("profile")),
           ],

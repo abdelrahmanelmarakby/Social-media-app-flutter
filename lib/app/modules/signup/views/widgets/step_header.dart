@@ -13,8 +13,11 @@ class StepHeader extends GetWidget<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.height * .3,
-      decoration: const BoxDecoration(color: ColorsManger.primary),
+      height: context.height * .2,
+      decoration:  const BoxDecoration(
+          gradient: ColorsManger.backgroundGradient,
+     ),
+
       child: SafeArea(
         child: Center(
           child: GetBuilder<SignupController>(

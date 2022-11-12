@@ -39,10 +39,18 @@ class ColorsManger {
   );
   static const LinearGradient buttonGradient = LinearGradient(
     begin: Alignment.topLeft,
-    end: Alignment.topRight,
+    end: Alignment.bottomRight,
     colors: [
-      Color(0xFF1E96FC),
-      Color(0xff80DC74),
+      Color(0xFF0077B6),
+      Color(0xFF00B4D8),
+    ],
+  );
+  static const LinearGradient backgroundGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      Color(0xFF0077B6),
+      Color(0xFF00B4D8),
     ],
   );
 }

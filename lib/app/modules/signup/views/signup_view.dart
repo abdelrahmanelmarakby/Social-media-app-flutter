@@ -6,6 +6,8 @@ import 'widgets/complete_profile.dart';
 import 'widgets/otp_validation.dart';
 import 'widgets/phone_number_form.dart';
 import 'widgets/step_header.dart';
+import 'package:future_chat/app/modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
+
 
 class SignupView extends GetView<SignupController> {
   const SignupView({Key? key}) : super(key: key);
@@ -14,6 +16,10 @@ class SignupView extends GetView<SignupController> {
     return Scaffold(
       body: Column(
         children: [
+          OutlinedButton(
+            onPressed:()=> Get.to(()=>const ShareBottomSheetView()),
+            child: const Text('Open'),
+          ),
           const StepHeader(),
           Expanded(
               child: PageView(

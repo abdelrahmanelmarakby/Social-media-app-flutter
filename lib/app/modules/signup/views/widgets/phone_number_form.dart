@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -49,15 +50,19 @@ class MobileNumberForm extends GetWidget<SignupController> {
                   filled: true,
                   border: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(6))),
-              initialCountryCode: 'EG',
+              initialCountryCode: 'SA',
               onChanged: (phone) {
                 controller.fullNumber = phone.completeNumber;
               },
             ),
             const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
+            Container(
+              width: 342,
+              height: 50,
+              decoration:  BoxDecoration(
+                gradient: ColorsManger.buttonGradient,
+                borderRadius: BorderRadius.circular(50),
+              ),
               child: TextButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -66,8 +71,10 @@ class MobileNumberForm extends GetWidget<SignupController> {
                     controller.nextPage();
                   }
                 },
-                child: Text("Next",
-                    style: getBoldTextStyle(fontSize: FontSize.medium)),
+                child:  Text("Next",
+                    style: getBoldTextStyle(fontSize: 18,
+                        color: ColorsManger.white),
+                ),
               ),
             ),
             const Spacer()

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/modules/login/controllers/login_controller.dart';
+import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -49,16 +50,19 @@ class MobileNumberLoginForm extends GetWidget<LoginController> {
                   filled: true,
                   border: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(6))),
-              initialCountryCode: 'EG',
+              initialCountryCode: 'SA',
               onChanged: (phone) {
                 controller.fullNumber = phone.completeNumber;
               },
             ),
             const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: TextButton(
+            Container(
+                height: 56,
+                width: 342,
+              decoration:  BoxDecoration(
+                  gradient: ColorsManger.buttonGradient,
+              borderRadius: BorderRadius.circular(50)),
+                child:TextButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     controller.verifyPhone(controller.fullNumber);
@@ -67,9 +71,9 @@ class MobileNumberLoginForm extends GetWidget<LoginController> {
                   }
                 },
                 child: Text("Next",
-                    style: getBoldTextStyle(fontSize: FontSize.medium)),
-              ),
-            ),
+                    style: getBoldTextStyle(fontSize: FontSize.medium,color: ColorsManger.white)),
+              ) ,)
+            ,
             const Spacer()
           ],
         ).paddingSymmetric(horizontal: 20),

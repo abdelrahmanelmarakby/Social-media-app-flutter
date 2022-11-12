@@ -17,12 +17,14 @@ class LoginView extends GetView<LoginController> {
         children: [
           Container(
             height: context.height * .25,
-            color: ColorsManger.primary,
+            decoration: const BoxDecoration(
+                gradient: ColorsManger.backgroundGradient),
             child: SafeArea(
               child: Center(
                 child: Text(
                   "Login",
                   style: getBoldTextStyle(fontSize: 30, color: Colors.white),
+
                 ),
               ),
             ),
