@@ -28,11 +28,6 @@ class ShareBottomSheetView extends GetView<ShareBottomSheetController> {
   }
 
     void shareBottomSheet() {
-    const BoxConstraints(
-      minHeight:0 ,
-      maxHeight: 569 ,
-      minWidth: 390,
-      maxWidth:390,);
       Get.bottomSheet(
         SingleChildScrollView(child:
         Column(

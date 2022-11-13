@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 
 import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
@@ -14,6 +15,10 @@ class SignupView extends GetView<SignupController> {
     return Scaffold(
       body: Column(
         children: [
+          OutlinedButton(
+            onPressed: () => Get.to(() => const CommentsView()),
+            child: const Text('Open'),
+          ),
           const StepHeader(),
           Expanded(
               child: PageView(
