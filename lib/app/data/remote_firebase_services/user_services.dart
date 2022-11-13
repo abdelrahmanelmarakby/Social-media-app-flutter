@@ -10,15 +10,18 @@ class UserService {
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   static SocialMediaUser? myUser;
 
-  Future<SocialMediaUser> getProfile(String uid) async {
+  Future<SocialMediaUser?> getProfile(String uid) async {
     Get.log('getProfile() called');
     final DocumentSnapshot<Map<String, dynamic>> doc =
         await firebaseFirestore.collection('Users').doc(uid).get();
     Get.log('id: $uid called');
+    if (doc.data() == null) {
+      Get.log('No user found');
+      return null;
+    }
 
-    final Map<String, dynamic> map = doc.data()!;
-    Get.log('map: $map called');
-    SocialMediaUser user = SocialMediaUser.fromMap(map);
+    final Map<String, dynamic>? map = doc.data();
+    SocialMediaUser user = SocialMediaUser.fromMap(map!);
     Get.log("User ${user.firstName} ${user.lastName} is fetched");
     return user;
   }
@@ -64,11 +67,9 @@ class UserService {
   }
 
   //get users by IDS
-  Future<List<SocialMediaUser>> getUsersByIds(List<String> ids) async {
-    List<SocialMediaUser> users = [];
+  Future<List<SocialMediaUser?>> getUsersByIds(List<String> ids) async {
+    List<SocialMediaUser?> users = [];
 
-    await getProfile(ids[0])
-        .then((value) => Get.log("User ${value.toString()}"));
     for (var id in ids) {
       Get.log("Getting user with id $id");
       users.add(await getProfile(id));

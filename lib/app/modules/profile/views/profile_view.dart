@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/profile_controller.dart';
 import 'widget/contacts.dart';
 
@@ -12,6 +16,55 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorsManger.white,
+        actions: [
+          PopupMenuButton(
+            icon: const Icon(
+              Icons.more_vert,
+              color: ColorsManger.black,
+            ),
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                value: '1',
+                child: const Text('Edit Profile'),
+                onTap: () => Get.offNamed(Routes.SIGNUP),
+              ),
+              PopupMenuItem<String>(
+                onTap: () {
+                  FirebaseAuth.instance.currentUser?.delete();
+                  Get.offAllNamed(Routes.INTRO);
+                },
+                value: '2',
+                child: const Text('Logout'),
+              ),
+              PopupMenuItem<String>(
+                value: '3',
+                onTap: () {
+                  FirebaseFirestore.instance
+                      .collection("Users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .delete();
+                  FirebaseAuth.instance.currentUser?.delete();
+                  Get.offAndToNamed(Routes.INTRO);
+                },
+                child: const Text(
+                  'delete account',
+                  style: TextStyle(color: ColorsManger.error),
+                ),
+              ),
+            ],
+          ),
+        ],
+        title: Text(
+          'Profile',
+          style: getBoldTextStyle(
+            color: ColorsManger.black,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 0,
+      ),
       body: Column(
         children: const [
           ProfileHeader(),
@@ -80,7 +133,6 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
       width: double.infinity,
       color: Colors.transparent,
       child: Center(

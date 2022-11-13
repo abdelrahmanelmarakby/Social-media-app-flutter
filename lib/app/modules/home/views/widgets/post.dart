@@ -101,6 +101,12 @@ class PostWidget extends StatelessWidget {
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
                       enableDrag: false,
+                      elevation: 0,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(32),
+                            topRight: Radius.circular(32)),
+                      ),
                     ),
                     child: Row(
                       children: const [

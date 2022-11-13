@@ -17,9 +17,9 @@ class SocialMediaUser {
   String? bio;
   List<Comment>? comments;
   List<PostModel>? posts;
-  List<Story>? stories = [];
-  List<String>? following = [];
-  List<String>? followers = [];
+  List<Story>? stories;
+  List<String>? following;
+  List<String>? followers;
 
   //List<ChatRoom> chats;
 
@@ -88,9 +88,10 @@ class SocialMediaUser {
     result.addAll({'bio': bio});
     result.addAll({'comments': comments!.map((x) => x.toMap()).toList()});
     result.addAll({'posts': posts!.map((x) => x.toMap()).toList()});
-    result.addAll({'stories': stories?.map((x) => x.toMap()).toList()});
+    result.addAll({'stories': stories!.map((x) => x.toMap()).toList()});
     result.addAll({'following': following});
     result.addAll({'followers': followers});
+
     return result;
   }
 
@@ -111,7 +112,9 @@ class SocialMediaUser {
       posts: map['posts'] != null
           ? List<PostModel>.from(map['posts']?.map((x) => PostModel.fromMap(x)))
           : null,
-      stories: List<Story>.from(map['stories']?.map((x) => Story.fromMap(x))),
+      stories: map['stories'] != null
+          ? List<Story>.from(map['stories']?.map((x) => Story.fromMap(x)))
+          : null,
       following: List<String>.from(map['following']),
       followers: List<String>.from(map['followers']),
     );
