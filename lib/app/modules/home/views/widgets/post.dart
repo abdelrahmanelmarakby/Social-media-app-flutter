@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import 'reaction_button.dart';
+import 'share_bottom_sheet.dart';
 
 class PostList extends StatelessWidget {
   const PostList({
@@ -94,16 +95,24 @@ class PostWidget extends StatelessWidget {
                       Text('1.2k')
                     ],
                   ),
-                  Row(
-                    children: const [
-                      CircleAvatar(
-                          backgroundColor: ColorsManger.grey1,
-                          child: Icon(Iconsax.share)),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text('1.2k')
-                    ],
+                  InkWell(
+                    onTap: () => Get.bottomSheet(
+                      const ShareBottomSheet(),
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      enableDrag: false,
+                    ),
+                    child: Row(
+                      children: const [
+                        CircleAvatar(
+                            backgroundColor: ColorsManger.grey1,
+                            child: Icon(Iconsax.share)),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('1.2k')
+                      ],
+                    ),
                   ),
                 ],
               ),
