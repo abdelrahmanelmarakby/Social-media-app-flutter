@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
@@ -23,8 +24,9 @@ class _CheckSigningInState extends State<CheckSigningIn> {
   Future<SocialMediaUser?>? _futureMediaUser;
   bool isLoading = true;
   Future<SocialMediaUser?> getUser() async {
-    _mediaUser = await UserService().getProfile(_user!.uid);
-    Get.log("My profile name ${_mediaUser?.firstName}");
+    Get.log('getUser() called');
+    _mediaUser = await UserService().getProfile(_user?.uid ?? "");
+    Get.log('${_mediaUser?.firstName}');
     return _mediaUser;
   }
 
@@ -34,6 +36,7 @@ class _CheckSigningInState extends State<CheckSigningIn> {
     _auth = FirebaseAuth.instance;
     _user = _auth.currentUser;
     isLoading = false;
+    Get.log(_user.toString());
     if (_user != null) {
       _futureMediaUser = getUser();
     }
@@ -41,18 +44,26 @@ class _CheckSigningInState extends State<CheckSigningIn> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<SocialMediaUser?>(
       future: _futureMediaUser,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          UserService.myUser = snapshot.data as SocialMediaUser;
+          UserService.myUser = snapshot.data;
           // Get.offAllNamed(Routes.BOTTOM_NAV_BAR);
           BottomNavBarController controller = Get.put(BottomNavBarController());
           return const BottomNavBarView();
         } else {
           // Get.offAllNamed(Routes.INTRO);
-
-          return const IntroView();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(
+                child: CupertinoActivityIndicator(),
+              ),
+            );
+          } else {
+            Get.log(snapshot.data.toString());
+            return const IntroView();
+          }
         }
       },
     );

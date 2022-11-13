@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
@@ -13,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 import "package:firebase_core/firebase_core.dart" as firebase_core;
 
 import '../../../../core/global/var.dart';
+import '../../../../core/services/contacts_service.dart';
 import '../../../routes/app_pages.dart';
 
 class SignupController extends GetxController {
@@ -134,8 +136,7 @@ class SignupController extends GetxController {
   Future<bool> otpVerify(String otp) async {
     isLoading.value = true;
     try {
-      print("trying to verify");
-
+      BotToast.showLoading();
       UserCredential userCredential = await auth.signInWithCredential(
           PhoneAuthProvider.credential(verificationId: verId, smsCode: otp));
       if (userCredential.user != null) {
@@ -155,16 +156,19 @@ class SignupController extends GetxController {
                     address: '',
                     stories: <Story>[],
                     comments: <Comment>[]))
-            .then((user) {
+            .then((user) async {
           if (user.uid != null) {
+            await ContactsService.getAllRegisterdContacts();
             authUserID = user.uid!;
             Get.log("User added : ${UserService.myUser.toString()} ");
             Get.offAllNamed(Routes.BOTTOM_NAV_BAR);
           }
+          BotToast.closeAllLoading();
           return user;
         });
       }
     } on Exception catch (e) {
+      BotToast.closeAllLoading();
       Get.snackbar("otp info", " ${e.toString()}");
     }
     return false;

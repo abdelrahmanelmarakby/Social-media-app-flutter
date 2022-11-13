@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
+import 'package:get/get.dart';
 
 import '../models/post_model.dart';
 
@@ -10,21 +11,16 @@ class UserService {
   static SocialMediaUser? myUser;
 
   Future<SocialMediaUser> getProfile(String uid) async {
+    Get.log('getProfile() called');
     final DocumentSnapshot<Map<String, dynamic>> doc =
         await firebaseFirestore.collection('Users').doc(uid).get();
-    final Map<String, dynamic> data = doc.data()!;
-    return SocialMediaUser(
-      firstName: data['firstName'],
-      lastName: data['lastName'],
-      email: data['email'],
-      photoUrl: data['photoUrl'],
-      provider: data['provider'],
-      uid: data['uid'],
-      phoneNumber: data['phoneNumber'],
-      address: data['address'],
-      comments: data['comments'],
-      posts: data['posts'],
-    );
+    Get.log('id: $uid called');
+
+    final Map<String, dynamic> map = doc.data()!;
+    Get.log('map: $map called');
+    SocialMediaUser user = SocialMediaUser.fromMap(map);
+    Get.log("User ${user.firstName} ${user.lastName} is fetched");
+    return user;
   }
 
   Future<SocialMediaUser> addUser({required SocialMediaUser user}) async {
@@ -40,8 +36,7 @@ class UserService {
     // print("sent");
   }
 
-  void updateUser(
-      { required SocialMediaUser user}) async {
+  void updateUser({required SocialMediaUser user}) async {
     DocumentReference documentReference =
         firebaseFirestore.collection("Users").doc(user.uid);
     FirebaseFirestore.instance.runTransaction((transaction) async {
@@ -66,5 +61,18 @@ class UserService {
       );
     });
     //  print("sent");
+  }
+
+  //get users by IDS
+  Future<List<SocialMediaUser>> getUsersByIds(List<String> ids) async {
+    List<SocialMediaUser> users = [];
+
+    await getProfile(ids[0])
+        .then((value) => Get.log("User ${value.toString()}"));
+    for (var id in ids) {
+      Get.log("Getting user with id $id");
+      users.add(await getProfile(id));
+    }
+    return users;
   }
 }

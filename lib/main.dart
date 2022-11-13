@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'app.dart';
 import 'core/services/localization_service.dart';
 import 'core/services/shared_prefs.dart';
@@ -14,7 +14,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //=============================== Firebase ====================================
   await Firebase.initializeApp();
-
+  //=============================== Contacts ======================================
+  FlutterContacts.config.includeNotesOnIos13AndAbove = true;
+  FlutterContacts.config.includeNonVisibleOnAndroid = true;
   //============================== Shared Preferences =================================
   SharedPreferences pref = await SharedPreferences.getInstance();
   Get.put(SharedPrefService(prefs: pref));

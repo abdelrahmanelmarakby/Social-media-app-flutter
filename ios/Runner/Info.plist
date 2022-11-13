@@ -43,6 +43,8 @@
 	<string>This is required to record videos to add in posts , stories and in chats</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This is required to pick images to add in posts , stories and in chats</string>
+	 <key>NSContactsUsageDescription</key>
+     <string>This is required to chat with all your contacts</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

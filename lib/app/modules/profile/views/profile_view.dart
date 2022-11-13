@@ -5,6 +5,7 @@ import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 
 import '../controllers/profile_controller.dart';
+import 'widget/contacts.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
@@ -51,16 +52,22 @@ class ProfileStats extends StatelessWidget {
             Text((UserService.myUser?.comments?.length ?? 0).toString())
           ],
         ),
-        Column(
-          children: [
-            const Text("Followers"),
-            Text((UserService.myUser?.followers ?? 0).toString())
-          ],
+        InkWell(
+          onTap: () {
+            Get.bottomSheet(
+                ContactsView(contacts: UserService.myUser?.followers ?? []));
+          },
+          child: Column(
+            children: [
+              const Text("Followers"),
+              Text((UserService.myUser?.followers?.length).toString())
+            ],
+          ),
         ),
         Column(
           children: [
             const Text("Following"),
-            Text((UserService.myUser?.following ?? 0).toString())
+            Text((UserService.myUser?.following?.length).toString())
           ],
         ),
       ],

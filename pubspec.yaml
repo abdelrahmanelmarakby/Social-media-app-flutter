@@ -20,6 +20,7 @@ dependencies:
   flashy_tab_bar2: ^0.0.4
   flutter:
     sdk: flutter
+  flutter_contacts: ^1.1.5+1
   flutter_feed_reaction: ^0.0.5
   flutter_localizations:
     sdk: flutter
