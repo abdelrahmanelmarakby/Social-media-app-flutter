@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 
 import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
@@ -6,7 +7,6 @@ import 'widgets/complete_profile.dart';
 import 'widgets/otp_validation.dart';
 import 'widgets/phone_number_form.dart';
 import 'widgets/step_header.dart';
-import 'package:future_chat/app/modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
 
 
 class SignupView extends GetView<SignupController> {
@@ -17,7 +17,7 @@ class SignupView extends GetView<SignupController> {
       body: Column(
         children: [
           OutlinedButton(
-            onPressed:()=> Get.to(()=>const ShareBottomSheetView()),
+            onPressed:()=> Get.to(()=>const CommentsView()),
             child: const Text('Open'),
           ),
           const StepHeader(),
