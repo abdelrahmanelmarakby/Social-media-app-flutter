@@ -54,7 +54,7 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
                 icon: const Icon(
                   Iconsax.add,
                 ),
-                title: const Text("profile")),
+                title: const Text("post")),
             FlashyTabBarItem(
                 inactiveColor: ColorsManger.primary,
                 activeColor: Colors.black,

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/add_post/bindings/add_post_binding.dart';
+import '../modules/add_post/views/add_post_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/bottom_nav_bar/bindings/bottom_nav_bar_binding.dart';
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.COMMENTS,
       page: () => const CommentsView(),
       binding: CommentsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_POST,
+      page: () => const AddPostView(),
+      binding: AddPostBinding(),
     ),
   ];
 }

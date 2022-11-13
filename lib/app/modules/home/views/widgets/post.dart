@@ -59,7 +59,6 @@ class PostWidget extends StatelessWidget {
               title: const Text('Meta Misr'),
               subtitle: const Text('4 hours ago'),
               trailing: const Icon(Icons.more_vert),
-              
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

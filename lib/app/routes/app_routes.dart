@@ -16,6 +16,7 @@ abstract class Routes {
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
   static const SHARE_BOTTOM_SHEET = _Paths.SHARE_BOTTOM_SHEET;
   static const COMMENTS = _Paths.COMMENTS;
+  static const ADD_POST = _Paths.ADD_POST;
 }
 
 abstract class _Paths {
@@ -31,4 +32,5 @@ abstract class _Paths {
   static const NOTIFICATIONS = '/notifications';
   static const SHARE_BOTTOM_SHEET = '/share-bottom-sheet';
   static const COMMENTS = '/comments';
+  static const ADD_POST = '/add-post';
 }

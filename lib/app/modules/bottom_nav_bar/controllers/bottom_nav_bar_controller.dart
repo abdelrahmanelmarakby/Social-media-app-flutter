@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/modules/add_post/views/add_post_view.dart';
 import 'package:future_chat/app/modules/chats/views/chats_view.dart';
 import 'package:future_chat/app/modules/home/views/home_view.dart';
 import 'package:future_chat/app/modules/notifications/views/notifications_view.dart';
@@ -27,7 +28,7 @@ class BottomNavBarController extends GetxController {
         }
       case 2:
         {
-          _currentScreen = const HomeView();
+          _currentScreen = const AddPostView();
           break;
         }
       case 3:
