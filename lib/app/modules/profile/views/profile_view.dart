@@ -1,9 +1,11 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
+import 'package:future_chat/core/services/contacts_service.dart';
 
 import 'package:get/get.dart';
 
@@ -39,6 +41,16 @@ class ProfileView extends GetView<ProfileController> {
                 },
                 value: '2',
                 child: const Text('Logout'),
+              ),
+              PopupMenuItem<String>(
+                onTap: () async {
+                  BotToast.showLoading();
+                  await ContactsService.getAllRegisterdContacts();
+                  Get.forceAppUpdate();
+                  BotToast.closeAllLoading();
+                },
+                value: '4',
+                child: const Text('Refresh Contacts'),
               ),
               PopupMenuItem<String>(
                 value: '3',
@@ -114,19 +126,7 @@ class ProfileStats extends StatelessWidget {
           },
           child: Column(
             children: [
-              const Text("Followers"),
-              Text((UserService.myUser?.followers?.length).toString())
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            Get.bottomSheet(
-                ContactsView(contacts: UserService.myUser?.followers ?? []));
-          },
-          child: Column(
-            children: [
-              const Text("Following"),
+              const Text("Contacts"),
               Text((UserService.myUser?.followers?.length).toString())
             ],
           ),
