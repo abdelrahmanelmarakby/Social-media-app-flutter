@@ -1,11 +1,17 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:future_chat/core/resourses/font_manger.dart';
+import 'package:future_chat/core/resourses/styles_manger.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/services/chat/private/private_chat.dart';
@@ -48,29 +54,31 @@ class Attachment {
               onFieldSubmitted: (value) {
                 fluff.isNotEmpty ? postMsg(fluff: fluff) : null;
               },
+              maxLines: null,
+              minLines: null,
               controller: _controller,
               textCapitalization: TextCapitalization.sentences,
               onChanged: (value) {
                 fluff = value;
               },
-              decoration: const InputDecoration.collapsed(
+              expands: true,
+              decoration: const InputDecoration(
                 hintText: 'Send a message',
               ),
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.attach_file),
+            icon: const Icon(Iconsax.attach_square),
             iconSize: 25.0,
-            // color: MyColors().btnColor,
+            color: ColorsManger.primary,
             onPressed: () {
-              //fluff.isNotEmpty ? postMsg(fluff) : null;
               attachmentDialog(context);
             },
           ),
           IconButton(
-            icon: const Icon(Icons.send),
+            icon: const Icon(Iconsax.send_14),
             iconSize: 25.0,
-            // color: MyColors().btnColor,
+            color: ColorsManger.primary,
             onPressed: () {
               fluff.isNotEmpty ? postMsg(fluff: fluff) : null;
             },
@@ -81,35 +89,58 @@ class Attachment {
   }
 
   void attachmentDialog(BuildContext ctx) {
-    Get.bottomSheet(Container(
-      color: Colors.white,
-      //    height: Dimensions.getDesirableHeight(25),
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    Get.bottomSheet(
+        enableDrag: true,
+        Container(
+          height: 400,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               dialogBtn(
-                  icon: Icons.image,
-                  text: 'صورة',
+                  icon: Iconsax.image,
+                  text: 'Image',
                   onTap: () {
                     Get.back();
                     uploadImageToStorage(ctx);
                   }),
               dialogBtn(
-                  icon: Icons.play_circle_filled,
-                  text: 'فيديو',
+                  icon: Iconsax.camera,
+                  text: 'Camera',
+                  onTap: () {
+                    Get.back();
+                    uploadFromCameraToStorage(ctx);
+                  }),
+              dialogBtn(
+                  icon: Icons.play_circle_outline,
+                  text: 'Video',
                   onTap: () {
                     Get.back();
                     uploadVideoToStorage(ctx);
                   }),
+              dialogBtn(
+                  icon: Iconsax.document,
+                  text: 'File',
+                  onTap: () {
+                    Get.back();
+                    uploadDocumentToStorage(ctx);
+                  }),
+              dialogBtn(
+                  icon: Iconsax.location,
+                  text: 'Location',
+                  onTap: () {
+                    Get.back();
+                    sendMyLocationToStorage(ctx);
+                  }),
             ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 
   Future uploadVideoToStorage(BuildContext context) async {
@@ -176,6 +207,46 @@ class Attachment {
     }
   }
 
+  //upload file to FirebaseStorage
+  Future uploadDocumentToStorage(BuildContext context) async {
+    try {
+      //request permission
+      [Permission.storage, Permission.mediaLibrary].request();
+
+      final file = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowMultiple: false,
+        dialogTitle: "Pick a file",
+        allowedExtensions: ['pdf', 'doc', 'docx', 'xls', 'xlsx'],
+      );
+      final DateTime now = DateTime.now();
+      final int millSeconds = now.millisecondsSinceEpoch;
+      final String month = now.month.toString();
+      final String date = now.day.toString();
+      final String storageId = ('${millSeconds.toString()}+id:$myId+');
+      final String today = ('$month-$date');
+      print(storageId);
+
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child("images")
+          .child(today)
+          .child(storageId);
+      UploadTask uploadTask = ref.putFile(File(file?.files.first.path ?? ""));
+      int size = File(file?.files.first.path ?? "").lengthSync();
+      downloadDialog(context, uploadTask, size);
+
+      var storageTaskSnapshot = await uploadTask;
+      var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+      final String url = downloadUrl.toString();
+      Navigator.pop(context);
+      postMsg(fluff: url);
+      print(url);
+    } catch (error) {
+      print(error);
+    }
+  }
+
   Future uploadImageToStorage(BuildContext context) async {
     try {
       // set max high & width
@@ -216,29 +287,95 @@ class Attachment {
     }
   }
 
+  Future uploadFromCameraToStorage(BuildContext context) async {
+    try {
+      // set max high & width
+      final file = await ImagePicker()
+          .pickImage(source: ImageSource.camera, imageQuality: 100);
+      //to create new folder for each day
+      final DateTime now = DateTime.now();
+      final int millSeconds = now.millisecondsSinceEpoch;
+      final String month = now.month.toString();
+      final String date = now.day.toString();
+      final String storageId = ('${millSeconds.toString()}+id:$myId+');
+      final String today = ('$month-$date');
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child("images")
+          .child(today)
+          .child(storageId);
+      UploadTask uploadTask = ref.putFile(File(file!.path));
+      int size = File(file.path).lengthSync();
+      downloadDialog(context, uploadTask, size);
+      /* uploadTask.events.listen((StorageTaskEvent snapshot) {
+        double _progress = (snapshot.snapshot.bytesTransferred.round() * 100) /
+            snapshot.snapshot.totalByteCount.round();
+
+        this.percent = '${_progress.round()}';
+        print('${_progress.round()}');
+      });*/
+      var storageTaskSnapshot = await uploadTask;
+
+      var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+      final String url = downloadUrl.toString();
+
+      Navigator.pop(context);
+      postMsg(image: url);
+      print(url);
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future sendMyLocationToStorage(BuildContext context) async {
+    Get.log('sendMyLocationToStorage');
+    //request permission
+    await [
+      Permission.location,
+      Permission.locationWhenInUse,
+      Permission.locationAlways
+    ].request();
+    Get.log('sendMyLocationToStorage');
+    //get current location
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    Get.log('sendMyLocationToStorage');
+    final String lat = position.latitude.toString();
+    final String lng = position.longitude.toString();
+    final String location = ('$lat,$lng');
+    postMsg(
+        fluff:
+            'https://www.google.com/maps/search/?api=1&query=$location&zoom=15');
+    Get.log('location: $location');
+  }
+
   //image + صورة
   Widget dialogBtn(
       {required IconData icon, required String text, required Function onTap}) {
-    return GestureDetector(
-      onTap: () => onTap(),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        decoration: BoxDecoration(
-            border: Border.all(width: 2, color: ColorsManger.primary)),
-        child: Column(
-          children: [
-            Icon(
-              icon,
-              //  size: Dimensions.getDesirableWidth(10),
-              //  color: MyColors().btnColor,
+    return SizedBox(
+      height: 50,
+      child: GestureDetector(
+        onTap: () => onTap(),
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 35,
+            backgroundColor: ColorsManger.primary.withOpacity(.1),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                icon,
+                color: ColorsManger.primary,
+                size: 35,
+              ),
             ),
-            Text(
-              text,
-              style: const TextStyle(
-                  // fontSize: Dimensions.getDesirableWidth(6),
-                  fontWeight: FontWeight.w600),
-            )
-          ],
+          ),
+          title: Text(
+            text,
+            style: getMediumTextStyle(
+              color: ColorsManger.primary,
+              fontSize: FontSize.large,
+            ),
+          ),
         ),
       ),
     );
@@ -326,12 +463,12 @@ class _DownloadDialogContentState extends State<DownloadDialogContent> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: const Text("جاري رفع الملف"),
+        title: const Text("Uploading"),
         content: SizedBox(
           height: 60,
           child: Column(
             children: [
-              const Text("يرجى الإنتظار جاري رفع الملف ..."),
+              const Text("Please wait..."),
               const SizedBox(
                 height: 20,
               ),

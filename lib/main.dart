@@ -24,7 +24,8 @@ Future<void> main() async {
   //============================== Localization =================================
   Get.put(LocalizationService());
 
-  timeago.setLocaleMessages('ar', timeago.ArShortMessages());
+  timeago.setLocaleMessages('ar', timeago.ArMessages());
+  timeago.setLocaleMessages('en', timeago.EnMessages());
   //============================================================================
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(
