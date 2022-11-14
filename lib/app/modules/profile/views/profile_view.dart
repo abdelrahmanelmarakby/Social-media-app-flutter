@@ -32,8 +32,10 @@ class ProfileView extends GetView<ProfileController> {
               ),
               PopupMenuItem<String>(
                 onTap: () {
-                  FirebaseAuth.instance.currentUser?.delete();
-                  Get.offAllNamed(Routes.INTRO);
+                  //sign out from firebase
+                  FirebaseAuth.instance.signOut();
+                  Get.forceAppUpdate();
+                  //sign out from google
                 },
                 value: '2',
                 child: const Text('Logout'),
@@ -117,11 +119,17 @@ class ProfileStats extends StatelessWidget {
             ],
           ),
         ),
-        Column(
-          children: [
-            const Text("Following"),
-            Text((UserService.myUser?.following?.length).toString())
-          ],
+        InkWell(
+          onTap: () {
+            Get.bottomSheet(
+                ContactsView(contacts: UserService.myUser?.followers ?? []));
+          },
+          child: Column(
+            children: [
+              const Text("Following"),
+              Text((UserService.myUser?.followers?.length).toString())
+            ],
+          ),
         ),
       ],
     ).paddingSymmetric(vertical: 12);

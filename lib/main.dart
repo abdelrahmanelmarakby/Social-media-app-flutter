@@ -6,6 +6,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'app.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'core/services/localization_service.dart';
 import 'core/services/shared_prefs.dart';
 
@@ -22,6 +23,8 @@ Future<void> main() async {
   Get.put(SharedPrefService(prefs: pref));
   //============================== Localization =================================
   Get.put(LocalizationService());
+
+  timeago.setLocaleMessages('ar', timeago.ArShortMessages());
   //============================================================================
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(
@@ -32,7 +35,7 @@ Future<void> main() async {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   //============================================================================
   await SentryFlutter.init(
     (options) {

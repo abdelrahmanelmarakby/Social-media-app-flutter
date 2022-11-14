@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/app/modules/chat/views/widgets/chat_screen.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -39,9 +40,25 @@ class ContactsView extends StatelessWidget {
                   subtitle: Text(snapshot.data?[index]?.email ?? 'N/A'),
                   trailing: IconButton(
                     onPressed: () {
-                      Get.back();
+                      Get.log(
+                          "Chatting with ${UserService.myUser?.phoneNumber?.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "") ?? ""}");
+                      Get.to(() => ChatScreen(
+                            myId: UserService.myUser?.phoneNumber
+                                    ?.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "") ??
+                                "",
+                            hisId: snapshot.data?[index]?.phoneNumber
+                                    ?.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "") ??
+                                "",
+                            hisImage: snapshot.data?[index]?.photoUrl ?? "",
+                            hisName: snapshot.data?[index]?.firstName ?? "",
+                            myImage: UserService.myUser?.photoUrl ?? "",
+                            myName: UserService.myUser?.firstName ?? "",
+                          ));
                     },
-                    icon: const Icon(Icons.add),
+                    icon: const Icon(
+                      Iconsax.message,
+                      color: ColorsManger.primary,
+                    ),
                   ),
                 );
               },

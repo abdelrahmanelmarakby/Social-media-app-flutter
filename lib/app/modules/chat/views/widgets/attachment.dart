@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -80,38 +81,35 @@ class Attachment {
   }
 
   void attachmentDialog(BuildContext ctx) {
-    showModalBottomSheet(
-        // shape: Border.all(color: MyColors().btnColor),
-        context: ctx,
-        builder: (context) => Container(
-              color: Colors.white,
-              //    height: Dimensions.getDesirableHeight(25),
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      dialogBtn(
-                          icon: Icons.image,
-                          text: 'صورة',
-                          onTap: () {
-                            Navigator.pop(context);
-                            uploadImageToStorage(ctx);
-                          }),
-                      dialogBtn(
-                          icon: Icons.play_circle_filled,
-                          text: 'فيديو',
-                          onTap: () {
-                            Navigator.pop(context);
-                            uploadVideoToStorage(ctx);
-                          }),
-                    ],
-                  ),
-                ],
-              ),
-            ));
+    Get.bottomSheet(Container(
+      color: Colors.white,
+      //    height: Dimensions.getDesirableHeight(25),
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              dialogBtn(
+                  icon: Icons.image,
+                  text: 'صورة',
+                  onTap: () {
+                    Get.back();
+                    uploadImageToStorage(ctx);
+                  }),
+              dialogBtn(
+                  icon: Icons.play_circle_filled,
+                  text: 'فيديو',
+                  onTap: () {
+                    Get.back();
+                    uploadVideoToStorage(ctx);
+                  }),
+            ],
+          ),
+        ],
+      ),
+    ));
   }
 
   Future uploadVideoToStorage(BuildContext context) async {

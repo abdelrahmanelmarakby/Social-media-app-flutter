@@ -25,7 +25,9 @@ class BottomNavBarController extends GetxController {
       case 1:
         {
           _currentScreen = ChatHistory(
-            myId: UserService.myUser?.uid ?? "",
+            myId: UserService.myUser?.phoneNumber
+                    ?.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "") ??
+                "",
           );
           break;
         }

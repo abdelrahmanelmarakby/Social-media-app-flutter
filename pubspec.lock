@@ -455,6 +455,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1"
+  gesture_x_detector:
+    dependency: transitive
+    description:
+      name: gesture_x_detector
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   get:
     dependency: "direct main"
     description:
@@ -504,6 +511,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.2"
+  helpers:
+    dependency: transitive
+    description:
+      name: helpers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   html:
     dependency: transitive
     description:
@@ -1097,6 +1111,55 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.3"
+  video_viewer:
+    dependency: "direct main"
+    description:
+      name: video_viewer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.7"
+  volume_watcher:
+    dependency: transitive
+    description:
+      name: volume_watcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  wakelock:
+    dependency: transitive
+    description:
+      name: wakelock
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.6"
+  wakelock_macos:
+    dependency: transitive
+    description:
+      name: wakelock_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
+  wakelock_platform_interface:
+    dependency: transitive
+    description:
+      name: wakelock_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
+  wakelock_web:
+    dependency: transitive
+    description:
+      name: wakelock_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
+  wakelock_windows:
+    dependency: transitive
+    description:
+      name: wakelock_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   win32:
     dependency: transitive
     description:

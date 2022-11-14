@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/resourses/color_manger.dart';
@@ -12,7 +13,8 @@ class ChatScreen extends StatelessWidget {
   String myId, hisId, hisName, hisImage, myName, myImage;
 
   ChatScreen(
-      {this.myId = '',
+      {super.key,
+      this.myId = '',
       this.hisId = '',
       this.hisName = '',
       this.hisImage = '',
@@ -59,9 +61,16 @@ class ChatScreenX extends StatelessWidget {
         elevation: 0.0,
         title: Row(
           children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(hisImage),
-              radius: 20,
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: Image.network(
+                hisImage,
+                fit: BoxFit.cover,
+                height: 50,
+                width: 50,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Iconsax.user),
+              ),
             ),
             const SizedBox(width: 10),
             Text(
@@ -101,9 +110,9 @@ class ChatScreenX extends StatelessWidget {
                       return Column(
                         children: [
                           ((old != null) &&
-                                      (msg.time!.day != old.time!.day ||
-                                          msg.time!.month !=
-                                              old.time!.month)) ||
+                                      (msg.time?.day != old.time?.day ||
+                                          msg.time?.month !=
+                                              old.time?.month)) ||
                                   (index == getFluffs.length - 1)
                               ? Padding(
                                   padding: const EdgeInsets.only(top: 5),
@@ -113,7 +122,7 @@ class ChatScreenX extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5, vertical: 5),
                                         child: Text(
-                                          '${msg.time!.day}/${msg.time!.month}/${msg.time!.year}',
+                                          '${msg.time?.day}/${msg.time?.month}/${msg.time?.year}',
                                           style: const TextStyle(
                                               color: ColorsManger.grey,
                                               fontWeight: FontWeight.w600),

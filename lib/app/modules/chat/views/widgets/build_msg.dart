@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bubble/bubble.dart';
+import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
+import 'package:video_viewer/video_viewer.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/font_manger.dart';
@@ -20,7 +22,7 @@ class MessageBuilder extends StatelessWidget {
             alignment: Alignment.topRight,
             padding: const BubbleEdges.only(left: 15, right: 15),
             nip: BubbleNip.rightTop,
-            color: ColorsManger.grey1,
+            color: ColorsManger.primary,
             child: msgBuilder(
                 context: context, msg: msg as PrivateMessage, isMe: true),
           )
@@ -41,15 +43,15 @@ class MessageBuilder extends StatelessWidget {
     //notify user when he get a new message
     //if (!isMe) {}
 
-    int hour = msg.time!.hour;
+    int hour = msg.time?.hour ?? 0;
     String amPm = '';
-    if (msg.time!.hour == 0) {
+    if (msg.time?.hour == 0) {
       hour = 12;
       amPm = 'AM';
-    } else if (msg.time!.hour == 12) {
+    } else if (msg.time?.hour == 12) {
       amPm = 'PM';
-    } else if (msg.time!.hour > 12) {
-      hour = msg.time!.hour - 12;
+    } else if ((msg.time?.hour ?? 0) > 12) {
+      hour = (msg.time?.hour ?? 0) - 12;
       amPm = 'PM';
     } else {
       amPm = 'AM';
@@ -65,23 +67,40 @@ class MessageBuilder extends StatelessWidget {
                 (msg.video == null || msg.video == 'null')
             ? Text(
                 '${msg.text}',
-                style: const TextStyle(
-                    fontSize: FontSize.large, fontWeight: FontWeight.w500),
+                style: getMediumTextStyle(
+                  color: Colors.white,
+                  fontSize: FontSize.large,
+                ),
               )
             : const SizedBox(),
         msg.image != null &&
-                (msg.text == null || msg.text == 'null') &&
-                (msg.video == null || msg.video == 'null')
-            ? Container()
+                (msg.text == null || msg.text == '') &&
+                (msg.video == null || msg.video == '')
+            ? InstaImageViewer(
+                child: Image.network(
+                  msg.image ?? '',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.error);
+                  },
+                ),
+              )
+            : const SizedBox(),
+        msg.video != null &&
+                (msg.text == null || msg.text == '') &&
+                (msg.image == null || msg.image == '')
+            ? VideoViewer(
+                source: {
+                  "WebVTT Caption": VideoSource(
+                      video: VideoPlayerController.network(
+                    //This video has a problem when end
+                    msg.video ?? '',
+                  )),
+                },
+              )
             : const SizedBox(),
         const SizedBox(
           height: 1,
-        ),
-        InstaImageViewer(
-          child: Image.network(
-            msg.image!,
-            fit: BoxFit.cover,
-          ),
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -97,7 +116,7 @@ class MessageBuilder extends StatelessWidget {
               width: 2,
             ),
             Text(
-              '$hour:${msg.time!.minute} $amPm',
+              '$hour:${msg.time?.minute} $amPm',
               style: const TextStyle(
                   //   fontSize: Dimensions.getDesirableWidth(3),
                   color: Colors.grey,
