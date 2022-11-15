@@ -60,13 +60,16 @@ class ContactsService extends GetxService {
         }
       }
     }
+    registeredContacts = registeredContacts.toSet().toList();
     Get.log("Registered contacts length ${registeredContacts.length}");
     Get.log("Updating user contacts $registeredContacts");
     await FirebaseFirestore.instance
         .collection('Users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update(
-            {"followers": registeredContacts, "following": registeredContacts});
+        .update({
+      "followers": registeredContacts,
+      "following": registeredContacts.toSet().toList()
+    });
 
     await FirebaseFirestore.instance
         .collection('Users')
@@ -90,9 +93,6 @@ class ContactsService extends GetxService {
           bio: value.data()?['bio'],
           followers: value.data()?['followers'],
           following: value.data()?['following'],
-          posts: value.data()?['posts'],
-          stories: value.data()?['stories'],
-          comments: value.data()?['comments'],
           address: value.data()?['address'],
         );
       });

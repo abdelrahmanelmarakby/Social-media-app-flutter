@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:future_chat/app/data/models/post_model.dart';
-
 //Social Media User Model
 class SocialMediaUser {
   String? firstName;
@@ -15,11 +13,8 @@ class SocialMediaUser {
   String? phoneNumber;
   String? address;
   String? bio;
-  List<Comment>? comments;
-  List<PostModel>? posts;
-  List<Story>? stories = [];
-  List<String>? following = [];
-  List<String>? followers = [];
+  List<String>? following;
+  List<String>? followers;
 
   //List<ChatRoom> chats;
 
@@ -33,9 +28,6 @@ class SocialMediaUser {
     this.phoneNumber,
     this.address,
     this.bio,
-    this.comments,
-    this.posts,
-    this.stories,
     this.following,
     this.followers,
   });
@@ -50,9 +42,6 @@ class SocialMediaUser {
     String? phoneNumber,
     String? address,
     String? bio,
-    List<Comment>? comments,
-    List<PostModel>? posts,
-    List<Story>? stories,
     List<String>? following,
     List<String>? followers,
   }) {
@@ -66,9 +55,6 @@ class SocialMediaUser {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       address: address ?? this.address,
       bio: bio ?? this.bio,
-      comments: comments ?? this.comments,
-      posts: posts ?? this.posts,
-      stories: stories ?? this.stories,
       following: following ?? this.following,
       followers: followers ?? this.followers,
     );
@@ -77,20 +63,40 @@ class SocialMediaUser {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'firstName': firstName});
-    result.addAll({'lastName': lastName});
-    result.addAll({'email': email});
-    result.addAll({'photoUrl': photoUrl});
-    result.addAll({'provider': provider});
-    result.addAll({'uid': uid});
-    result.addAll({'phoneNumber': phoneNumber});
-    result.addAll({'address': address});
-    result.addAll({'bio': bio});
-    result.addAll({'comments': comments!.map((x) => x.toMap()).toList()});
-    result.addAll({'posts': posts!.map((x) => x.toMap()).toList()});
-    result.addAll({'stories': stories?.map((x) => x.toMap()).toList()});
-    result.addAll({'following': following});
-    result.addAll({'followers': followers});
+    if (firstName != null) {
+      result.addAll({'firstName': firstName});
+    }
+    if (lastName != null) {
+      result.addAll({'lastName': lastName});
+    }
+    if (email != null) {
+      result.addAll({'email': email});
+    }
+    if (photoUrl != null) {
+      result.addAll({'photoUrl': photoUrl});
+    }
+    if (provider != null) {
+      result.addAll({'provider': provider});
+    }
+    if (uid != null) {
+      result.addAll({'uid': uid});
+    }
+    if (phoneNumber != null) {
+      result.addAll({'phoneNumber': phoneNumber});
+    }
+    if (address != null) {
+      result.addAll({'address': address});
+    }
+    if (bio != null) {
+      result.addAll({'bio': bio});
+    }
+    if (following != null) {
+      result.addAll({'following': following});
+    }
+    if (followers != null) {
+      result.addAll({'followers': followers});
+    }
+
     return result;
   }
 
@@ -105,13 +111,6 @@ class SocialMediaUser {
       phoneNumber: map['phoneNumber'],
       address: map['address'],
       bio: map['bio'],
-      comments: map['comments'] != null
-          ? List<Comment>.from(map['comments']?.map((x) => Comment.fromMap(x)))
-          : null,
-      posts: map['posts'] != null
-          ? List<PostModel>.from(map['posts']?.map((x) => PostModel.fromMap(x)))
-          : null,
-      stories: List<Story>.from(map['stories']?.map((x) => Story.fromMap(x))),
       following: List<String>.from(map['following']),
       followers: List<String>.from(map['followers']),
     );
@@ -124,7 +123,7 @@ class SocialMediaUser {
 
   @override
   String toString() {
-    return 'SocialMediaUser(firstName: $firstName, lastName: $lastName, email: $email, photoUrl: $photoUrl, provider: $provider, uid: $uid, phoneNumber: $phoneNumber, address: $address, bio: $bio, comments: $comments, posts: $posts, stories: $stories, following: $following, followers: $followers)';
+    return 'SocialMediaUser(firstName: $firstName, lastName: $lastName, email: $email, photoUrl: $photoUrl, provider: $provider, uid: $uid, phoneNumber: $phoneNumber, address: $address, bio: $bio, following: $following, followers: $followers)';
   }
 
   @override
@@ -141,9 +140,6 @@ class SocialMediaUser {
         other.phoneNumber == phoneNumber &&
         other.address == address &&
         other.bio == bio &&
-        listEquals(other.comments, comments) &&
-        listEquals(other.posts, posts) &&
-        listEquals(other.stories, stories) &&
         listEquals(other.following, following) &&
         listEquals(other.followers, followers);
   }
@@ -159,9 +155,6 @@ class SocialMediaUser {
         phoneNumber.hashCode ^
         address.hashCode ^
         bio.hashCode ^
-        comments.hashCode ^
-        posts.hashCode ^
-        stories.hashCode ^
         following.hashCode ^
         followers.hashCode;
   }

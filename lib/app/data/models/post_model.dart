@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:future_chat/app/data/models/user_model.dart';
+
 //Social media post model
 enum PostReactions { like, love, haha, wow, sad, angry }
 
@@ -16,9 +18,9 @@ class PostModel {
   String? title;
   String? description;
   String? imageUrl;
-  String? userId;
-  String? userName;
-  String? userPhotoUrl;
+  SocialMediaUser? user;
+  String? sharedFrom;
+  String? sharedComment;
   DateTime? createdAt;
   List<Comment>? comments;
   List<Reaction>? reactions;
@@ -27,9 +29,9 @@ class PostModel {
     this.title,
     this.description,
     this.imageUrl,
-    this.userId,
-    this.userName,
-    this.userPhotoUrl,
+    this.user,
+    this.sharedFrom,
+    this.sharedComment,
     this.createdAt,
     this.comments,
     this.reactions,
@@ -40,9 +42,9 @@ class PostModel {
     String? title,
     String? description,
     String? imageUrl,
-    String? userId,
-    String? userName,
-    String? userPhotoUrl,
+    SocialMediaUser? user,
+    String? sharedFrom,
+    String? sharedComment,
     DateTime? createdAt,
     List<Comment>? comments,
     List<Reaction>? reactions,
@@ -52,9 +54,9 @@ class PostModel {
       title: title ?? this.title,
       description: description ?? this.description,
       imageUrl: imageUrl ?? this.imageUrl,
-      userId: userId ?? this.userId,
-      userName: userName ?? this.userName,
-      userPhotoUrl: userPhotoUrl ?? this.userPhotoUrl,
+      user: user ?? this.user,
+      sharedFrom: sharedFrom ?? this.sharedFrom,
+      sharedComment: sharedComment ?? this.sharedComment,
       createdAt: createdAt ?? this.createdAt,
       comments: comments ?? this.comments,
       reactions: reactions ?? this.reactions,
@@ -64,16 +66,36 @@ class PostModel {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'id': id});
-    result.addAll({'title': title});
-    result.addAll({'description': description});
-    result.addAll({'imageUrl': imageUrl});
-    result.addAll({'userId': userId});
-    result.addAll({'userName': userName});
-    result.addAll({'userPhotoUrl': userPhotoUrl});
-    result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
-    result.addAll({'comments': comments!.map((x) => x.toMap()).toList()});
-    result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
+    if (id != null) {
+      result.addAll({'id': id});
+    }
+    if (title != null) {
+      result.addAll({'title': title});
+    }
+    if (description != null) {
+      result.addAll({'description': description});
+    }
+    if (imageUrl != null) {
+      result.addAll({'imageUrl': imageUrl});
+    }
+    if (user != null) {
+      result.addAll({'user': user!.toMap()});
+    }
+    if (sharedFrom != null) {
+      result.addAll({'sharedFrom': sharedFrom});
+    }
+    if (sharedComment != null) {
+      result.addAll({'sharedComment': sharedComment});
+    }
+    if (createdAt != null) {
+      result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
+    }
+    if (comments != null) {
+      result.addAll({'comments': comments!.map((x) => x.toMap()).toList()});
+    }
+    if (reactions != null) {
+      result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
+    }
 
     return result;
   }
@@ -84,9 +106,9 @@ class PostModel {
       title: map['title'],
       description: map['description'],
       imageUrl: map['imageUrl'],
-      userId: map['userId'],
-      userName: map['userName'],
-      userPhotoUrl: map['userPhotoUrl'],
+      user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
+      sharedFrom: map['sharedFrom'],
+      sharedComment: map['sharedComment'],
       createdAt: map['createdAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
           : null,
@@ -107,7 +129,7 @@ class PostModel {
 
   @override
   String toString() {
-    return 'PostModel(id: $id, title: $title, description: $description, imageUrl: $imageUrl, userId: $userId, userName: $userName, userPhotoUrl: $userPhotoUrl, createdAt: $createdAt, comments: $comments, reactions: $reactions)';
+    return 'PostModel(id: $id, title: $title, description: $description, imageUrl: $imageUrl, user: $user, sharedFrom: $sharedFrom, sharedComment: $sharedComment, createdAt: $createdAt, comments: $comments, reactions: $reactions)';
   }
 
   @override
@@ -119,9 +141,9 @@ class PostModel {
         other.title == title &&
         other.description == description &&
         other.imageUrl == imageUrl &&
-        other.userId == userId &&
-        other.userName == userName &&
-        other.userPhotoUrl == userPhotoUrl &&
+        other.user == user &&
+        other.sharedFrom == sharedFrom &&
+        other.sharedComment == sharedComment &&
         other.createdAt == createdAt &&
         listEquals(other.comments, comments) &&
         listEquals(other.reactions, reactions);
@@ -133,9 +155,9 @@ class PostModel {
         title.hashCode ^
         description.hashCode ^
         imageUrl.hashCode ^
-        userId.hashCode ^
-        userName.hashCode ^
-        userPhotoUrl.hashCode ^
+        user.hashCode ^
+        sharedFrom.hashCode ^
+        sharedComment.hashCode ^
         createdAt.hashCode ^
         comments.hashCode ^
         reactions.hashCode;
@@ -145,9 +167,7 @@ class PostModel {
 class Comment {
   String? id;
   String? postId;
-  String? userId;
-  String? userName;
-  String? userPhotoUrl;
+  SocialMediaUser? user;
   String? commentImageUrl;
   String? comment;
   DateTime? createdAt;
@@ -155,9 +175,7 @@ class Comment {
   Comment({
     this.id,
     this.postId,
-    this.userId,
-    this.userName,
-    this.userPhotoUrl,
+    this.user,
     this.commentImageUrl,
     this.comment,
     this.createdAt,
@@ -167,9 +185,7 @@ class Comment {
   Comment copyWith({
     String? id,
     String? postId,
-    String? userId,
-    String? userName,
-    String? userPhotoUrl,
+    SocialMediaUser? user,
     String? commentImageUrl,
     String? comment,
     DateTime? createdAt,
@@ -178,9 +194,7 @@ class Comment {
     return Comment(
       id: id ?? this.id,
       postId: postId ?? this.postId,
-      userId: userId ?? this.userId,
-      userName: userName ?? this.userName,
-      userPhotoUrl: userPhotoUrl ?? this.userPhotoUrl,
+      user: user ?? this.user,
       commentImageUrl: commentImageUrl ?? this.commentImageUrl,
       comment: comment ?? this.comment,
       createdAt: createdAt ?? this.createdAt,
@@ -191,15 +205,27 @@ class Comment {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'id': id});
-    result.addAll({'postId': postId});
-    result.addAll({'userId': userId});
-    result.addAll({'userName': userName});
-    result.addAll({'userPhotoUrl': userPhotoUrl});
-    result.addAll({'commentImageUrl': commentImageUrl});
-    result.addAll({'comment': comment});
-    result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
-    result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
+    if (id != null) {
+      result.addAll({'id': id});
+    }
+    if (postId != null) {
+      result.addAll({'postId': postId});
+    }
+    if (user != null) {
+      result.addAll({'user': user!.toMap()});
+    }
+    if (commentImageUrl != null) {
+      result.addAll({'commentImageUrl': commentImageUrl});
+    }
+    if (comment != null) {
+      result.addAll({'comment': comment});
+    }
+    if (createdAt != null) {
+      result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
+    }
+    if (reactions != null) {
+      result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
+    }
 
     return result;
   }
@@ -208,9 +234,7 @@ class Comment {
     return Comment(
       id: map['id'],
       postId: map['postId'],
-      userId: map['userId'],
-      userName: map['userName'],
-      userPhotoUrl: map['userPhotoUrl'],
+      user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
       commentImageUrl: map['commentImageUrl'],
       comment: map['comment'],
       createdAt: map['createdAt'] != null
@@ -230,7 +254,7 @@ class Comment {
 
   @override
   String toString() {
-    return 'Comment(id: $id, postId: $postId, userId: $userId, userName: $userName, userPhotoUrl: $userPhotoUrl, commentImageUrl: $commentImageUrl, comment: $comment, createdAt: $createdAt, reactions: $reactions)';
+    return 'Comment(id: $id, postId: $postId, user: $user, commentImageUrl: $commentImageUrl, comment: $comment, createdAt: $createdAt, reactions: $reactions)';
   }
 
   @override
@@ -240,9 +264,7 @@ class Comment {
     return other is Comment &&
         other.id == id &&
         other.postId == postId &&
-        other.userId == userId &&
-        other.userName == userName &&
-        other.userPhotoUrl == userPhotoUrl &&
+        other.user == user &&
         other.commentImageUrl == commentImageUrl &&
         other.comment == comment &&
         other.createdAt == createdAt &&
@@ -253,9 +275,7 @@ class Comment {
   int get hashCode {
     return id.hashCode ^
         postId.hashCode ^
-        userId.hashCode ^
-        userName.hashCode ^
-        userPhotoUrl.hashCode ^
+        user.hashCode ^
         commentImageUrl.hashCode ^
         comment.hashCode ^
         createdAt.hashCode ^
@@ -266,17 +286,13 @@ class Comment {
 class Reaction {
   String? id;
   String? postId;
-  String? userId;
-  String? userName;
-  String? userPhotoUrl;
+  SocialMediaUser? user;
   PostReactions? reaction;
   DateTime? createdAt;
   Reaction({
     this.id,
     this.postId,
-    this.userId,
-    this.userName,
-    this.userPhotoUrl,
+    this.user,
     this.reaction,
     this.createdAt,
   });
@@ -284,18 +300,14 @@ class Reaction {
   Reaction copyWith({
     String? id,
     String? postId,
-    String? userId,
-    String? userName,
-    String? userPhotoUrl,
+    SocialMediaUser? user,
     PostReactions? reaction,
     DateTime? createdAt,
   }) {
     return Reaction(
       id: id ?? this.id,
       postId: postId ?? this.postId,
-      userId: userId ?? this.userId,
-      userName: userName ?? this.userName,
-      userPhotoUrl: userPhotoUrl ?? this.userPhotoUrl,
+      user: user ?? this.user,
       reaction: reaction ?? this.reaction,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -304,13 +316,21 @@ class Reaction {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'id': id});
-    result.addAll({'postId': postId});
-    result.addAll({'userId': userId});
-    result.addAll({'userName': userName});
-    result.addAll({'userPhotoUrl': userPhotoUrl});
-    result.addAll({'reaction': reaction?.toShortString()});
-    result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
+    if (id != null) {
+      result.addAll({'id': id});
+    }
+    if (postId != null) {
+      result.addAll({'postId': postId});
+    }
+    if (user != null) {
+      result.addAll({'user': user!.toMap()});
+    }
+    if (reaction != null) {
+      result.addAll({'reaction': reaction?.toShortString()});
+    }
+    if (createdAt != null) {
+      result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
+    }
 
     return result;
   }
@@ -319,10 +339,8 @@ class Reaction {
     return Reaction(
       id: map['id'],
       postId: map['postId'],
-      userId: map['userId'],
-      userName: map['userName'],
-      userPhotoUrl: map['userPhotoUrl'],
-      reaction: map['reaction'] ?? map['reaction'],
+      user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
+      reaction: map['reaction'],
       createdAt: map['createdAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
           : null,
@@ -336,7 +354,7 @@ class Reaction {
 
   @override
   String toString() {
-    return 'Reaction(id: $id, postId: $postId, userId: $userId, userName: $userName, userPhotoUrl: $userPhotoUrl, reaction: $reaction, createdAt: $createdAt)';
+    return 'Reaction(id: $id, postId: $postId, user: $user, reaction: $reaction, createdAt: $createdAt)';
   }
 
   @override
@@ -346,9 +364,7 @@ class Reaction {
     return other is Reaction &&
         other.id == id &&
         other.postId == postId &&
-        other.userId == userId &&
-        other.userName == userName &&
-        other.userPhotoUrl == userPhotoUrl &&
+        other.user == user &&
         other.reaction == reaction &&
         other.createdAt == createdAt;
   }
@@ -357,9 +373,7 @@ class Reaction {
   int get hashCode {
     return id.hashCode ^
         postId.hashCode ^
-        userId.hashCode ^
-        userName.hashCode ^
-        userPhotoUrl.hashCode ^
+        user.hashCode ^
         reaction.hashCode ^
         createdAt.hashCode;
   }
@@ -367,17 +381,13 @@ class Reaction {
 
 class Story {
   String? id;
-  String? userId;
-  String? userName;
-  String? userPhotoUrl;
+  SocialMediaUser? user;
   String? storyImageUrl;
   String? storyText;
   DateTime? createdAt;
   Story({
     this.id,
-    this.userId,
-    this.userName,
-    this.userPhotoUrl,
+    this.user,
     this.storyImageUrl,
     this.storyText,
     this.createdAt,
@@ -385,18 +395,14 @@ class Story {
 
   Story copyWith({
     String? id,
-    String? userId,
-    String? userName,
-    String? userPhotoUrl,
+    SocialMediaUser? user,
     String? storyImageUrl,
     String? storyText,
     DateTime? createdAt,
   }) {
     return Story(
       id: id ?? this.id,
-      userId: userId ?? this.userId,
-      userName: userName ?? this.userName,
-      userPhotoUrl: userPhotoUrl ?? this.userPhotoUrl,
+      user: user ?? this.user,
       storyImageUrl: storyImageUrl ?? this.storyImageUrl,
       storyText: storyText ?? this.storyText,
       createdAt: createdAt ?? this.createdAt,
@@ -406,13 +412,21 @@ class Story {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'id': id});
-    result.addAll({'userId': userId});
-    result.addAll({'userName': userName});
-    result.addAll({'userPhotoUrl': userPhotoUrl});
-    result.addAll({'storyImageUrl': storyImageUrl});
-    result.addAll({'storyText': storyText});
-    result.addAll({'createdAt': DateTime.now().millisecondsSinceEpoch});
+    if (id != null) {
+      result.addAll({'id': id});
+    }
+    if (user != null) {
+      result.addAll({'user': user!.toMap()});
+    }
+    if (storyImageUrl != null) {
+      result.addAll({'storyImageUrl': storyImageUrl});
+    }
+    if (storyText != null) {
+      result.addAll({'storyText': storyText});
+    }
+    if (createdAt != null) {
+      result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
+    }
 
     return result;
   }
@@ -420,9 +434,7 @@ class Story {
   factory Story.fromMap(Map<String, dynamic> map) {
     return Story(
       id: map['id'],
-      userId: map['userId'],
-      userName: map['userName'],
-      userPhotoUrl: map['userPhotoUrl'],
+      user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
       storyImageUrl: map['storyImageUrl'],
       storyText: map['storyText'],
       createdAt: map['createdAt'] != null
@@ -437,7 +449,7 @@ class Story {
 
   @override
   String toString() {
-    return 'Story(id: $id, userId: $userId, userName: $userName, userPhotoUrl: $userPhotoUrl, storyImageUrl: $storyImageUrl, storyText: $storyText, createdAt: $createdAt)';
+    return 'Story(id: $id, user: $user, storyImageUrl: $storyImageUrl, storyText: $storyText, createdAt: $createdAt)';
   }
 
   @override
@@ -446,9 +458,7 @@ class Story {
 
     return other is Story &&
         other.id == id &&
-        other.userId == userId &&
-        other.userName == userName &&
-        other.userPhotoUrl == userPhotoUrl &&
+        other.user == user &&
         other.storyImageUrl == storyImageUrl &&
         other.storyText == storyText &&
         other.createdAt == createdAt;
@@ -457,9 +467,7 @@ class Story {
   @override
   int get hashCode {
     return id.hashCode ^
-        userId.hashCode ^
-        userName.hashCode ^
-        userPhotoUrl.hashCode ^
+        user.hashCode ^
         storyImageUrl.hashCode ^
         storyText.hashCode ^
         createdAt.hashCode;

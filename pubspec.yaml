@@ -9,10 +9,14 @@ dependencies:
   alt_sms_autofill: ^1.0.0
   animate_do: ^2.1.0
   bot_toast: ^4.0.3
+  bubble: ^1.2.1
+  cached_network_image: ^3.2.2
   cloud_firestore: ^4.0.4
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
+  emoji_picker_flutter: ^1.5.0
+  file_picker: ^5.2.2
   firebase_auth: ^4.1.1
   firebase_core: ^2.1.1
   firebase_messaging: ^14.0.4
@@ -20,8 +24,10 @@ dependencies:
   flashy_tab_bar2: ^0.0.4
   flutter:
     sdk: flutter
+  flutter_chat_types: ^3.6.0
   flutter_contacts: ^1.1.5+1
   flutter_feed_reaction: ^0.0.5
+  flutter_link_previewer: ^3.2.0
   flutter_localizations:
     sdk: flutter
   flutter_social_textfield: ^0.1.2
@@ -36,6 +42,8 @@ dependencies:
   google_sign_in: ^5.1.1
   iconsax: ^0.0.8
   image_picker: ^0.8.6
+  image_viewer: ^1.5.0
+  insta_image_viewer: ^1.0.2
   internet_connection_checker: ^1.0.0+1
   intl: ^0.17.0
   intl_phone_field: ^3.1.0
@@ -43,11 +51,18 @@ dependencies:
   permission_handler: ^10.2.0
   pin_code_fields: ^7.4.0
   pretty_dio_logger: ^1.1.1
+  provider: ^6.0.4
   responsive_framework: ^0.2.0
   sentry: ^6.14.0
   sentry_flutter: ^6.14.0
   shared_preferences: ^2.0.15
+  shimmer: ^2.0.0
   story_view: ^0.14.0
+  timeago: ^3.3.0
+  twemoji: ^0.4.3
+  url_launcher: ^6.1.6
+  video_thumbnail: ^0.5.3
+  video_viewer: ^1.2.7
 
 dev_dependencies:
   flutter_lints: 2.0.1

@@ -92,8 +92,8 @@ class LoginController extends GetxController {
         UserService.myUser = await UserService()
             .getProfile(userCredential.user?.uid ?? "")
             .then((user) {
-          if (user.uid != null) {
-            authUserID = user.uid!;
+          if (user?.uid != null) {
+            authUserID = user?.uid ?? "";
             Get.log("User added : ${user.toString()} ");
             Get.offAllNamed(Routes.BOTTOM_NAV_BAR);
           }

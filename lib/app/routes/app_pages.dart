@@ -8,8 +8,6 @@ import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/bottom_nav_bar/bindings/bottom_nav_bar_binding.dart';
 import '../modules/bottom_nav_bar/views/bottom_nav_bar_view.dart';
-import '../modules/chats/bindings/chats_binding.dart';
-import '../modules/chats/views/chats_view.dart';
 import '../modules/comments/bindings/comments_binding.dart';
 import '../modules/comments/views/comments_view.dart';
 import '../modules/create_post_bottom_sheet/bindings/create_post_bottom_sheet_binding.dart';
@@ -72,11 +70,6 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
-    ),
-    GetPage(
-      name: _Paths.CHATS,
-      page: () => const ChatsView(),
-      binding: ChatsBinding(),
     ),
     GetPage(
       name: _Paths.NOTIFICATIONS,

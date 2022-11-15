@@ -47,7 +47,7 @@ class MyAppState extends State<MyApp> {
             _backViewOn = false;
           });
           try {
-            //    Get.back();
+            Get.back();
           } catch (e) {
             // ignore: avoid_print
             print(e);

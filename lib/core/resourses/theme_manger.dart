@@ -35,8 +35,9 @@ ThemeData getApplicationTheme() {
       systemOverlayStyle: const SystemUiOverlayStyle(
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Color(0xffdddeee), // Navigation bar
-        statusBarColor: Color(0xffdddeee), // Status bar
+        systemNavigationBarColor:
+            Color.fromARGB(255, 255, 255, 255), // Navigation bar
+        statusBarColor: Color.fromARGB(255, 252, 252, 252), // Status bar
       ),
       titleTextStyle: getRegularTextStyle(
           color: ColorsManger.white, fontSize: AppSize.size18),
