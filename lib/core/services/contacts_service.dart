@@ -45,13 +45,15 @@ class ContactsService extends GetxService {
     Get.log("Firebase users length ${firbaseUsers.length}");
 
     List<String> registeredContacts = [];
-    //TODO :: OPTIMIZE THIS CODE TO BE MORE EFFICIENT AND FAST O(N^3) = BAD
     for (var contact in contacts) {
       for (var phone in contact.phones) {
         for (var user in firbaseUsers) {
+          // ignore: avoid_print
           print(user.phoneNumber);
+          // ignore: avoid_print
           print(phone.number);
           if (phone.number == user.phoneNumber) {
+            // ignore: avoid_print
             print(" ${user.firstName} is registered");
             registeredContacts.add(user.uid ?? "");
           }

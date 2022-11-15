@@ -20,6 +20,7 @@ class UploadServices {
       Get.forceAppUpdate();
       return await uploadFile(type: type);
     } on FirebaseException catch (e) {
+      // ignore: avoid_print
       print(e);
     }
     return null;

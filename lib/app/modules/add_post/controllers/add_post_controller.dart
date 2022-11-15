@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-class AddPostBottomSheetController extends GetxController {
+class AddPostController extends GetxController {
   // ignore: todo
-  //TODO: Implement AddPostBottomSheetController
+  //TODO: Implement AddPostController
 
   final count = 0.obs;
   @override
@@ -17,11 +17,6 @@ class AddPostBottomSheetController extends GetxController {
     super.onReady();
   }
 
-  @override
-  // ignore: unnecessary_overrides
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 }

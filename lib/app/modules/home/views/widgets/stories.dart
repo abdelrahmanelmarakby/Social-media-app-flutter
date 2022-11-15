@@ -9,6 +9,7 @@ import '../../controllers/home_controller.dart';
 
 import 'package:flutter_story_list/flutter_story_list.dart';
 
+// ignore: must_be_immutable
 class Stories extends StatelessWidget {
   Stories({
     Key? key,

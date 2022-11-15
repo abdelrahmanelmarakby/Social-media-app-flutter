@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-import '../../../../../core/resourses/font_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
 import '../../controllers/signup_controller.dart';
 

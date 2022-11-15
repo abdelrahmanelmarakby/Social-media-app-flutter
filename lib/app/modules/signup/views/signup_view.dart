@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/modules/add_post/views/add_post_view.dart';
 
 import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
@@ -14,6 +15,10 @@ class SignupView extends GetView<SignupController> {
     return Scaffold(
       body: Column(
         children: [
+          OutlinedButton(
+            onPressed: () => Get.to(() =>  const AddPostView()),
+            child: const Text('Open'),
+          ),
           const StepHeader(),
           Expanded(
               child: PageView(

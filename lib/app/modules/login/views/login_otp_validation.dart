@@ -138,7 +138,7 @@ class _OtpVerificationLoginForm extends State<OtpVerificationLoginForm> {
             margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
             decoration: BoxDecoration(
                gradient: ColorsManger.buttonGradient,
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(50),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black.withOpacity(.1),

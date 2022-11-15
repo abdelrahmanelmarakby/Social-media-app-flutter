@@ -48,6 +48,7 @@ class SignupController extends GetxController {
 
   final Rxn<User> user = Rxn<User>();
 
+  // ignore: prefer_typing_uninitialized_variables
   var onTapRecognizer;
 
   //*FIRESTORAGE OPS
@@ -104,6 +105,7 @@ class SignupController extends GetxController {
         timeout: const Duration(seconds: 70),
         phoneNumber: phone,
         verificationCompleted: (AuthCredential authCredential) {
+          // ignore: avoid_print
           print("Login Successfully");
           if (auth.currentUser != null) {
             authUserID = auth.currentUser!.uid;
@@ -118,6 +120,7 @@ class SignupController extends GetxController {
           Get.log(authException.message.toString());
         },
         codeSent: (String id, [int? forceResent]) {
+          // ignore: avoid_print
           print("Code Sent $id");
 
           isLoading.value = false;
