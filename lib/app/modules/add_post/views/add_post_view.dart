@@ -129,9 +129,9 @@ class AddPostView extends GetView<AddPostController> {
         ),
         LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxHeight >= 310) {
-            return ColumnItem();
-          } else {
+           return ColumnItem();
+
+           if (constraints.maxHeight< 310 )  {
             return RowItem();
           }
         })
@@ -139,7 +139,6 @@ class AddPostView extends GetView<AddPostController> {
     ).paddingOnly(left: 10, right: 10, top: 30));
   }
 }
-
 
 Widget ColumnItem() {
   return SingleChildScrollView(
@@ -268,8 +267,6 @@ Widget ColumnItem() {
     ],
   ));
 }
-
-
 
 Widget RowItem() {
   return Expanded(
