@@ -7,12 +7,6 @@ import 'package:future_chat/app/data/models/user_model.dart';
 //Social media post model
 enum PostReactions { like, love, haha, wow, sad, angry }
 
-extension ParseToString on PostReactions {
-  String toShortString() {
-    return toString().split('.').last;
-  }
-}
-
 class PostModel {
   String? id;
   String? title;
@@ -287,7 +281,7 @@ class Reaction {
   String? id;
   String? postId;
   SocialMediaUser? user;
-  PostReactions? reaction;
+  String? reaction;
   DateTime? createdAt;
   Reaction({
     this.id,
@@ -301,7 +295,7 @@ class Reaction {
     String? id,
     String? postId,
     SocialMediaUser? user,
-    PostReactions? reaction,
+    String? reaction,
     DateTime? createdAt,
   }) {
     return Reaction(
@@ -326,7 +320,7 @@ class Reaction {
       result.addAll({'user': user!.toMap()});
     }
     if (reaction != null) {
-      result.addAll({'reaction': reaction?.toShortString()});
+      result.addAll({'reaction': reaction});
     }
     if (createdAt != null) {
       result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});

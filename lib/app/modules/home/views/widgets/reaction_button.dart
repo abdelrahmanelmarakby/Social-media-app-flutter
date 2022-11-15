@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feed_reaction/flutter_feed_reaction.dart';
+import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 
@@ -7,8 +8,10 @@ import '../../../../../assets.dart';
 import '../../../../../core/resourses/color_manger.dart';
 
 class ReactionButton extends StatelessWidget {
-  ReactionButton({Key? key}) : super(key: key);
-
+  ReactionButton({Key? key, this.reactionCount = 0, this.reactions = const []})
+      : super(key: key);
+  final int reactionCount;
+  final List<Reaction> reactions;
   final _reactions = [
     FeedReaction(
       name: "Like",
@@ -64,14 +67,14 @@ class ReactionButton extends StatelessWidget {
         FlutterFeedReaction(
           reactions: _reactions,
           prefix: Row(
-            children: const [
-              CircleAvatar(
+            children: [
+              const CircleAvatar(
                   backgroundColor: ColorsManger.grey1,
                   child: Icon(Iconsax.like)),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
-              Text('1.2k')
+              Text(reactionCount.toString()),
             ],
           ),
           onReactionSelected: (val) {

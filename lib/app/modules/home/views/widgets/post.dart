@@ -1,12 +1,16 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/data/models/post_model.dart';
+import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
+import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
 import 'reaction_button.dart';
 import 'share_bottom_sheet.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class PostList extends StatelessWidget {
   const PostList({
@@ -18,12 +22,30 @@ class PostList extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Expanded(
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return PostWidget(
-              index: index,
-            );
+        child: StreamBuilder(
+          stream: PostService().getUserPost(
+            UserService.myUser?.uid ?? '',
+          ),
+          builder: (context, snapshot) {
+            List<PostModel> posts = [];
+            snapshot.data?.docs.map((e) {
+              posts.add(PostModel.fromMap(e.data() as Map<String, dynamic>));
+            }).toList();
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: posts.length,
+                itemBuilder: (context, index) {
+                  return PostWidget(
+                    index: index,
+                    post: posts[index],
+                  );
+                },
+              );
+            } else {
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
+            }
           },
         ),
       ),
@@ -32,8 +54,10 @@ class PostList extends StatelessWidget {
 }
 
 class PostWidget extends StatelessWidget {
-  const PostWidget({Key? key, required this.index}) : super(key: key);
+  const PostWidget({Key? key, required this.index, required this.post})
+      : super(key: key);
   final int index;
+  final PostModel post;
   @override
   Widget build(BuildContext context) {
     return FadeInUp(
@@ -56,37 +80,42 @@ class PostWidget extends StatelessWidget {
               leading: CircleAvatar(
                 radius: 30,
                 backgroundImage: NetworkImage(
-                    'https://picsum.photos/${(index * 100) + 500}'),
+                  post.user?.photoUrl ?? '',
+                ),
               ),
-              title: const Text('Meta Misr'),
-              subtitle: const Text('4 hours ago'),
+              title: Text('${post.user?.firstName} ${post.user?.lastName}'),
+              subtitle: Text(timeago.format(post.createdAt!, locale: 'en')),
               trailing: PopupMenuButton(
-                shape:  RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
                 initialValue: 3,
-                itemBuilder:(BuildContext context)=>
-                <PopupMenuEntry>[
+                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                   PopupMenuItem(
-                      child: Text('Unfollow Meta Misr posts',
-                        style: getMediumTextStyle(fontSize: 11,
-                            color: ColorsManger.grey),)),
+                      child: Text(
+                    'Unfollow ${post.user?.firstName} ${post.user?.lastName} posts',
+                    style: getMediumTextStyle(
+                        fontSize: 11, color: ColorsManger.grey),
+                  )),
                   PopupMenuItem(
-                      child: Text('Report post',
-                        style: getMediumTextStyle(fontSize: 11,
-                            color: ColorsManger.grey),)),
+                      child: Text(
+                    'Report post',
+                    style: getMediumTextStyle(
+                        fontSize: 11, color: ColorsManger.grey),
+                  )),
                   PopupMenuItem(
-                      child: Text('Copy link',
-                        style: getMediumTextStyle(fontSize: 11,
-                            color: ColorsManger.grey),)),
-
+                      child: Text(
+                    'Copy link',
+                    style: getMediumTextStyle(
+                        fontSize: 11, color: ColorsManger.grey),
+                  )),
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam tincidunt, nisl nisl aliquam mauris, nec aliquam nisl nunc sed nisl. Sed euismod, nunc sit amet aliquam tincidunt, nisl nisl aliquam mauris, nec aliquam nisl nunc sed nisl.',
-                style: TextStyle(
+                post.title ?? '',
+                style: const TextStyle(
                   color: ColorsManger.grey,
                 ),
               ),
@@ -94,8 +123,30 @@ class PostWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                "https://picsum.photos/${(index * 100) + 500}",
+                post.imageUrl ?? '',
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const Center(
+                    child: CupertinoActivityIndicator(),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                      child: Column(
+                    children: [
+                      const Icon(
+                        Iconsax.image4,
+                        color: ColorsManger.error,
+                      ),
+                      Text(
+                        'Error loading image',
+                        style: getRegularTextStyle(
+                            fontSize: 12, color: ColorsManger.error),
+                      ).paddingOnly(bottom: 10)
+                    ],
+                  ));
+                },
               ),
             ),
             const SizedBox(height: 8.0),
@@ -106,14 +157,14 @@ class PostWidget extends StatelessWidget {
                 children: [
                   ReactionButton(),
                   Row(
-                    children: const [
-                      CircleAvatar(
+                    children: [
+                      const CircleAvatar(
                           backgroundColor: ColorsManger.grey1,
                           child: Icon(Iconsax.message)),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Text('1.2k')
+                      Text("${post.comments?.length}"),
                     ],
                   ),
                   InkWell(
@@ -137,7 +188,7 @@ class PostWidget extends StatelessWidget {
                         SizedBox(
                           width: 5,
                         ),
-                        Text('1.2k')
+                        Text('Share'),
                       ],
                     ),
                   ),

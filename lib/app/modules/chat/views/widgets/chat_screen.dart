@@ -72,6 +72,7 @@ class ChatScreenX extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
+                flex: 8,
                 child: Container(
                   margin: const EdgeInsets.only(top: 10.0),
                   child: ListView.builder(

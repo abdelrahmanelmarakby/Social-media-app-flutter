@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:get/get.dart';
 
 import '../models/post_model.dart';
@@ -46,19 +47,24 @@ class PostService {
     print("Deleted");
   }
 
-  RxList getPostsbyUserIds(List<String> uids) {
-    uids.add(UserService.myUser?.uid ?? "");
-    RxList<PostModel> posts = RxList<PostModel>();
-    for (String uid in uids) {
-      _firestore.collection('Users').doc(uid).snapshots().listen((event) {
-        if (event["post"].exists) {
-          List<PostModel> postsList = event["post"]
-              .map<PostModel>((e) => PostModel.fromMap(e))
-              .toList();
-          posts.addAll(postsList);
-        }
-      });
+  Stream<QuerySnapshot<Object?>> getUserPost(uid) {
+    return _firestore
+        .collection("Users")
+        .doc(uid)
+        .collection("Posts")
+        .orderBy("createdAt", descending: true)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Object?>> getAllUserPosts(List<String> uids) {
+    Stream<QuerySnapshot<Object?>>? allPosts;
+    for (var i = 0; i < uids.length; i++) {
+      allPosts = _firestore
+          .collection("Users")
+          .doc(uids[i])
+          .collection("Posts")
+          .snapshots();
     }
-    return posts;
+    return allPosts!;
   }
 }

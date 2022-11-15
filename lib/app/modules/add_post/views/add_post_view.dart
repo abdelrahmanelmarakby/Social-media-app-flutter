@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 
@@ -68,18 +69,19 @@ class AddPostView extends GetView<AddPostController> {
             padding: const EdgeInsets.only(top: 30),
             child: Row(
               children: [
-                const SizedBox(
+                SizedBox(
                   height: 50,
                   width: 50,
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage("https://picsum.photos/400"),
+                    backgroundImage:
+                        NetworkImage(UserService.myUser?.photoUrl ?? ""),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Text(
-                  'Refaat Mohamed',
+                  '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
                   style: getMediumTextStyle(
                       fontSize: 14, color: ColorsManger.black),
                 )
@@ -106,9 +108,9 @@ class AddPostView extends GetView<AddPostController> {
                       blurRadius: 5)
                 ]),
             child: SizedBox(
-              height: 131,
-              width: 347,
               child: TextFormField(
+                minLines: 8,
+                maxLines: 12,
                 decoration: const InputDecoration(
                   filled: true,
                   fillColor: ColorsManger.light,
@@ -129,9 +131,9 @@ class AddPostView extends GetView<AddPostController> {
         ),
         LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-           return ColumnItem();
+          return ColumnItem();
 
-           if (constraints.maxHeight< 310 )  {
+          if (constraints.maxHeight < 310) {
             return RowItem();
           }
         })

@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-
-import '../modules/add_post/bindings/add_post_binding.dart';
 import '../modules/add_post/views/add_post_view.dart';
 import '../modules/add_post_bottom_sheet/bindings/add_post_bottom_sheet_binding.dart';
 import '../modules/add_post_bottom_sheet/views/add_post_bottom_sheet_view.dart';
@@ -89,7 +87,6 @@ class AppPages {
     GetPage(
       name: _Paths.ADD_POST,
       page: () => const AddPostView(),
-      binding: AddPostBinding(),
     ),
     GetPage(
       name: _Paths.ADD_POST_BOTTOM_SHEET,

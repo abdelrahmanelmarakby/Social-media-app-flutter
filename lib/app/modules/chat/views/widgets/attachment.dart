@@ -44,7 +44,8 @@ class Attachment {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-      height: 70.0,
+      //height: 100.0,
+
       // color: MyColors().mainColor,
       child: Row(
         children: <Widget>[
@@ -54,14 +55,13 @@ class Attachment {
               onFieldSubmitted: (value) {
                 fluff.isNotEmpty ? postMsg(fluff: fluff) : null;
               },
-              maxLines: null,
-              minLines: null,
+              maxLines: 6,
+              minLines: 2,
               controller: _controller,
               textCapitalization: TextCapitalization.sentences,
               onChanged: (value) {
                 fluff = value;
               },
-              expands: true,
               decoration: InputDecoration(
                 suffixIcon: IconButton(
                   icon: const Icon(Iconsax.attach_square),
