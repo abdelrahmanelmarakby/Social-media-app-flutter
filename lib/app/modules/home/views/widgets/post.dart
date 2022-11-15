@@ -120,33 +120,35 @@ class PostWidget extends StatelessWidget {
                 ),
               ),
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                post.imageUrl ?? '',
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const Center(
-                    child: CupertinoActivityIndicator(),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return Center(
-                      child: Column(
-                    children: [
-                      const Icon(
-                        Iconsax.image4,
-                        color: ColorsManger.error,
-                      ),
-                      Text(
-                        'Error loading image',
-                        style: getRegularTextStyle(
-                            fontSize: 12, color: ColorsManger.error),
-                      ).paddingOnly(bottom: 10)
-                    ],
-                  ));
-                },
+            FadeIn(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  post.imageUrl ?? '',
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(
+                      child: CupertinoActivityIndicator(),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(
+                        child: Column(
+                      children: [
+                        const Icon(
+                          Iconsax.image4,
+                          color: ColorsManger.error,
+                        ),
+                        Text(
+                          'Error loading image',
+                          style: getRegularTextStyle(
+                              fontSize: 12, color: ColorsManger.error),
+                        ).paddingOnly(bottom: 10)
+                      ],
+                    ));
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 8.0),

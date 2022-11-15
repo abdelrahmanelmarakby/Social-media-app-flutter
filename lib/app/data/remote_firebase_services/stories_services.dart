@@ -31,4 +31,13 @@ class StoriesServices {
     });
     print("A story => ${story.toString()} added to user : $uid");
   }
+
+  Stream<QuerySnapshot> getUserStories(String uid) {
+    return _firestore
+        .collection("Users")
+        .doc(uid)
+        .collection("Story")
+        .orderBy("createdAt", descending: true)
+        .snapshots();
+  }
 }
