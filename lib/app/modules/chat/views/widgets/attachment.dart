@@ -62,18 +62,24 @@ class Attachment {
                 fluff = value;
               },
               expands: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: const Icon(Iconsax.attach_square),
+                  iconSize: 25.0,
+                  color: ColorsManger.primary,
+                  onPressed: () {
+                    attachmentDialog(context);
+                  },
+                ),
+                prefixIcon: IconButton(
+                  icon: const Icon(Iconsax.emoji_happy),
+                  iconSize: 25.0,
+                  color: ColorsManger.primary,
+                  onPressed: () {},
+                ),
                 hintText: 'Send a message',
               ),
             ),
-          ),
-          IconButton(
-            icon: const Icon(Iconsax.attach_square),
-            iconSize: 25.0,
-            color: ColorsManger.primary,
-            onPressed: () {
-              attachmentDialog(context);
-            },
           ),
           IconButton(
             icon: const Icon(Iconsax.send_14),
@@ -310,15 +316,13 @@ class Attachment {
       /* uploadTask.events.listen((StorageTaskEvent snapshot) {
         double _progress = (snapshot.snapshot.bytesTransferred.round() * 100) /
             snapshot.snapshot.totalByteCount.round();
-
         this.percent = '${_progress.round()}';
         print('${_progress.round()}');
       });*/
-      var storageTaskSnapshot = await uploadTask;
 
+      TaskSnapshot storageTaskSnapshot = await uploadTask;
       var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
       final String url = downloadUrl.toString();
-
       Navigator.pop(context);
       postMsg(image: url);
       print(url);

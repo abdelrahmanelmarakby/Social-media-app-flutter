@@ -15,6 +15,7 @@ dependencies:
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
+  emoji_picker_flutter: ^1.5.0
   file_picker: ^5.2.2
   firebase_auth: ^4.1.1
   firebase_core: ^2.1.1
@@ -58,6 +59,7 @@ dependencies:
   shimmer: ^2.0.0
   story_view: ^0.14.0
   timeago: ^3.3.0
+  twemoji: ^0.4.3
   url_launcher: ^6.1.6
   video_thumbnail: ^0.5.3
   video_viewer: ^1.2.7

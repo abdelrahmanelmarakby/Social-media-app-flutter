@@ -19,6 +19,8 @@ class PostModel {
   String? userId;
   String? userName;
   String? userPhotoUrl;
+  String? sharedFrom;
+  String? sharedComment;
   DateTime? createdAt;
   List<Comment>? comments;
   List<Reaction>? reactions;
@@ -30,6 +32,8 @@ class PostModel {
     this.userId,
     this.userName,
     this.userPhotoUrl,
+    this.sharedFrom,
+    this.sharedComment,
     this.createdAt,
     this.comments,
     this.reactions,
@@ -43,6 +47,8 @@ class PostModel {
     String? userId,
     String? userName,
     String? userPhotoUrl,
+    String? sharedFrom,
+    String? sharedComment,
     DateTime? createdAt,
     List<Comment>? comments,
     List<Reaction>? reactions,
@@ -55,6 +61,8 @@ class PostModel {
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
       userPhotoUrl: userPhotoUrl ?? this.userPhotoUrl,
+      sharedFrom: sharedFrom ?? this.sharedFrom,
+      sharedComment: sharedComment ?? this.sharedComment,
       createdAt: createdAt ?? this.createdAt,
       comments: comments ?? this.comments,
       reactions: reactions ?? this.reactions,
@@ -64,16 +72,42 @@ class PostModel {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'id': id});
-    result.addAll({'title': title});
-    result.addAll({'description': description});
-    result.addAll({'imageUrl': imageUrl});
-    result.addAll({'userId': userId});
-    result.addAll({'userName': userName});
-    result.addAll({'userPhotoUrl': userPhotoUrl});
-    result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
-    result.addAll({'comments': comments!.map((x) => x.toMap()).toList()});
-    result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
+    if (id != null) {
+      result.addAll({'id': id});
+    }
+    if (title != null) {
+      result.addAll({'title': title});
+    }
+    if (description != null) {
+      result.addAll({'description': description});
+    }
+    if (imageUrl != null) {
+      result.addAll({'imageUrl': imageUrl});
+    }
+    if (userId != null) {
+      result.addAll({'userId': userId});
+    }
+    if (userName != null) {
+      result.addAll({'userName': userName});
+    }
+    if (userPhotoUrl != null) {
+      result.addAll({'userPhotoUrl': userPhotoUrl});
+    }
+    if (sharedFrom != null) {
+      result.addAll({'sharedFrom': sharedFrom});
+    }
+    if (sharedComment != null) {
+      result.addAll({'sharedComment': sharedComment});
+    }
+    if (createdAt != null) {
+      result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
+    }
+    if (comments != null) {
+      result.addAll({'comments': comments!.map((x) => x.toMap()).toList()});
+    }
+    if (reactions != null) {
+      result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
+    }
 
     return result;
   }
@@ -87,6 +121,8 @@ class PostModel {
       userId: map['userId'],
       userName: map['userName'],
       userPhotoUrl: map['userPhotoUrl'],
+      sharedFrom: map['sharedFrom'],
+      sharedComment: map['sharedComment'],
       createdAt: map['createdAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
           : null,
@@ -107,7 +143,7 @@ class PostModel {
 
   @override
   String toString() {
-    return 'PostModel(id: $id, title: $title, description: $description, imageUrl: $imageUrl, userId: $userId, userName: $userName, userPhotoUrl: $userPhotoUrl, createdAt: $createdAt, comments: $comments, reactions: $reactions)';
+    return 'PostModel(id: $id, title: $title, description: $description, imageUrl: $imageUrl, userId: $userId, userName: $userName, userPhotoUrl: $userPhotoUrl, sharedFrom: $sharedFrom, sharedComment: $sharedComment, createdAt: $createdAt, comments: $comments, reactions: $reactions)';
   }
 
   @override
@@ -122,6 +158,8 @@ class PostModel {
         other.userId == userId &&
         other.userName == userName &&
         other.userPhotoUrl == userPhotoUrl &&
+        other.sharedFrom == sharedFrom &&
+        other.sharedComment == sharedComment &&
         other.createdAt == createdAt &&
         listEquals(other.comments, comments) &&
         listEquals(other.reactions, reactions);
@@ -136,6 +174,8 @@ class PostModel {
         userId.hashCode ^
         userName.hashCode ^
         userPhotoUrl.hashCode ^
+        sharedFrom.hashCode ^
+        sharedComment.hashCode ^
         createdAt.hashCode ^
         comments.hashCode ^
         reactions.hashCode;

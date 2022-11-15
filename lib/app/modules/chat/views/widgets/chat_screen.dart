@@ -53,6 +53,7 @@ class ChatScreenX extends StatelessWidget {
   Widget build(BuildContext context) {
     final getFluffs = Provider.of<List<PrivateMessage>>(context);
     return Scaffold(
+      // backgroundColor: Colors.blue.shade100,
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
