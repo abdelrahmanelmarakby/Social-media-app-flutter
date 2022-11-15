@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -144,18 +143,16 @@ class SignupController extends GetxController {
         UserService.myUser = await UserService()
             .addUser(
                 user: SocialMediaUser(
-                    uid: userCredential.user?.uid,
-                    firstName: firstName.text,
-                    email: userCredential.user?.email,
-                    photoUrl: imageUploadedUrl,
-                    phoneNumber: userCredential.user!.phoneNumber,
-                    lastName: lastName.text,
-                    posts: <PostModel>[],
-                    following: [],
-                    followers: [],
-                    address: '',
-                    stories: <Story>[],
-                    comments: <Comment>[]))
+          uid: userCredential.user?.uid,
+          firstName: firstName.text,
+          email: userCredential.user?.email,
+          photoUrl: imageUploadedUrl,
+          phoneNumber: userCredential.user!.phoneNumber,
+          lastName: lastName.text,
+          following: [],
+          followers: [],
+          address: '',
+        ))
             .then((user) async {
           if (user.uid != null) {
             await ContactsService.getAllRegisterdContacts();

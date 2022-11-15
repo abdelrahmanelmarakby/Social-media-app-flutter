@@ -2,10 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:future_chat/app/data/models/post_model.dart';
-
-import 'notification_model.dart';
-
 //Social Media User Model
 class SocialMediaUser {
   String? firstName;
@@ -17,10 +13,6 @@ class SocialMediaUser {
   String? phoneNumber;
   String? address;
   String? bio;
-  List<Comment>? comments;
-  List<PostModel>? posts;
-  List<Notification>? notifications;
-  List<Story>? stories;
   List<String>? following;
   List<String>? followers;
 
@@ -36,10 +28,6 @@ class SocialMediaUser {
     this.phoneNumber,
     this.address,
     this.bio,
-    this.comments,
-    this.posts,
-    this.notifications,
-    this.stories,
     this.following,
     this.followers,
   });
@@ -54,10 +42,6 @@ class SocialMediaUser {
     String? phoneNumber,
     String? address,
     String? bio,
-    List<Comment>? comments,
-    List<PostModel>? posts,
-    List<Notification>? notifications,
-    List<Story>? stories,
     List<String>? following,
     List<String>? followers,
   }) {
@@ -71,10 +55,6 @@ class SocialMediaUser {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       address: address ?? this.address,
       bio: bio ?? this.bio,
-      comments: comments ?? this.comments,
-      posts: posts ?? this.posts,
-      notifications: notifications ?? this.notifications,
-      stories: stories ?? this.stories,
       following: following ?? this.following,
       followers: followers ?? this.followers,
     );
@@ -110,19 +90,6 @@ class SocialMediaUser {
     if (bio != null) {
       result.addAll({'bio': bio});
     }
-    if (comments != null) {
-      result.addAll({'comments': comments!.map((x) => x.toMap()).toList()});
-    }
-    if (posts != null) {
-      result.addAll({'posts': posts!.map((x) => x.toMap()).toList()});
-    }
-    if (notifications != null) {
-      result.addAll(
-          {'notifications': notifications!.map((x) => x.toMap()).toList()});
-    }
-    if (stories != null) {
-      result.addAll({'stories': stories!.map((x) => x.toMap()).toList()});
-    }
     if (following != null) {
       result.addAll({'following': following});
     }
@@ -144,19 +111,6 @@ class SocialMediaUser {
       phoneNumber: map['phoneNumber'],
       address: map['address'],
       bio: map['bio'],
-      comments: map['comments'] != null
-          ? List<Comment>.from(map['comments']?.map((x) => Comment.fromMap(x)))
-          : null,
-      posts: map['posts'] != null
-          ? List<PostModel>.from(map['posts']?.map((x) => PostModel.fromMap(x)))
-          : null,
-      notifications: map['notifications'] != null
-          ? List<Notification>.from(
-              map['notifications']?.map((x) => Notification.fromMap(x)))
-          : null,
-      stories: map['stories'] != null
-          ? List<Story>.from(map['stories']?.map((x) => Story.fromMap(x)))
-          : null,
       following: List<String>.from(map['following']),
       followers: List<String>.from(map['followers']),
     );
@@ -169,7 +123,7 @@ class SocialMediaUser {
 
   @override
   String toString() {
-    return 'SocialMediaUser(firstName: $firstName, lastName: $lastName, email: $email, photoUrl: $photoUrl, provider: $provider, uid: $uid, phoneNumber: $phoneNumber, address: $address, bio: $bio, comments: $comments, posts: $posts, notifications: $notifications, stories: $stories, following: $following, followers: $followers)';
+    return 'SocialMediaUser(firstName: $firstName, lastName: $lastName, email: $email, photoUrl: $photoUrl, provider: $provider, uid: $uid, phoneNumber: $phoneNumber, address: $address, bio: $bio, following: $following, followers: $followers)';
   }
 
   @override
@@ -186,10 +140,6 @@ class SocialMediaUser {
         other.phoneNumber == phoneNumber &&
         other.address == address &&
         other.bio == bio &&
-        listEquals(other.comments, comments) &&
-        listEquals(other.posts, posts) &&
-        listEquals(other.notifications, notifications) &&
-        listEquals(other.stories, stories) &&
         listEquals(other.following, following) &&
         listEquals(other.followers, followers);
   }
@@ -205,10 +155,6 @@ class SocialMediaUser {
         phoneNumber.hashCode ^
         address.hashCode ^
         bio.hashCode ^
-        comments.hashCode ^
-        posts.hashCode ^
-        notifications.hashCode ^
-        stories.hashCode ^
         following.hashCode ^
         followers.hashCode;
   }

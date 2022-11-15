@@ -91,9 +91,6 @@ class ContactsService extends GetxService {
           bio: value.data()?['bio'],
           followers: value.data()?['followers'],
           following: value.data()?['following'],
-          posts: value.data()?['posts'],
-          stories: value.data()?['stories'],
-          comments: value.data()?['comments'],
           address: value.data()?['address'],
         );
       });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
-import 'package:future_chat/app/modules/add_post/views/add_post_view.dart';
+import 'package:future_chat/app/modules/add_post_bottom_sheet/views/add_post_bottom_sheet_view.dart';
 import 'package:future_chat/app/modules/chat/views/chat_history.dart';
 import 'package:future_chat/app/modules/home/views/home_view.dart';
 import 'package:future_chat/app/modules/notifications/views/notifications_view.dart';
@@ -33,7 +33,7 @@ class BottomNavBarController extends GetxController {
         }
       case 2:
         {
-          _currentScreen = const AddPostView();
+          _currentScreen = const AddPostBottomSheetView();
           break;
         }
       case 3:

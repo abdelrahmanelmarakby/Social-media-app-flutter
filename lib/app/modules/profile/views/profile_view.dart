@@ -102,21 +102,21 @@ class ProfileStats extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Column(
-          children: [
-            const Text("Stories"),
-            Text((UserService.myUser?.stories?.length ?? 0).toString())
+          children: const [
+            Text("Stories"),
+            //    Text((UserService.myUser?.stories?.length ?? 0).toString())
           ],
         ),
         Column(
-          children: [
-            const Text("Posts"),
-            Text((UserService.myUser?.posts?.length ?? 0).toString())
+          children: const [
+            Text("Posts"),
+            //   Text((UserService.myUser?.posts?.length ?? 0).toString())
           ],
         ),
         Column(
-          children: [
-            const Text("Comments"),
-            Text((UserService.myUser?.comments?.length ?? 0).toString())
+          children: const [
+            Text("Comments"),
+            //   Text((UserService.myUser?.comments?.length ?? 0).toString())
           ],
         ),
         InkWell(
