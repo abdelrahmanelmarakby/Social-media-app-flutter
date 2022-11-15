@@ -71,16 +71,21 @@ ThemeData getApplicationTheme() {
         unselectedLabelStyle: getRegularTextStyle(
             color: ColorsManger.grey, fontSize: FontSize.medium)),
     textTheme: TextTheme(
+      // ignore: deprecated_member_use
       headline1: getMediumTextStyle(
           color: ColorsManger.darkGrey, fontSize: AppSize.size18),
+      // ignore: deprecated_member_use
       subtitle1: getMediumTextStyle(
           color: ColorsManger.grey, fontSize: AppSize.size16),
+      // ignore: deprecated_member_use
       subtitle2: getMediumTextStyle(
           color: ColorsManger.darkGrey, fontSize: AppSize.size14),
+      // ignore: deprecated_member_use
       caption: getMediumTextStyle(
         color: ColorsManger.darkGrey,
         fontSize: AppSize.size18,
       ),
+      // ignore: deprecated_member_use
       bodyText1: getRegularTextStyle(color: ColorsManger.grey),
     ),
     inputDecorationTheme: InputDecorationTheme(

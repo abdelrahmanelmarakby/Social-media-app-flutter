@@ -13,7 +13,7 @@ class AuthView extends GetView<AuthController> {
         title: const Text('AuthView'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'AuthView is working',
           style: TextStyle(fontSize: 20),

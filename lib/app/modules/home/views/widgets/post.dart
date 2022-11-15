@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
+import '../../../../../core/resourses/styles_manger.dart';
 import 'reaction_button.dart';
 import 'share_bottom_sheet.dart';
 
@@ -59,7 +60,27 @@ class PostWidget extends StatelessWidget {
               ),
               title: const Text('Meta Misr'),
               subtitle: const Text('4 hours ago'),
-              trailing: const Icon(Icons.more_vert),
+              trailing: PopupMenuButton(
+                shape:  RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0)),
+                initialValue: 3,
+                itemBuilder:(BuildContext context)=>
+                <PopupMenuEntry>[
+                  PopupMenuItem(
+                      child: Text('Unfollow Meta Misr posts',
+                        style: getMediumTextStyle(fontSize: 11,
+                            color: ColorsManger.grey),)),
+                  PopupMenuItem(
+                      child: Text('Report post',
+                        style: getMediumTextStyle(fontSize: 11,
+                            color: ColorsManger.grey),)),
+                  PopupMenuItem(
+                      child: Text('Copy link',
+                        style: getMediumTextStyle(fontSize: 11,
+                            color: ColorsManger.grey),)),
+
+                ],
+              ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/add_post/bindings/add_post_binding.dart';
 import '../modules/add_post/views/add_post_view.dart';
+import '../modules/add_post_bottom_sheet/bindings/add_post_bottom_sheet_binding.dart';
+import '../modules/add_post_bottom_sheet/views/add_post_bottom_sheet_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/bottom_nav_bar/bindings/bottom_nav_bar_binding.dart';
@@ -10,6 +12,8 @@ import '../modules/chats/bindings/chats_binding.dart';
 import '../modules/chats/views/chats_view.dart';
 import '../modules/comments/bindings/comments_binding.dart';
 import '../modules/comments/views/comments_view.dart';
+import '../modules/create_post_bottom_sheet/bindings/create_post_bottom_sheet_binding.dart';
+import '../modules/create_post_bottom_sheet/views/create_post_bottom_sheet_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/intro/bindings/intro_binding.dart';
@@ -30,6 +34,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
+  // ignore: constant_identifier_names
   static const INITIAL = Routes.HOME;
 
   static final routes = [
@@ -92,6 +97,16 @@ class AppPages {
       name: _Paths.ADD_POST,
       page: () => const AddPostView(),
       binding: AddPostBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_POST_BOTTOM_SHEET,
+      page: () => const AddPostBottomSheetView(),
+      binding: AddPostBottomSheetBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_POST_BOTTOM_SHEET,
+      page: () => const CreatePostBottomSheetView(),
+      binding: CreatePostBottomSheetBinding(),
     ),
   ];
 }

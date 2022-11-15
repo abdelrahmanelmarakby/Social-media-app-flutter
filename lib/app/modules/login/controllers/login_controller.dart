@@ -49,6 +49,7 @@ class LoginController extends GetxController {
         timeout: const Duration(seconds: 70),
         phoneNumber: phone,
         verificationCompleted: (AuthCredential authCredential) {
+          // ignore: avoid_print
           print("Login Successfully");
           if (auth.currentUser != null) {
             authUserID = auth.currentUser!.uid;
@@ -63,6 +64,7 @@ class LoginController extends GetxController {
           Get.log(authException.message.toString());
         },
         codeSent: (String id, [int? forceResent]) {
+          // ignore: avoid_print
           print("Code Sent $id");
 
           isLoading.value = false;
@@ -80,6 +82,7 @@ class LoginController extends GetxController {
   Future<bool> otpVerify(String otp) async {
     isLoading.value = true;
     try {
+      // ignore: avoid_print
       print("trying to verify");
 
       UserCredential userCredential = await auth.signInWithCredential(

@@ -50,6 +50,7 @@ class _CheckSigningInState extends State<CheckSigningIn> {
         if (snapshot.hasData) {
           UserService.myUser = snapshot.data;
           // Get.offAllNamed(Routes.BOTTOM_NAV_BAR);
+          // ignore: unused_local_variable
           BottomNavBarController controller = Get.put(BottomNavBarController());
           return const BottomNavBarView();
         } else {

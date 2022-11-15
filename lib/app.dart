@@ -49,6 +49,7 @@ class MyAppState extends State<MyApp> {
           try {
             //    Get.back();
           } catch (e) {
+            // ignore: avoid_print
             print(e);
           }
         }

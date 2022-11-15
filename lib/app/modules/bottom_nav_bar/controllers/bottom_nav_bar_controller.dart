@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:future_chat/app/modules/add_post/views/add_post_view.dart';
+import 'package:future_chat/app/modules/add_post_bottom_sheet/views/add_post_bottom_sheet_view.dart';
 import 'package:future_chat/app/modules/chats/views/chats_view.dart';
 import 'package:future_chat/app/modules/home/views/home_view.dart';
 import 'package:future_chat/app/modules/notifications/views/notifications_view.dart';
@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 class BottomNavBarController extends GetxController {
   Widget _currentScreen = const HomeView();
 
+  // ignore: non_constant_identifier_names
   get CurrentScreen => _currentScreen;
 
   int _navIndex = 0;
@@ -28,7 +29,7 @@ class BottomNavBarController extends GetxController {
         }
       case 2:
         {
-          _currentScreen = const AddPostView();
+          Get.bottomSheet(const AddPostBottomSheetView());
           break;
         }
       case 3:

@@ -75,9 +75,11 @@ class ReactionButton extends StatelessWidget {
             ],
           ),
           onReactionSelected: (val) {
+            // ignore: avoid_print
             print(val.name);
           },
           onPressed: () {
+            // ignore: avoid_print
             print("Pressed");
           },
           dragSpace: 50.0,

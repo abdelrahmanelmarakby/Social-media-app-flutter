@@ -36,7 +36,7 @@ class ShareBottomSheetView extends GetView<ShareBottomSheetController> {
           children: [
             Padding(padding: const EdgeInsets.only(left:21,top: 30),
                     child:Row(
-                  children:  [
+                    children:  [
                     const SizedBox(height: 50,width: 50,
                       child:CircleAvatar() ,) ,
                     const SizedBox(width: 10,),

@@ -13,7 +13,7 @@ class NotificationsView extends GetView<NotificationsController> {
         title: const Text('NotificationsView'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'NotificationsView is working',
           style: TextStyle(fontSize: 20),

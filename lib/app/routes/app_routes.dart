@@ -17,6 +17,8 @@ abstract class Routes {
   static const SHARE_BOTTOM_SHEET = _Paths.SHARE_BOTTOM_SHEET;
   static const COMMENTS = _Paths.COMMENTS;
   static const ADD_POST = _Paths.ADD_POST;
+  static const ADD_POST_BOTTOM_SHEET = _Paths.ADD_POST_BOTTOM_SHEET;
+  static const CREATE_POST_BOTTOM_SHEET = _Paths.CREATE_POST_BOTTOM_SHEET;
 }
 
 abstract class _Paths {
@@ -33,4 +35,6 @@ abstract class _Paths {
   static const SHARE_BOTTOM_SHEET = '/share-bottom-sheet';
   static const COMMENTS = '/comments';
   static const ADD_POST = '/add-post';
+  static const ADD_POST_BOTTOM_SHEET = '/add-post-bottom-sheet';
+  static const CREATE_POST_BOTTOM_SHEET = '/create-post-bottom-sheet';
 }

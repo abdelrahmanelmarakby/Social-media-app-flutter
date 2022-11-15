@@ -13,7 +13,7 @@ class ChatsView extends GetView<ChatsController> {
         title: const Text('ChatsView'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'ChatsView is working',
           style: TextStyle(fontSize: 20),
