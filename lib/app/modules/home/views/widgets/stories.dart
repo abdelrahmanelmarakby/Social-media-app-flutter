@@ -22,16 +22,18 @@ class Stories extends StatelessWidget {
   Widget build(BuildContext context) {
     return Directionality(
         textDirection: TextDirection.ltr,
-        child: StreamBuilder(
-          stream:
-              StoriesServices().getUserStories(UserService.myUser?.uid ?? ''),
+        child: FutureBuilder(
+          future: StoriesServices().getAllUserStories([
+            UserService.myUser?.uid ?? '',
+            ...UserService.myUser?.following ?? [],
+          ]),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Story> stories = [];
               snapshot.data?.docs.map((e) {
                 stories.add(Story.fromMap(e.data() as Map<String, dynamic>));
               }).toList();
-              Get.log(stories.toString());
+              // Get.log("User Stories :$stories");
               return StoryList(
                 itemBuilder: (context, index) {
                   return InkWell(

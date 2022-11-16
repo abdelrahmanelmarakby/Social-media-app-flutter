@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../../../core/resourses/color_manger.dart';
@@ -22,16 +23,21 @@ class PostList extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Expanded(
-        child: StreamBuilder(
-          stream: PostService().getUserPost(
-            UserService.myUser?.uid ?? '',
+        child: FutureBuilder(
+          future: PostService().getAllUserPosts(
+            [
+              ...UserService.myUser?.following ?? [],
+              UserService.myUser?.uid ?? '',
+            ],
           ),
           builder: (context, snapshot) {
-            List<PostModel> posts = [];
-            snapshot.data?.docs.map((e) {
-              posts.add(PostModel.fromMap(e.data() as Map<String, dynamic>));
-            }).toList();
+            //  Get.log("User Posts :$posts");
             if (snapshot.hasData) {
+              List<PostModel> posts = [];
+              snapshot.data?.docs.map((e) {
+                posts.add(PostModel.fromMap(e.data() as Map<String, dynamic>));
+              }).toList();
+              Get.log("User Posts :$posts");
               return ListView.builder(
                 itemCount: posts.length,
                 itemBuilder: (context, index) {
@@ -158,16 +164,25 @@ class PostWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ReactionButton(),
-                  Row(
-                    children: [
-                      const CircleAvatar(
-                          backgroundColor: ColorsManger.grey1,
-                          child: Icon(Iconsax.message)),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text("${post.comments?.length}"),
-                    ],
+                  InkWell(
+                    onTap: () {
+                      Get.bottomSheet(
+                        const CommentsView(),
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        const CircleAvatar(
+                            backgroundColor: ColorsManger.grey1,
+                            child: Icon(Iconsax.message)),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text("${post.comments?.length}"),
+                      ],
+                    ),
                   ),
                   InkWell(
                     onTap: () => Get.bottomSheet(

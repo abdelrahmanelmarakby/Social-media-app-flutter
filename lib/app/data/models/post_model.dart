@@ -9,6 +9,7 @@ enum PostReactions { like, love, haha, wow, sad, angry }
 
 class PostModel {
   String? id;
+  String? uid;
   String? title;
   String? description;
   String? imageUrl;
@@ -20,6 +21,7 @@ class PostModel {
   List<Reaction>? reactions;
   PostModel({
     this.id,
+    this.uid,
     this.title,
     this.description,
     this.imageUrl,
@@ -33,6 +35,7 @@ class PostModel {
 
   PostModel copyWith({
     String? id,
+    String? uid,
     String? title,
     String? description,
     String? imageUrl,
@@ -45,6 +48,7 @@ class PostModel {
   }) {
     return PostModel(
       id: id ?? this.id,
+      uid: uid ?? this.uid,
       title: title ?? this.title,
       description: description ?? this.description,
       imageUrl: imageUrl ?? this.imageUrl,
@@ -62,6 +66,9 @@ class PostModel {
 
     if (id != null) {
       result.addAll({'id': id});
+    }
+    if (uid != null) {
+      result.addAll({'uid': uid});
     }
     if (title != null) {
       result.addAll({'title': title});
@@ -97,6 +104,7 @@ class PostModel {
   factory PostModel.fromMap(Map<String, dynamic> map) {
     return PostModel(
       id: map['id'],
+      uid: map['uid'],
       title: map['title'],
       description: map['description'],
       imageUrl: map['imageUrl'],
@@ -123,7 +131,7 @@ class PostModel {
 
   @override
   String toString() {
-    return 'PostModel(id: $id, title: $title, description: $description, imageUrl: $imageUrl, user: $user, sharedFrom: $sharedFrom, sharedComment: $sharedComment, createdAt: $createdAt, comments: $comments, reactions: $reactions)';
+    return 'PostModel(id: $id, uid: $uid, title: $title, description: $description, imageUrl: $imageUrl, user: $user, sharedFrom: $sharedFrom, sharedComment: $sharedComment, createdAt: $createdAt, comments: $comments, reactions: $reactions)';
   }
 
   @override
@@ -132,6 +140,7 @@ class PostModel {
 
     return other is PostModel &&
         other.id == id &&
+        other.uid == uid &&
         other.title == title &&
         other.description == description &&
         other.imageUrl == imageUrl &&
@@ -146,6 +155,7 @@ class PostModel {
   @override
   int get hashCode {
     return id.hashCode ^
+        uid.hashCode ^
         title.hashCode ^
         description.hashCode ^
         imageUrl.hashCode ^
@@ -160,6 +170,8 @@ class PostModel {
 
 class Comment {
   String? id;
+
+  String? uid;
   String? postId;
   SocialMediaUser? user;
   String? commentImageUrl;
@@ -168,6 +180,7 @@ class Comment {
   List<Reaction>? reactions;
   Comment({
     this.id,
+    this.uid,
     this.postId,
     this.user,
     this.commentImageUrl,
@@ -178,6 +191,7 @@ class Comment {
 
   Comment copyWith({
     String? id,
+    String? uid,
     String? postId,
     SocialMediaUser? user,
     String? commentImageUrl,
@@ -187,6 +201,7 @@ class Comment {
   }) {
     return Comment(
       id: id ?? this.id,
+      uid: uid ?? this.uid,
       postId: postId ?? this.postId,
       user: user ?? this.user,
       commentImageUrl: commentImageUrl ?? this.commentImageUrl,
@@ -201,6 +216,9 @@ class Comment {
 
     if (id != null) {
       result.addAll({'id': id});
+    }
+    if (uid != null) {
+      result.addAll({'uid': uid});
     }
     if (postId != null) {
       result.addAll({'postId': postId});
@@ -227,6 +245,7 @@ class Comment {
   factory Comment.fromMap(Map<String, dynamic> map) {
     return Comment(
       id: map['id'],
+      uid: map['uid'],
       postId: map['postId'],
       user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
       commentImageUrl: map['commentImageUrl'],
@@ -248,7 +267,7 @@ class Comment {
 
   @override
   String toString() {
-    return 'Comment(id: $id, postId: $postId, user: $user, commentImageUrl: $commentImageUrl, comment: $comment, createdAt: $createdAt, reactions: $reactions)';
+    return 'Comment(id: $id, uid: $uid, postId: $postId, user: $user, commentImageUrl: $commentImageUrl, comment: $comment, createdAt: $createdAt, reactions: $reactions)';
   }
 
   @override
@@ -257,6 +276,7 @@ class Comment {
 
     return other is Comment &&
         other.id == id &&
+        other.uid == uid &&
         other.postId == postId &&
         other.user == user &&
         other.commentImageUrl == commentImageUrl &&
@@ -268,6 +288,7 @@ class Comment {
   @override
   int get hashCode {
     return id.hashCode ^
+        uid.hashCode ^
         postId.hashCode ^
         user.hashCode ^
         commentImageUrl.hashCode ^
@@ -280,12 +301,15 @@ class Comment {
 class Reaction {
   String? id;
   String? postId;
+
+  String? uid;
   SocialMediaUser? user;
   String? reaction;
   DateTime? createdAt;
   Reaction({
     this.id,
     this.postId,
+    this.uid,
     this.user,
     this.reaction,
     this.createdAt,
@@ -294,6 +318,7 @@ class Reaction {
   Reaction copyWith({
     String? id,
     String? postId,
+    String? uid,
     SocialMediaUser? user,
     String? reaction,
     DateTime? createdAt,
@@ -301,6 +326,7 @@ class Reaction {
     return Reaction(
       id: id ?? this.id,
       postId: postId ?? this.postId,
+      uid: uid ?? this.uid,
       user: user ?? this.user,
       reaction: reaction ?? this.reaction,
       createdAt: createdAt ?? this.createdAt,
@@ -315,6 +341,9 @@ class Reaction {
     }
     if (postId != null) {
       result.addAll({'postId': postId});
+    }
+    if (uid != null) {
+      result.addAll({'uid': uid});
     }
     if (user != null) {
       result.addAll({'user': user!.toMap()});
@@ -333,6 +362,7 @@ class Reaction {
     return Reaction(
       id: map['id'],
       postId: map['postId'],
+      uid: map['uid'],
       user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
       reaction: map['reaction'],
       createdAt: map['createdAt'] != null
@@ -348,7 +378,7 @@ class Reaction {
 
   @override
   String toString() {
-    return 'Reaction(id: $id, postId: $postId, user: $user, reaction: $reaction, createdAt: $createdAt)';
+    return 'Reaction(id: $id, postId: $postId, uid: $uid, user: $user, reaction: $reaction, createdAt: $createdAt)';
   }
 
   @override
@@ -358,6 +388,7 @@ class Reaction {
     return other is Reaction &&
         other.id == id &&
         other.postId == postId &&
+        other.uid == uid &&
         other.user == user &&
         other.reaction == reaction &&
         other.createdAt == createdAt;
@@ -367,6 +398,7 @@ class Reaction {
   int get hashCode {
     return id.hashCode ^
         postId.hashCode ^
+        uid.hashCode ^
         user.hashCode ^
         reaction.hashCode ^
         createdAt.hashCode;
@@ -375,12 +407,14 @@ class Reaction {
 
 class Story {
   String? id;
+  String? uid;
   SocialMediaUser? user;
   String? storyImageUrl;
   String? storyText;
   DateTime? createdAt;
   Story({
     this.id,
+    this.uid,
     this.user,
     this.storyImageUrl,
     this.storyText,
@@ -389,6 +423,7 @@ class Story {
 
   Story copyWith({
     String? id,
+    String? uid,
     SocialMediaUser? user,
     String? storyImageUrl,
     String? storyText,
@@ -396,6 +431,7 @@ class Story {
   }) {
     return Story(
       id: id ?? this.id,
+      uid: uid ?? this.uid,
       user: user ?? this.user,
       storyImageUrl: storyImageUrl ?? this.storyImageUrl,
       storyText: storyText ?? this.storyText,
@@ -408,6 +444,9 @@ class Story {
 
     if (id != null) {
       result.addAll({'id': id});
+    }
+    if (uid != null) {
+      result.addAll({'uid': uid});
     }
     if (user != null) {
       result.addAll({'user': user!.toMap()});
@@ -428,6 +467,7 @@ class Story {
   factory Story.fromMap(Map<String, dynamic> map) {
     return Story(
       id: map['id'],
+      uid: map['uid'],
       user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
       storyImageUrl: map['storyImageUrl'],
       storyText: map['storyText'],
@@ -443,7 +483,7 @@ class Story {
 
   @override
   String toString() {
-    return 'Story(id: $id, user: $user, storyImageUrl: $storyImageUrl, storyText: $storyText, createdAt: $createdAt)';
+    return 'Story(id: $id, uid: $uid, user: $user, storyImageUrl: $storyImageUrl, storyText: $storyText, createdAt: $createdAt)';
   }
 
   @override
@@ -452,6 +492,7 @@ class Story {
 
     return other is Story &&
         other.id == id &&
+        other.uid == uid &&
         other.user == user &&
         other.storyImageUrl == storyImageUrl &&
         other.storyText == storyText &&
@@ -461,6 +502,7 @@ class Story {
   @override
   int get hashCode {
     return id.hashCode ^
+        uid.hashCode ^
         user.hashCode ^
         storyImageUrl.hashCode ^
         storyText.hashCode ^
