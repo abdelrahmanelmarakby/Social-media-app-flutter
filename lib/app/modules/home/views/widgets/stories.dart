@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/stories_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 import 'package:story_view/story_view.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import '../../controllers/home_controller.dart';
-
-import 'package:flutter_story_list/flutter_story_list.dart';
 
 // ignore: must_be_immutable
 class Stories extends StatelessWidget {
@@ -104,5 +104,6 @@ class Stories extends StatelessWidget {
             }
           },
         ));
+
   }
 }
