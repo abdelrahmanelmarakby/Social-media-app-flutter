@@ -8,10 +8,14 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../core/resourses/font_manger.dart';
 import '../controllers/add_post_controller.dart';
 
+var height = 310;
+
 class AddPostView extends GetView<AddPostController> {
   const AddPostView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final isKeyboard = MediaQuery.of(context).viewInsets.bottom!=0;
+
     return Scaffold(
         body: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,14 +131,18 @@ class AddPostView extends GetView<AddPostController> {
         const SizedBox(
           height: 30,
         ),
-        LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-           return ColumnItem();
-
-           if (constraints.maxHeight< 310 )  {
-            return RowItem();
-          }
-        })
+        Column(
+          children: [
+            LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              if (!isKeyboard) {
+                return ColumnItem();
+              } else {
+                return RowItem();
+              }
+            })
+          ],
+        )
       ],
     ).paddingOnly(left: 10, right: 10, top: 30));
   }

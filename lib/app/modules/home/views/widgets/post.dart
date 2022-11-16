@@ -38,28 +38,36 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeInUp(
       child: Container(
+        
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
+          
+         // boxShadow: [
+           // BoxShadow(
+             // color: Colors.black.withOpacity(0.1),
+            //  spreadRadius: 5,
+            //  blurRadius: 10,
+            //  offset: const Offset(0, 3), // changes position of shadow
+            //),
+          //],
         ),
+        
+        
         child: Column(
           children: [
+          
             ListTile(
               leading: CircleAvatar(
                 radius: 30,
                 backgroundImage: NetworkImage(
                     'https://picsum.photos/${(index * 100) + 500}'),
               ),
-              title: const Text('Meta Misr'),
-              subtitle: const Text('4 hours ago'),
+              title:  Text('Meta Misr',
+              style: getBoldTextStyle(color: ColorsManger.black) ,),
+              subtitle:  Text('4 hours ago',
+              style: getMediumTextStyle(
+                color: ColorsManger.grey,fontSize: 12),),
               trailing: PopupMenuButton(
                 shape:  RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0)),
@@ -108,7 +116,7 @@ class PostWidget extends StatelessWidget {
                   Row(
                     children: const [
                       CircleAvatar(
-                          backgroundColor: ColorsManger.grey1,
+                          backgroundColor: ColorsManger.light,
                           child: Icon(Iconsax.message)),
                       SizedBox(
                         width: 5,
@@ -132,8 +140,8 @@ class PostWidget extends StatelessWidget {
                     child: Row(
                       children: const [
                         CircleAvatar(
-                            backgroundColor: ColorsManger.grey1,
-                            child: Icon(Iconsax.share)),
+                            backgroundColor: ColorsManger.light,
+                            child: Icon(Iconsax.export)),
                         SizedBox(
                           width: 5,
                         ),
@@ -145,6 +153,12 @@ class PostWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8.0),
+            const Divider(
+              color: ColorsManger.light,
+            height: 20,
+            thickness: 1,
+            indent: 10,
+            endIndent: 10,)
           ],
         ),
       ).paddingAll(10),

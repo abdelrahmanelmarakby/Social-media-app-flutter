@@ -110,7 +110,10 @@ class ChatScreenX extends StatelessWidget {
           ),
         ],
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Padding(padding: EdgeInsets.only(left: 2)),
             Container(
               height: 40,
               width: 40,
@@ -133,14 +136,15 @@ class ChatScreenX extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            Text(
+            Padding(padding: const EdgeInsets.only(right: 5),
+            child:  Text(
               hisName == "" ? "no name" : hisName,
               style: getMediumTextStyle(
 //fontSize: Dimensions.getDesirableWidth(5),
-                fontSize: FontSize.xlarge,
+                fontSize: FontSize.large,
                 color: ColorsManger.black,
               ),
-            ),
+            ),),
           ],
         ),
       ),
@@ -181,8 +185,10 @@ class ChatScreenX extends StatelessWidget {
                                   child: Text(
                                     '${msg.time?.day}/${msg.time?.month}/${msg.time?.year}',
                                     style: const TextStyle(
-                                        color: ColorsManger.grey,
-                                        fontWeight: FontWeight.w600),
+                                        color: ColorsManger.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12
+                                        ),
                                   ),
                                 )),
                           )
