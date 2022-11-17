@@ -55,7 +55,6 @@ class ChatScreenX extends StatelessWidget {
     return Scaffold(
       // backgroundColor: Colors.blue.shade100,
       appBar: AppBar(
-        centerTitle: true,
         elevation: 0.0,
         title: Text(
           hisName,
@@ -78,12 +77,12 @@ class ChatScreenX extends StatelessWidget {
                   child: ListView.builder(
                     reverse: true,
                     itemCount: getFluffs != null ? getFluffs.length : 0,
-                    padding: const EdgeInsets.only(
+                   // padding: const EdgeInsets.only(
                         //  bottom: Dimensions.getDesirableHeight(2.2),
                         //  right: Dimensions.getDesirableHeight(1.2),
                         // left: Dimensions.getDesirableHeight(1.2),
                         // top: Dimensions.getDesirableHeight(2.2)),
-                        ),
+                      //  ),
                     itemBuilder: (context, index) {
                       final PrivateMessage? old = index != getFluffs.length - 1
                           ? getFluffs[index + 1]
@@ -100,15 +99,16 @@ class ChatScreenX extends StatelessWidget {
                               ? Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: Card(
-                                      color: ColorsManger.grey1,
+                                      color: ColorsManger.light,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5),
                                         child: Text(
                                           '${msg.time!.day}/${msg.time!.month}/${msg.time!.year}',
                                           style: const TextStyle(
-                                              color: Colors.white70,
-                                              fontWeight: FontWeight.w600),
+                                              color: Colors.black,
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w600,),
                                         ),
                                       )),
                                 )

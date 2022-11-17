@@ -95,8 +95,11 @@ class PostWidget extends StatelessWidget {
                 ),
               ),
 
-              title: Text('${post.user?.firstName} ${post.user?.lastName}'),
-              subtitle: Text(timeago.format(post.createdAt!, locale: 'en')),
+              title: Text('${post.user?.firstName} ${post.user?.lastName}',
+              style: getBoldTextStyle(color: ColorsManger.black)),
+              subtitle: Text(timeago.format(post.createdAt!, locale: 'en',),
+                   style: getMediumTextStyle(
+                color: ColorsManger.grey,fontSize: 12)),
 
               trailing: PopupMenuButton(
                 shape: RoundedRectangleBorder(

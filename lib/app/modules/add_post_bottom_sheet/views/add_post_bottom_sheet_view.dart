@@ -24,16 +24,16 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 30,
+                height: 25,
               ),
               Text('Add',
                   style: getBoldTextStyle(
                     fontSize: 20,
                     color: ColorsManger.black,
-                  )),
+                  )).paddingOnly(right: 10),
               Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   child: Row(
                     children: [
                       SizedBox(
@@ -51,7 +51,7 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
                         ),
                       ),
                       const SizedBox(
-                        width: 15,
+                        width: 20,
                       ),
                       InkWell(
                         onTap: () {
@@ -66,7 +66,7 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
                   )),
               Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   child: Row(
                     children: [
                       SizedBox(
@@ -84,7 +84,7 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
                         ),
                       ),
                       const SizedBox(
-                        width: 15,
+                        width: 20,
                       ),
                       InkWell(onTap:(){},
                       child:Text(
@@ -94,6 +94,7 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
                       ,
                     ],
                   )),
+                  const SizedBox(height: 20,)
             ]),
       ),
     );

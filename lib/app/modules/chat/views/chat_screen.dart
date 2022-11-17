@@ -57,19 +57,32 @@ class ChatScreenX extends StatelessWidget {
   Widget build(BuildContext context) {
     final getFluffs = Provider.of<List<PrivateMessage>>(context);
     return Scaffold(
-      backgroundColor: Colors.blue.withOpacity(.1),
+      backgroundColor:const Color(0xFFCAF0F8).withOpacity(.3),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        centerTitle: true,
         elevation: 0.0,
         leading: IconButton(
           icon: const Icon(
             Iconsax.arrow_left_2,
-            color: Colors.black,
+            color: Colors.black,size: 24,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
+        ),
+        title: ListTile(
+          leading: CircleAvatar(radius: 20,
+            backgroundImage:NetworkImage(hisImage,
+              ) ,),
+
+            title:Text(
+              hisName == "" ? "no name" : hisName,
+              style: getMediumTextStyle(
+               // fontSize: Dimensions.getDesirableWidth(5),
+                fontSize: FontSize.large,
+                color: ColorsManger.black,
+              ),
+            ),
         ),
         actions: [
           IconButton(
@@ -109,44 +122,6 @@ class ChatScreenX extends StatelessWidget {
             ),
           ),
         ],
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Padding(padding: EdgeInsets.only(left: 2)),
-            Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.black,
-                  width: 2.0,
-                ),
-              ),
-              child: Image.network(
-                hisImage,
-                fit: BoxFit.cover,
-                height: 50,
-                width: 50,
-                errorBuilder: (context, error, stackTrace) => const Icon(
-                  Iconsax.user,
-                  color: ColorsManger.black,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Padding(padding: const EdgeInsets.only(right: 5),
-            child:  Text(
-              hisName == "" ? "no name" : hisName,
-              style: getMediumTextStyle(
-//fontSize: Dimensions.getDesirableWidth(5),
-                fontSize: FontSize.large,
-                color: ColorsManger.black,
-              ),
-            ),),
-          ],
-        ),
       ),
       body: SafeArea(
         child: GestureDetector(
@@ -157,12 +132,12 @@ class ChatScreenX extends StatelessWidget {
                 child: ListView.builder(
                   reverse: true,
                   itemCount: getFluffs != null ? getFluffs.length : 0,
-                  padding: const EdgeInsets.only(
+                  //padding: const EdgeInsets.only(
                       //  bottom: Dimensions.getDesirableHeight(2.2),
                       //  right: Dimensions.getDesirableHeight(1.2),
                       // left: Dimensions.getDesirableHeight(1.2),
                       // top: Dimensions.getDesirableHeight(2.2)),
-                      ),
+                     // ),
                   itemBuilder: (context, index) {
                     final PrivateMessage? old = index != getFluffs.length - 1
                         ? getFluffs[index + 1]

@@ -109,6 +109,7 @@ class Attachment {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+              const SizedBox(height: 10,),
               dialogBtn(
                   icon: Iconsax.image,
                   text: 'Image',
@@ -144,7 +145,8 @@ class Attachment {
                     Get.back();
                     sendMyLocationToStorage(ctx);
                   }),
-            ],
+                  const SizedBox(height: 20,),
+                  ],
           ),
         ));
   }
@@ -362,22 +364,22 @@ class Attachment {
         onTap: () => onTap(),
         child: ListTile(
           leading: CircleAvatar(
-            radius: 35,
-            backgroundColor: ColorsManger.primary.withOpacity(.1),
+            radius: 30,
+            backgroundColor: ColorsManger.light,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(
                 icon,
                 color: ColorsManger.primary,
-                size: 35,
+                size: 24,
               ),
             ),
           ),
           title: Text(
             text,
             style: getMediumTextStyle(
-              color: ColorsManger.primary,
-              fontSize: FontSize.large,
+              color: ColorsManger.black,
+              fontSize: 16,
             ),
           ),
         ),
