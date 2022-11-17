@@ -67,11 +67,13 @@ class ReactionButton extends StatelessWidget {
         FlutterFeedReaction(
           reactions: _reactions,
           prefix: Row(
+
             children: [
               const CircleAvatar(
-                  backgroundColor: ColorsManger.grey1,
-                  child: Icon(Iconsax.like)),
+                  backgroundColor: ColorsManger.light,
+                  child: Icon(Iconsax.like_1)),
               const SizedBox(
+
                 width: 5,
               ),
               Text(reactionCount.toString()),

@@ -24,7 +24,7 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 30,
+                height: 25,
               ),
               Text('Add',
                   style: getBoldTextStyle(

@@ -63,6 +63,7 @@ dependencies:
   url_launcher: ^6.1.6
   video_thumbnail: ^0.5.3
   video_viewer: ^1.2.7
+  advstory: ^0.2.1
 
 dev_dependencies:
   flutter_lints: 2.0.1
