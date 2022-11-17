@@ -154,9 +154,10 @@ class _MessageBuilderState extends State<MessageBuilder> {
               ),
               Text(
                 '$hour:${msg.time?.minute} $amPm',
-                style: TextStyle(
+                style: const TextStyle(
                     //   fontSize: Dimensions.getDesirableWidth(3),
-                    color: Colors.grey.shade200,
+                    color: Colors.grey,
+                    fontSize: 11,
                     fontWeight: FontWeight.w600),
               ),
             ],

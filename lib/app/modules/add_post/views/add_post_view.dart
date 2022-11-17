@@ -134,14 +134,18 @@ class AddPostView extends GetView<AddPostController> {
           height: 30,
         ),
 
-        LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-          return ColumnItem();
-
-          if (constraints.maxHeight < 310) {
-            return RowItem();
-          }
-        })
+        Column(
+          children: [
+            LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              if (!isKeyboard) {
+                return ColumnItem();
+              } else {
+                return RowItem();
+              }
+            })
+          ],
+        )
 
       ],
     ).paddingOnly(left: 10, right: 10, top: 30));
