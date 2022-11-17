@@ -31,69 +31,74 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
                     fontSize: 20,
                     color: ColorsManger.black,
                   )),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 46,
-                        width: 46,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: ColorsManger.light,
-                          ),
-                          child: const Icon(
-                            Iconsax.magicpen,
-                            color: ColorsManger.primary,
+              InkWell(
+                onTap: () {
+                  Get.to(() => const AddPostView());
+                },
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 35, vertical: 15),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 46,
+                          width: 46,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: ColorsManger.light,
+                            ),
+                            child: const Icon(
+                              Iconsax.magicpen,
+                              color: ColorsManger.primary,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => const AddPostView());
-                        },
-                        child: Text(
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Text(
                           'Add post',
                           style: getRegularTextStyle(fontSize: FontSize.medium),
-                        ),
-                      )
-                    ],
-                  )),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 46,
-                        width: 46,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: ColorsManger.light,
+                        )
+                      ],
+                    )),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 35, vertical: 15),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 46,
+                          width: 46,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: ColorsManger.light,
+                            ),
+                            child: const Icon(
+                              Iconsax.story,
+                              color: ColorsManger.primary,
+                            ),
                           ),
-                          child: const Icon(
-                            Iconsax.story,
-                            color: ColorsManger.primary,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: Text(
+                            'Add story',
+                            style:
+                                getRegularTextStyle(fontSize: FontSize.medium),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      InkWell(onTap:(){},
-                      child:Text(
-                        'Add story',
-                        style: getRegularTextStyle(fontSize: FontSize.medium),
-                      ) , )
-                      ,
-                    ],
-                  )),
+                      ],
+                    )),
+              ),
             ]),
       ),
     );
