@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../modules/add_post/views/add_post_view.dart';
 import '../modules/add_post_bottom_sheet/bindings/add_post_bottom_sheet_binding.dart';
 import '../modules/add_post_bottom_sheet/views/add_post_bottom_sheet_view.dart';
@@ -8,6 +9,8 @@ import '../modules/bottom_nav_bar/bindings/bottom_nav_bar_binding.dart';
 import '../modules/bottom_nav_bar/views/bottom_nav_bar_view.dart';
 import '../modules/create_post_bottom_sheet/bindings/create_post_bottom_sheet_binding.dart';
 import '../modules/create_post_bottom_sheet/views/create_post_bottom_sheet_view.dart';
+import '../modules/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/intro/bindings/intro_binding.dart';
@@ -16,6 +19,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
+import '../modules/other_profile/bindings/other_profile_binding.dart';
+import '../modules/other_profile/views/other_profile_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/share_bottom_sheet/bindings/share_bottom_sheet_binding.dart';
@@ -90,6 +95,16 @@ class AppPages {
       name: _Paths.CREATE_POST_BOTTOM_SHEET,
       page: () => const CreatePostBottomSheetView(),
       binding: CreatePostBottomSheetBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFILE,
+      page: () => const EditProfileView(),
+      binding: EditProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTHER_PROFILE,
+      page: () => const OtherProfileView(),
+      binding: OtherProfileBinding(),
     ),
   ];
 }
