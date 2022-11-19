@@ -5,30 +5,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class AddPostController extends GetxController {
   late TextEditingController postEditingController;
-  Rx<File> image = Rx<File>(File(""));
-  String imageUrl = '';
-  addImageToPost(ImageSource imageSource) async {
+  File image = File("");
+  RxString imageUrl = ''.obs;
+  Future<String> addImageToPost(ImageSource imageSource) async {
     ImagePicker imagePicker = ImagePicker();
     imagePicker.pickImage(source: imageSource, imageQuality: 100);
     final pickedFile = await imagePicker.pickImage(source: imageSource);
     if (pickedFile != null) {
-      image.value = File(pickedFile.path);
-
-      FirebaseStorage.instance
+      DateTime now = DateTime.now();
+      var datestamp = DateFormat("yyyyMMdd'T'HHmmss");
+      String currentdate = datestamp.format(now);
+      image = File(pickedFile.path);
+      final Reference ref = FirebaseStorage.instance
           .ref()
-          .child('postImages/${UserService.myUser!.uid}/${DateTime.now()}')
-          .putFile(File(pickedFile.path));
+          .child('postImages')
+          .child(UserService.myUser!.uid ?? "")
+          .child(currentdate);
+      UploadTask task = ref.putFile(image);
+      await task.whenComplete(() async {
+        imageUrl.value = await ref.getDownloadURL();
+        Get.log(imageUrl.value);
+      });
 
-      imageUrl = await FirebaseStorage.instance
-          .ref()
-          .child('postImages/${UserService.myUser!.uid}/${DateTime.now()}')
-          .getDownloadURL();
-      update();
-      return imageUrl;
+      return imageUrl.value;
     }
+    return imageUrl.value;
   }
 
   @override

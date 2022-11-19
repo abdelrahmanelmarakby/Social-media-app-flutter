@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
@@ -60,15 +61,29 @@ class CommentsView extends GetView<CommentsController> {
                                 const BorderRadius.all(Radius.circular(10))),
                         child: Column(
                           children: [
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    comments[index].user?.photoUrl ?? ""),
+                            SizedBox(
+                              height: 300,
+                              child: Column(
+                                children: [
+                                  if (comments[index].commentImageUrl != null)
+                                    Image.network(
+                                      comments[index].commentImageUrl ?? "",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          comments[index].user?.photoUrl ?? ""),
+                                    ),
+                                    title: Text(comments[index]
+                                            .user
+                                            ?.firstName ??
+                                        " ${comments[index].user?.lastName}"),
+                                    subtitle:
+                                        Text("${comments[index].comment}"),
+                                  ),
+                                ],
                               ),
-                              title: Text(comments[index].user?.firstName ??
-                                  " ${comments[index].user?.lastName}" ??
-                                  ""),
-                              subtitle: Text("${comments[index].comment}"),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 70),
@@ -117,11 +132,15 @@ class CommentsView extends GetView<CommentsController> {
                       child: TextFormField(
                         minLines: 1,
                         maxLines: 3,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           filled: true,
                           fillColor: ColorsManger.white,
                           hintText: 'add a comment',
                           border: InputBorder.none,
+                          suffixIcon: InkWell(
+                            onTap: () {},
+                            child: const Icon(FontAwesomeIcons.image),
+                          ),
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           errorBorder: InputBorder.none,

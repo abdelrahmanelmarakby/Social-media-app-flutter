@@ -8,13 +8,13 @@ import 'widgets/recent_chats.dart';
 class ChatHistory extends StatelessWidget {
   final String myId;
 
-  ChatHistory({required this.myId});
+  const ChatHistory({required this.myId});
 
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<ChatRoom>>.value(
       value: PrivateChatService(myId: myId, hisId: '').getLastChatUser,
-      initialData: [],
+      initialData: const [],
       child: RecentChats(
         myId: myId,
       ),

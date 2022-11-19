@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
@@ -53,11 +54,20 @@ class ImageWidget extends GetWidget<AddPostController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => controller.image.value.path != ''
+    return Obx(() => controller.imageUrl.value != ''
         ? ClipRRect(
-            child: Image.file(
-              controller.image.value,
+            child: Image.network(
+              controller.imageUrl.value,
               fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const Center(
+                  child: CupertinoActivityIndicator(),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) => const Center(
+                child: Icon(CupertinoIcons.photo_fill_on_rectangle_fill),
+              ),
             ).paddingSymmetric(horizontal: 20),
           )
         : const SizedBox());
@@ -187,7 +197,7 @@ class AddPostAppBar extends GetWidget<AddPostController> {
                           title: controller.postEditingController.text,
                           user: UserService.myUser,
                           description: controller.postEditingController.text,
-                          imageUrl: controller.imageUrl,
+                          imageUrl: controller.imageUrl.value,
                           uid: UserService.myUser?.uid ?? ""),
                       UserService.myUser?.uid ?? "");
                 },
@@ -236,8 +246,8 @@ Widget ColumnItem(
                 width: 20,
               ),
               InkWell(
-                onTap: () {
-                  controller.addImageToPost(ImageSource.gallery);
+                onTap: () async {
+                  await controller.addImageToPost(ImageSource.gallery);
                 },
                 child: Text(
                   'Media',
@@ -268,8 +278,8 @@ Widget ColumnItem(
                 width: 20,
               ),
               InkWell(
-                onTap: () {
-                  controller.addImageToPost(ImageSource.camera);
+                onTap: () async {
+                  await controller.addImageToPost(ImageSource.camera);
                 },
                 child: Text(
                   'Camera',
@@ -334,8 +344,8 @@ Widget RowItem(
               Iconsax.gallery,
               color: ColorsManger.primary,
             ),
-            onPressed: () {
-              controller.addImageToPost(ImageSource.gallery);
+            onPressed: () async {
+              await controller.addImageToPost(ImageSource.gallery);
             },
           ),
         ),
@@ -356,8 +366,8 @@ Widget RowItem(
               Iconsax.camera,
               color: ColorsManger.primary,
             ),
-            onPressed: () {
-              controller.addImageToPost(ImageSource.camera);
+            onPressed: () async {
+              await controller.addImageToPost(ImageSource.camera);
             },
           ),
         ),

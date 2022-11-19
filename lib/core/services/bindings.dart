@@ -11,9 +11,7 @@ import 'package:get/get.dart';
 class InitialBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AddPostController>(
-      () => AddPostController(),
-    );
+    Get.lazyPut<AddPostController>(() => AddPostController(), fenix: true);
     Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
     Get.lazyPut<ProfileController>(() => ProfileController());
     Get.lazyPut<NotificationsController>(() => NotificationsController());

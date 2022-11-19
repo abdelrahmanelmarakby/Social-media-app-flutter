@@ -17,7 +17,7 @@ import '../chat_screen.dart';
 class RecentChats extends StatefulWidget {
   String myId;
 
-  RecentChats({this.myId = ""});
+  RecentChats({super.key, this.myId = ""});
 
   @override
   _RecentChatsState createState() => _RecentChatsState();
@@ -25,12 +25,6 @@ class RecentChats extends StatefulWidget {
 
 class _RecentChatsState extends State<RecentChats> {
   // UserModel? user;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,16 +97,14 @@ class _RecentChatsState extends State<RecentChats> {
           )
         ],
       ),
-      body: Container(
-        child: ListView.builder(
-          itemCount: getRecentChat.isNotEmpty ? getRecentChat.length : 0,
-          padding: const EdgeInsets.only(top: 10),
-          itemBuilder: (context, index) {
-            final ChatRoom chatRoom = getRecentChat[index];
+      body: ListView.builder(
+        itemCount: getRecentChat.isNotEmpty ? getRecentChat.length : 0,
+        padding: const EdgeInsets.only(top: 10),
+        itemBuilder: (context, index) {
+          final ChatRoom chatRoom = getRecentChat[index];
 
-            return rowChat(context, chatRoom);
-          },
-        ),
+          return rowChat(context, chatRoom);
+        },
       ),
     );
   }

@@ -45,7 +45,6 @@ class PrivateChatService {
       String? bName,
       String? aImage,
       String? bImage}) async {
-    print('55555555555555 $aImage');
     try {
       final snapShot = await chatCollection.doc(getRoomId()).get();
       final newPrivateMessage =
@@ -71,7 +70,6 @@ class PrivateChatService {
           await newPrivateMessage
               .set(privateMessage.toJson())
               .then((doc) async {
-            print('hop ${newPrivateMessage.id}');
             //update the chat room
             await chatCollection.doc(getRoomId()).update({
               'lastChat': privateMessage.time,
@@ -82,18 +80,12 @@ class PrivateChatService {
               'aImage': aImage,
               'bImage': bImage
             });
-          }).catchError((error) {
-            print(error);
-          });
+          }).catchError((error) {});
 
           return true;
-        }).catchError((error) {
-          print(error);
-        });
+        }).catchError((error) {});
       } else {
         await newPrivateMessage.set(privateMessage!.toJson()).then((doc) async {
-          print('hop ${newPrivateMessage.id}');
-
           //update the chat room
           await chatCollection.doc(getRoomId()).update({
             'lastChat': privateMessage.time,
@@ -104,12 +96,8 @@ class PrivateChatService {
             'aImage': aImage,
             'bImage': bImage
           });
-        }).catchError((error) {
-          print(error);
-        });
+        }).catchError((error) {});
       }
-    } catch (error) {
-      print(error.toString());
-    }
+    } catch (error) {}
   }
 }

@@ -15,6 +15,7 @@ class PostService {
         post.copyWith(uid: uid, id: documentReference.id).toMap(),
       );
     });
+    print("Post $post Added");
   }
 
   static updatePost(String postId, PostModel post) {
@@ -35,6 +36,7 @@ class PostService {
   }
 
   Future<QuerySnapshot<Object?>> getAllUserPosts(List<String> uids) {
+    print("uids $uids");
     return _firestore
         .collection("Posts")
         .orderBy("createdAt", descending: true)
