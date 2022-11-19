@@ -19,6 +19,8 @@ abstract class Routes {
   static const ADD_POST = _Paths.ADD_POST;
   static const ADD_POST_BOTTOM_SHEET = _Paths.ADD_POST_BOTTOM_SHEET;
   static const CREATE_POST_BOTTOM_SHEET = _Paths.CREATE_POST_BOTTOM_SHEET;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const OTHER_PROFILE = _Paths.OTHER_PROFILE;
 }
 
 abstract class _Paths {
@@ -37,4 +39,6 @@ abstract class _Paths {
   static const ADD_POST = '/add-post';
   static const ADD_POST_BOTTOM_SHEET = '/add-post-bottom-sheet';
   static const CREATE_POST_BOTTOM_SHEET = '/create-post-bottom-sheet';
+  static const EDIT_PROFILE = '/edit-profile';
+  static const OTHER_PROFILE = '/other-profile';
 }

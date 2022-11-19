@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
+import '../../other_profile/views/other_profile_view.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/post.dart';
