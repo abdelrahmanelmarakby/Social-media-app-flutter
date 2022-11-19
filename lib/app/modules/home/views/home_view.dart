@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/core/resourses/color_manger.dart';
 
 import 'package:get/get.dart';
 
@@ -14,11 +15,15 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const HomeAppBar(),
-        body: Column(
-          children: [
-            Stories(),
-            const PostList(),
-          ],
+        body: RefreshIndicator(
+          onRefresh: () => Get.forceAppUpdate(),
+          color: ColorsManger.primary,
+          child: Column(
+            children: [
+              Stories(),
+              const PostList(),
+            ],
+          ),
         ));
   }
 }

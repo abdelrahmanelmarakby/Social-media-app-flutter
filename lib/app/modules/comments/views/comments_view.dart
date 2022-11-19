@@ -20,8 +20,8 @@ class CommentsView extends GetView<CommentsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: StreamBuilder<List<Comment>>(
-          stream: PostService().getComments(post.id ?? ""),
+        child: FutureBuilder<List<Comment>>(
+          future: PostService().getComments(post.id ?? ""),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Comment> comments = snapshot.data as List<Comment>;
@@ -151,6 +151,7 @@ class CommentsView extends GetView<CommentsController> {
                                           user: UserService.myUser,
                                           createdAt: DateTime.now()));
                                   _commentController.clear();
+                                  Get.forceAppUpdate();
                                 }
                               },
                               decoration: InputDecoration(
@@ -159,7 +160,7 @@ class CommentsView extends GetView<CommentsController> {
                                 hintText: 'Add a comment',
                                 border: InputBorder.none,
                                 suffixIcon: GestureDetector(
-                                  onTap: () {
+                                  onTap: () async {
                                     PostService.addCommentToPost(
                                         post.id ?? "",
                                         Comment(
@@ -169,6 +170,9 @@ class CommentsView extends GetView<CommentsController> {
                                         ));
 
                                     _commentController.clear();
+                                    await PostService()
+                                        .getComments(post.id ?? "");
+                                    await Get.forceAppUpdate();
                                   },
                                   child: const Icon(Iconsax.send1),
                                 ),

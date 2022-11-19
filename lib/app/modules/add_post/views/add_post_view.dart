@@ -11,6 +11,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/resourses/font_manger.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/add_post_controller.dart';
 
 var height = 310;
@@ -200,6 +201,8 @@ class AddPostAppBar extends GetWidget<AddPostController> {
                           imageUrl: controller.imageUrl.value,
                           uid: UserService.myUser?.uid ?? ""),
                       UserService.myUser?.uid ?? "");
+                  Get.offNamedUntil(Routes.BOTTOM_NAV_BAR, (route) => false);
+                  Get.forceAppUpdate();
                 },
                 child: const Center(
                     child: Text(

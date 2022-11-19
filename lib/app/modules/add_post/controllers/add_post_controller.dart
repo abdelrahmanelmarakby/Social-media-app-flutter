@@ -36,6 +36,7 @@ class AddPostController extends GetxController {
     return imageUrl.value;
   }
 
+  addPost() {}
   @override
   void onInit() {
     postEditingController = TextEditingController();
