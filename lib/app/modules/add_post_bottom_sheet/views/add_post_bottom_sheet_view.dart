@@ -7,6 +7,7 @@ import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/add_post_bottom_sheet_controller.dart';
 
 class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
@@ -65,7 +66,9 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
                     )),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(Routes.ADD_STORY);
+                },
                 child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 35, vertical: 15),
@@ -88,13 +91,9 @@ class AddPostBottomSheetView extends GetView<AddPostBottomSheetController> {
                         const SizedBox(
                           width: 15,
                         ),
-                        InkWell(
-                          onTap: () {},
-                          child: Text(
-                            'Add story',
-                            style:
-                                getRegularTextStyle(fontSize: FontSize.medium),
-                          ),
+                        Text(
+                          'Add story',
+                          style: getRegularTextStyle(fontSize: FontSize.medium),
                         ),
                       ],
                     )),

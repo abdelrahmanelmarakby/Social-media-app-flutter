@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../modules/add_post/views/add_post_view.dart';
 import '../modules/add_post_bottom_sheet/bindings/add_post_bottom_sheet_binding.dart';
 import '../modules/add_post_bottom_sheet/views/add_post_bottom_sheet_view.dart';
+import '../modules/add_story/bindings/add_story_binding.dart';
+import '../modules/add_story/views/add_story_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/bottom_nav_bar/bindings/bottom_nav_bar_binding.dart';
@@ -105,6 +107,11 @@ class AppPages {
       name: _Paths.OTHER_PROFILE,
       page: () => const OtherProfileView(),
       binding: OtherProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_STORY,
+      page: () => const AddStoryView(),
+      binding: AddStoryBinding(),
     ),
   ];
 }
