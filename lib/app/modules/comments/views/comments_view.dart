@@ -1,38 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/data/models/post_model.dart';
+import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
+import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../controllers/comments_controller.dart';
 
 class CommentsView extends GetView<CommentsController> {
   const CommentsView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            OutlinedButton(
-              onPressed: getComments,
-              child: const Text('Open'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void getComments() {
-    //List items=getCommentsList();
-    Get.bottomSheet(
-      enableDrag: true,
-      DraggableScrollableSheet(
-        initialChildSize: 0.95,
-        builder: (_, controller) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
@@ -54,10 +40,12 @@ class CommentsView extends GetView<CommentsController> {
             Expanded(
                 flex: 6,
                 child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: controller.postModel.comments?.length ?? 0,
                     keyboardDismissBehavior:
                         ScrollViewKeyboardDismissBehavior.onDrag,
                     itemBuilder: (context, index) {
+                      List<Comment> comments =
+                          controller.postModel.comments ?? [];
                       return Container(
                         decoration: BoxDecoration(
                             color: ColorsManger.white,
@@ -72,34 +60,24 @@ class CommentsView extends GetView<CommentsController> {
                                 const BorderRadius.all(Radius.circular(10))),
                         child: Column(
                           children: [
-                            const ListTile(
+                            ListTile(
                               leading: CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage("https://picsum.photos/400"),
+                                backgroundImage: NetworkImage(
+                                    comments[index].user?.photoUrl ?? ""),
                               ),
-                              title: Text("Jon Doe"),
-                              subtitle: Text("Great shot, i love iconst t"),
+                              title: Text(comments[index].user?.firstName ??
+                                  " ${comments[index].user?.lastName}" ??
+                                  ""),
+                              subtitle: Text("${comments[index].comment}"),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 70),
                               child: Row(
                                 children: [
                                   Text(
-                                    '2 min',
+                                    timeago.format(comments[index].createdAt!),
                                     style: getLightTextStyle(
                                         fontSize: 12, color: ColorsManger.grey),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  InkWell(
-                                    child: Text(
-                                      'Reply',
-                                      style: getLightTextStyle(
-                                          fontSize: 12,
-                                          color: ColorsManger.grey),
-                                    ),
-                                    onTap: () {},
                                   ),
                                   const SizedBox(
                                     width: 20,
@@ -129,12 +107,16 @@ class CommentsView extends GetView<CommentsController> {
                 color: ColorsManger.white,
                 child: Row(
                   children: [
-                    const CircleAvatar(
-                      backgroundImage:
-                          NetworkImage("https://picsum.photos/400"),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(UserService
+                              .myUser?.photoUrl ??
+                          "" ??
+                          "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"),
                     ),
                     Expanded(
                       child: TextFormField(
+                        minLines: 1,
+                        maxLines: 3,
                         decoration: const InputDecoration(
                           filled: true,
                           fillColor: ColorsManger.white,
@@ -145,7 +127,10 @@ class CommentsView extends GetView<CommentsController> {
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          PostService.updatePost(controller.postModel.id ?? "",
+                              controller.postModel);
+                        },
                       ),
                     )
                   ],
@@ -153,22 +138,8 @@ class CommentsView extends GetView<CommentsController> {
               ),
             ),
           ],
-        ),
-      ),
-      backgroundColor: ColorsManger.light,
-      elevation: 0,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+        ).paddingSymmetric(vertical: 15, horizontal: 15),
       ),
     );
-  }
-
-  List getCommentsList() {
-    List list = List.generate(10, (i) {
-      return "Item ${i + 1}";
-    });
-    return list;
   }
 }

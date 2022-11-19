@@ -1,8 +1,6 @@
+import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:get/get.dart';
 
 class CommentsController extends GetxController {
-
-  final count = 0.obs;
- 
-  void increment() => count.value++;
+  final PostModel postModel = Get.arguments ?? PostModel();
 }

@@ -1,4 +1,5 @@
 import 'package:future_chat/app/modules/add_post/controllers/add_post_controller.dart';
+import 'package:future_chat/app/modules/comments/controllers/comments_controller.dart';
 import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
 import 'package:future_chat/app/modules/intro/controllers/intro_controller.dart';
 import 'package:future_chat/app/modules/login/controllers/login_controller.dart';
@@ -19,5 +20,6 @@ class InitialBinding implements Bindings {
     Get.lazyPut<LoginController>(() => LoginController());
     Get.lazyPut<SignupController>(() => SignupController());
     Get.lazyPut<IntroController>(() => IntroController());
+    Get.lazyPut<CommentsController>(() => CommentsController());
   }
 }

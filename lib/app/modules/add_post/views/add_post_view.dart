@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/data/models/post_model.dart';
+import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/resourses/font_manger.dart';
 import '../controllers/add_post_controller.dart';
@@ -15,144 +18,199 @@ class AddPostView extends GetView<AddPostController> {
   const AddPostView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final isKeyboard = MediaQuery.of(context).viewInsets.bottom!=0;
+    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
 
     return Scaffold(
         body: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 20, left: 10),
-          child: Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Iconsax.arrow_left,
-                    color: ColorsManger.black,
-                  )),
-              const SizedBox(
-                width: 10,
-              ),
-              Text('Create Post',
-                  style: getMediumTextStyle(
-                    fontSize: 16,
-                    color: ColorsManger.black,
-                  )),
-              const SizedBox(
-                width: 120,
-              ),
-              Container(
-                width: 75,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: ColorsManger.primary,
-                ),
-                child: ButtonTheme(
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Center(
-                        child: Text(
-                      'Post',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal),
-                    )),
-                  ),
-                ),
-              ).paddingOnly(top: 10),
-            ],
-          ),
-        ),
-        Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(UserService.myUser?.photoUrl ?? ""),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
-                  style: getMediumTextStyle(
-                      fontSize: 14, color: ColorsManger.black),
-                )
-              ],
-            )),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 30,
-          ),
-          child: Container(
-            width: 347,
-            height: 131,
-            decoration: BoxDecoration(
-                color: ColorsManger.light,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(.1),
-                      offset: const Offset(1, -2),
-                      blurRadius: 5),
-                  BoxShadow(
-                      color: Colors.black.withOpacity(.1),
-                      offset: const Offset(-1, 2),
-                      blurRadius: 5)
-                ]),
-            child: SizedBox(
-              child: TextFormField(
-                minLines: 8,
-                maxLines: 12,
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: ColorsManger.light,
-                  hintText: 'what’s on your mind? ',
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                ),
-                onTap: () {},
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-
+        const AddPostAppBar(),
+        const UserInfoWidget(),
+        const PostTextField(),
+        const ImageWidget(),
         Column(
           children: [
             LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
               if (!isKeyboard) {
-                return ColumnItem();
+                return ColumnItem(controller);
               } else {
-                return RowItem();
+                return RowItem(controller);
               }
             })
           ],
         )
-
       ],
     ).paddingOnly(left: 10, right: 10, top: 30));
   }
 }
 
-Widget ColumnItem() {
+class ImageWidget extends GetWidget<AddPostController> {
+  const ImageWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => controller.image.value.path != ''
+        ? ClipRRect(
+            child: Image.file(
+              controller.image.value,
+              fit: BoxFit.cover,
+            ).paddingSymmetric(horizontal: 20),
+          )
+        : const SizedBox());
+  }
+}
+
+class PostTextField extends GetWidget<AddPostController> {
+  const PostTextField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Container(
+        decoration: BoxDecoration(
+            color: ColorsManger.light,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(.1),
+                  offset: const Offset(1, -2),
+                  blurRadius: 5),
+              BoxShadow(
+                  color: Colors.black.withOpacity(.1),
+                  offset: const Offset(-1, 2),
+                  blurRadius: 5)
+            ]),
+        child: SizedBox(
+          child: TextFormField(
+            controller: controller.postEditingController,
+            minLines: 4,
+            maxLines: 8,
+            maxLength: 250,
+            decoration: InputDecoration(
+              counterStyle: getLightTextStyle(),
+              filled: true,
+              //helperText: "Hi this is a helper widget",
+              fillColor: ColorsManger.light,
+              hintText: 'what’s on your mind? ',
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+            ),
+            onTap: () {},
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class UserInfoWidget extends StatelessWidget {
+  const UserInfoWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: Row(
+          children: [
+            SizedBox(
+              height: 50,
+              width: 50,
+              child: CircleAvatar(
+                backgroundImage:
+                    NetworkImage(UserService.myUser?.photoUrl ?? ""),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
+              style:
+                  getMediumTextStyle(fontSize: 14, color: ColorsManger.black),
+            )
+          ],
+        ));
+  }
+}
+
+class AddPostAppBar extends GetWidget<AddPostController> {
+  const AddPostAppBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20, left: 10),
+      child: Row(
+        children: [
+          IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(
+                Iconsax.arrow_left,
+                color: ColorsManger.black,
+              )),
+          const SizedBox(
+            width: 10,
+          ),
+          Text('Create Post',
+              style: getMediumTextStyle(
+                fontSize: 16,
+                color: ColorsManger.black,
+              )),
+          const Spacer(),
+          Container(
+            width: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: ColorsManger.primary,
+            ),
+            child: ButtonTheme(
+              child: TextButton(
+                onPressed: () {
+                  PostService.addPost(
+                      PostModel(
+                          title: controller.postEditingController.text,
+                          user: UserService.myUser,
+                          description: controller.postEditingController.text,
+                          imageUrl: controller.imageUrl,
+                          uid: UserService.myUser?.uid ?? ""),
+                      UserService.myUser?.uid ?? "");
+                },
+                child: const Center(
+                    child: Text(
+                  'Post',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal),
+                )),
+              ),
+            ),
+          ).paddingOnly(top: 10),
+        ],
+      ),
+    );
+  }
+}
+
+Widget ColumnItem(
+  AddPostController controller,
+) {
   return SingleChildScrollView(
       child: Column(
     children: [
@@ -178,7 +236,9 @@ Widget ColumnItem() {
                 width: 20,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  controller.addImageToPost(ImageSource.gallery);
+                },
                 child: Text(
                   'Media',
                   style: getRegularTextStyle(fontSize: FontSize.medium),
@@ -208,7 +268,9 @@ Widget ColumnItem() {
                 width: 20,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  controller.addImageToPost(ImageSource.camera);
+                },
                 child: Text(
                   'Camera',
                   style: getRegularTextStyle(fontSize: FontSize.medium),
@@ -246,41 +308,13 @@ Widget ColumnItem() {
               ),
             ],
           )),
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-          child: Row(
-            children: [
-              SizedBox(
-                height: 46,
-                width: 46,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: ColorsManger.light,
-                  ),
-                  child: const Icon(
-                    Iconsax.video,
-                    color: ColorsManger.primary,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  'Live video',
-                  style: getRegularTextStyle(fontSize: FontSize.medium),
-                ),
-              ),
-            ],
-          )),
     ],
   ));
 }
 
-Widget RowItem() {
+Widget RowItem(
+  AddPostController controller,
+) {
   return Expanded(
       child: Row(
     children: [
@@ -300,7 +334,9 @@ Widget RowItem() {
               Iconsax.gallery,
               color: ColorsManger.primary,
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.addImageToPost(ImageSource.gallery);
+            },
           ),
         ),
       ),
@@ -320,7 +356,9 @@ Widget RowItem() {
               Iconsax.camera,
               color: ColorsManger.primary,
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.addImageToPost(ImageSource.camera);
+            },
           ),
         ),
       ),
@@ -338,26 +376,6 @@ Widget RowItem() {
           child: IconButton(
             icon: const Icon(
               Iconsax.user_tag,
-              color: ColorsManger.primary,
-            ),
-            onPressed: () {},
-          ),
-        ),
-      ),
-      const SizedBox(
-        width: 50,
-      ),
-      SizedBox(
-        height: 46,
-        width: 46,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: ColorsManger.light,
-          ),
-          child: IconButton(
-            icon: const Icon(
-              Iconsax.video,
               color: ColorsManger.primary,
             ),
             onPressed: () {},
