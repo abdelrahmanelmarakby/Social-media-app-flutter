@@ -89,11 +89,12 @@ class PostModel {
       result.addAll({'sharedComment': sharedComment});
     }
     if (createdAt != null) {
-      result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
+      result.addAll({'createdAt': DateTime.now().millisecondsSinceEpoch});
     }
-    if (comments != null) {
-      result.addAll({'comments': comments!.map((x) => x.toMap()).toList()});
-    }
+
+    result
+        .addAll({'comments': (comments ?? []).map((x) => x.toMap()).toList()});
+
     if (reactions != null) {
       result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
     }

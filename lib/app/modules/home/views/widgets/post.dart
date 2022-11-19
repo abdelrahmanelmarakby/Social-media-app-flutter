@@ -68,25 +68,21 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeInUp(
       child: Container(
-        
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          
-         // boxShadow: [
-           // BoxShadow(
-             // color: Colors.black.withOpacity(0.1),
-            //  spreadRadius: 5,
-            //  blurRadius: 10,
-            //  offset: const Offset(0, 3), // changes position of shadow
-            //),
+
+          // boxShadow: [
+          // BoxShadow(
+          // color: Colors.black.withOpacity(0.1),
+          //  spreadRadius: 5,
+          //  blurRadius: 10,
+          //  offset: const Offset(0, 3), // changes position of shadow
+          //),
           //],
         ),
-        
-        
         child: Column(
           children: [
-          
             ListTile(
               leading: CircleAvatar(
                 radius: 30,
@@ -94,13 +90,15 @@ class PostWidget extends StatelessWidget {
                   post.user?.photoUrl ?? '',
                 ),
               ),
-
               title: Text('${post.user?.firstName} ${post.user?.lastName}',
-              style: getBoldTextStyle(color: ColorsManger.black)),
-              subtitle: Text(timeago.format(post.createdAt!, locale: 'en',),
-                   style: getMediumTextStyle(
-                color: ColorsManger.grey,fontSize: 12)),
-
+                  style: getBoldTextStyle(color: ColorsManger.black)),
+              subtitle: Text(
+                  timeago.format(
+                    post.createdAt!,
+                    locale: 'en',
+                  ),
+                  style: getMediumTextStyle(
+                      color: ColorsManger.grey, fontSize: 12)),
               trailing: PopupMenuButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0)),
@@ -174,11 +172,12 @@ class PostWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ReactionButton(),
-
                   InkWell(
                     onTap: () {
                       Get.bottomSheet(
-                        const CommentsView(),
+                        CommentsView(
+                          post: post,
+                        ),
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                       );
@@ -191,10 +190,11 @@ class PostWidget extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        Text("${post.comments?.length}"),
+                        Text((post.comments?.length ?? 0).toString(),
+                            style: getRegularTextStyle(
+                                fontSize: 12, color: ColorsManger.grey))
                       ],
                     ),
-
                   ),
                   InkWell(
                     onTap: () => Get.bottomSheet(
@@ -227,10 +227,11 @@ class PostWidget extends StatelessWidget {
             const SizedBox(height: 8.0),
             const Divider(
               color: ColorsManger.light,
-            height: 20,
-            thickness: 1,
-            indent: 10,
-            endIndent: 10,)
+              height: 20,
+              thickness: 1,
+              indent: 10,
+              endIndent: 10,
+            )
           ],
         ),
       ).paddingAll(10),
