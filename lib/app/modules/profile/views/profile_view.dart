@@ -6,6 +6,7 @@ import 'package:future_chat/app/data/remote_firebase_services/user_services.dart
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:future_chat/core/services/contacts_service.dart';
+import 'package:future_chat/app/modules/edit_profile/views/edit_profile_view.dart';
 
 import 'package:get/get.dart';
 
@@ -28,10 +29,11 @@ class ProfileView extends GetView<ProfileController> {
             ),
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               PopupMenuItem<String>(
-                value: '1',
-                child: const Text('Edit Profile'),
-                onTap: () => Get.offNamed(Routes.SIGNUP),
-              ),
+                  value: '1',
+                  child: const Text('Edit Profile'),
+                  onTap: () {
+                    Get.to(const EditProfileView());
+                  }),
               PopupMenuItem<String>(
                 onTap: () {
                   //sign out from firebase
