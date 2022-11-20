@@ -328,8 +328,7 @@ Widget ColumnItem(
 Widget RowItem(
   AddPostController controller,
 ) {
-  return Expanded(
-      child: Row(
+  return Row(
     children: [
       const SizedBox(
         width: 20,
@@ -396,5 +395,5 @@ Widget RowItem(
         ),
       ),
     ],
-  ));
+  );
 }

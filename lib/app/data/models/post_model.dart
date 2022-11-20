@@ -64,40 +64,21 @@ class PostModel {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    if (id != null) {
-      result.addAll({'id': id});
-    }
-    if (uid != null) {
-      result.addAll({'uid': uid});
-    }
-    if (title != null) {
-      result.addAll({'title': title});
-    }
-    if (description != null) {
-      result.addAll({'description': description});
-    }
-    if (imageUrl != null) {
-      result.addAll({'imageUrl': imageUrl});
-    }
-    if (user != null) {
-      result.addAll({'user': user!.toMap()});
-    }
-    if (sharedFrom != null) {
-      result.addAll({'sharedFrom': sharedFrom});
-    }
-    if (sharedComment != null) {
-      result.addAll({'sharedComment': sharedComment});
-    }
-    if (createdAt != null) {
-      result.addAll({'createdAt': DateTime.now().millisecondsSinceEpoch});
-    }
+    result.addAll({'id': id});
+    result.addAll({'uid': uid});
+    result.addAll({'title': title});
+    result.addAll({'description': description});
+    result.addAll({'imageUrl': imageUrl});
+    result.addAll({'user': user!.toMap()});
+    result.addAll({'sharedFrom': sharedFrom});
+    result.addAll({'sharedComment': sharedComment});
+    result.addAll({'createdAt': DateTime.now().millisecondsSinceEpoch});
 
     result
         .addAll({'comments': (comments ?? []).map((x) => x.toMap()).toList()});
 
-    if (reactions != null) {
-      result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
-    }
+    result.addAll(
+        {'reactions': (reactions ?? []).map((x) => x.toMap()).toList()});
 
     return result;
   }

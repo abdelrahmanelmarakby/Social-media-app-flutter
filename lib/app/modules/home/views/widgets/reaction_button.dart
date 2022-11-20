@@ -97,6 +97,15 @@ class ReactionButton extends StatelessWidget {
                 ));
           },
           onPressed: () {
+            PostService.addReactionToPost(
+                post.id ?? "",
+                Reaction(
+                  createdAt: DateTime.now(),
+                  reaction: PostReactions.like.name,
+                  user: UserService.myUser,
+                  postId: post.id,
+                  uid: UserService.myUser?.uid,
+                ));
             // ignore: avoid_print
             print("Pressed");
           },

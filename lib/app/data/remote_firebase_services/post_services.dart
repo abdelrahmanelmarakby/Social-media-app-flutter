@@ -40,7 +40,7 @@ class PostService {
       transaction.update(
         documentReference,
         {
-          "reactions": FieldValue.arrayUnion([reaction]),
+          "reactions": FieldValue.arrayUnion([reaction.toMap()]),
         },
       );
     });
