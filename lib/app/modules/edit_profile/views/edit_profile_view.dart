@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../core/resourses/color_manger.dart';
-import '../../../../core/resourses/font_manger.dart';
 import '../../../../core/resourses/styles_manger.dart';
+import '../../../data/remote_firebase_services/user_services.dart';
 import '../controllers/edit_profile_controller.dart';
 
 class EditProfileView extends GetView<EditProfileController> {
@@ -13,7 +13,7 @@ class EditProfileView extends GetView<EditProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body: Center(
+      body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -42,9 +42,12 @@ class EditProfileView extends GetView<EditProfileController> {
               height: 150,width: 150,
               child: Stack(
                 children: [
-                  const SizedBox(height: 150,width:150,
+                      SizedBox(height: 150,width:150,
                     child:  CircleAvatar(
-                      backgroundImage: NetworkImage("https://picsum.photos/600"),
+                      backgroundImage:  NetworkImage(
+
+                        UserService.myUser?.photoUrl ??''
+                        ),
                   ),
                   ),
                   Positioned(right: 5,
@@ -73,7 +76,8 @@ class EditProfileView extends GetView<EditProfileController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5,left: 25),
-                  child: Text('Sara Ahmed',
+                  child: Text(
+                    '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
                   style: getMediumTextStyle(color: ColorsManger.black,
                   fontSize: 18),),
                 ),
@@ -85,7 +89,7 @@ class EditProfileView extends GetView<EditProfileController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5,left: 25,bottom: 250),
-                  child: Text('UX designer',
+                  child: Text('${UserService.myUser?.bio}',
                   style: getMediumTextStyle(color: ColorsManger.black,
                   fontSize: 18),),
                 ),
