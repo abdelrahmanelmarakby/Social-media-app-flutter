@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/data/models/post_model.dart';
+import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class ShareBottomSheet extends StatelessWidget {
-  const ShareBottomSheet({Key? key}) : super(key: key);
+class ShareBottomSheet extends GetWidget<HomeController> {
+  const ShareBottomSheet({Key? key, required this.post}) : super(key: key);
+  final PostModel post;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,6 +45,7 @@ class ShareBottomSheet extends StatelessWidget {
               maxLines: 4,
               enableSuggestions: true,
               autocorrect: true,
+              controller: controller.sharedCommentEditingController,
               maxLength: 200,
               //autofocus: true,
               buildCounter: (BuildContext context,
@@ -84,11 +89,20 @@ class ShareBottomSheet extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             ListTile(
+              onTap: () {
+                PostService.addPost(
+                    post.copyWith(
+                        sharedFrom: post.user?.uid,
+                        sharedComment:
+                            controller.sharedCommentEditingController.text),
+                    UserService.myUser?.uid ?? '');
+                Get.back();
+              },
               leading: CircleAvatar(
                 backgroundColor: ColorsManger.primary.withOpacity(.1),
-                child: const Icon(Iconsax.copy),
+                child: const Icon(Iconsax.share),
               ),
-              title: const Text('Copy Link'),
+              title: const Text('Share Post'),
             ),
           ],
         ),

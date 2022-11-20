@@ -37,14 +37,38 @@ class PostList extends StatelessWidget {
               snapshot.data?.docs.map((e) {
                 posts.add(PostModel.fromMap(e.data() as Map<String, dynamic>));
               }).toList();
-              Get.log("User Posts :$posts");
               return ListView.builder(
                 itemCount: posts.length,
                 itemBuilder: (context, index) {
-                  return PostWidget(
-                    index: index,
-                    post: posts[index],
-                  );
+                  if (posts[index].sharedFrom != null) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network(
+                              posts[index].user?.photoUrl ?? '',
+                              fit: BoxFit.cover,
+                              width: 30,
+                              height: 30,
+                            ),
+                          ),
+                          title: Text(
+                              "${posts[index].user?.firstName ?? ''} ${posts[index].user?.lastName ?? ''}  Shared a Post",
+                              style: getRegularTextStyle(fontSize: 14)),
+                        ),
+                        PostWidget(
+                          index: index,
+                          post: posts[index],
+                        )
+                      ],
+                    );
+                  } else {
+                    return PostWidget(
+                      index: index,
+                      post: posts[index],
+                    );
+                  }
                 },
               );
             } else {
@@ -71,15 +95,6 @@ class PostWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-
-          // boxShadow: [
-          // BoxShadow(
-          // color: Colors.black.withOpacity(0.1),
-          //  spreadRadius: 5,
-          //  blurRadius: 10,
-          //  offset: const Offset(0, 3), // changes position of shadow
-          //),
-          //],
         ),
         child: Column(
           children: [
@@ -172,7 +187,11 @@ class PostWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ReactionButton(),
+                  ReactionButton(
+                    reactionCount: post.reactions?.length ?? 0,
+                    reactions: post.reactions ?? [],
+                    post: post,
+                  ),
                   InkWell(
                     onTap: () {
                       Get.bottomSheet(
@@ -199,7 +218,9 @@ class PostWidget extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () => Get.bottomSheet(
-                      const ShareBottomSheet(),
+                      ShareBottomSheet(
+                        post: post,
+                      ),
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
                       enableDrag: false,

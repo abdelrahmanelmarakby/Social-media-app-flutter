@@ -45,12 +45,26 @@ class Stories extends StatelessWidget {
                     stories
                         .add(Story.fromMap(e.data() as Map<String, dynamic>));
                   }).toList();
-                  print("User Stories :$stories");
+
+                  List<List<Story>> storiesForEachUser = stories
+                      .fold<List<List<Story>>>([], (previousValue, element) {
+                    if (previousValue.isEmpty) {
+                      previousValue.add([element]);
+                    } else {
+                      if (previousValue.last.last.uid == element.uid) {
+                        previousValue.last.add(element);
+                      } else {
+                        previousValue.add([element]);
+                      }
+                    }
+                    return previousValue;
+                  });
+
                   return SizedBox(
                       height: 70,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: stories.length,
+                        itemCount: storiesForEachUser.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
@@ -58,17 +72,42 @@ class Stories extends StatelessWidget {
                                     body: Directionality(
                                       textDirection: TextDirection.ltr,
                                       child: StoryView(
-                                        storyItems: stories
-                                            .where((element) =>
-                                                element.uid ==
-                                                stories[index].uid)
-                                            .map((e) => StoryItem.pageImage(
-                                                  url: e.storyImageUrl ?? "",
-                                                  controller: controller
-                                                      .storyController,
-                                                  imageFit: BoxFit.cover,
-                                                ))
-                                            .toList(),
+                                        storyItems:
+                                            storiesForEachUser[index].map((e) {
+                                          if (e.storyText != null &&
+                                              (e.storyImageUrl == null ||
+                                                  e.storyImageUrl == "")) {
+                                            return StoryItem.text(
+                                                title: e.storyText!,
+                                                textStyle: getBoldTextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
+                                                backgroundColor:
+                                                    ColorsManger.primary);
+                                          } else if ((e.storyText == null &&
+                                                  e.storyText != "") ||
+                                              e.storyImageUrl != null) {
+                                            return StoryItem.inlineImage(
+                                              url: e.storyImageUrl ?? "",
+                                              controller:
+                                                  controller.storyController,
+                                              caption: Text(
+                                                e.storyText ?? "",
+                                                textAlign: TextAlign.center,
+                                                style: getBoldTextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
+                                              ),
+                                            );
+                                          } else {
+                                            return StoryItem.pageImage(
+                                              url: e.storyImageUrl ?? "",
+                                              controller:
+                                                  controller.storyController,
+                                              caption: e.storyText ?? "",
+                                            );
+                                          }
+                                        }).toList(),
 
                                         /* stories.map((e) {
                                           if (e.storyText != null &&
@@ -125,11 +164,16 @@ class Stories extends StatelessWidget {
                                       CircleAvatar(
                                         radius: 30,
                                         backgroundImage: NetworkImage(
-                                            stories[index].user?.photoUrl ??
+                                            storiesForEachUser[index][0]
+                                                    .user
+                                                    ?.photoUrl ??
                                                 ""),
                                       ),
                                       Text(
-                                        "${stories[index].user?.firstName} ",
+                                        storiesForEachUser[index][0]
+                                                .user
+                                                ?.firstName ??
+                                            "",
                                         style: getMediumTextStyle(
                                             color: ColorsManger.grey,
                                             fontSize: 12),

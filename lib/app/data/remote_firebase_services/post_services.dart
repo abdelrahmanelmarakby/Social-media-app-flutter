@@ -33,6 +33,20 @@ class PostService {
     return null;
   }
 
+  static addReactionToPost(String postId, Reaction reaction) {
+    DocumentReference documentReference =
+        _firestore.collection("Posts").doc(postId);
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      transaction.update(
+        documentReference,
+        {
+          "reactions": FieldValue.arrayUnion([reaction]),
+        },
+      );
+    });
+    return null;
+  }
+
   static addCommentToPost(String postId, Comment comment) {
     DocumentReference documentReference =
         _firestore.collection("Posts").doc(postId);

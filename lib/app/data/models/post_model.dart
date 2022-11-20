@@ -458,9 +458,8 @@ class Story {
     if (storyText != null) {
       result.addAll({'storyText': storyText});
     }
-    if (createdAt != null) {
-      result.addAll({'createdAt': DateTime.now().millisecondsSinceEpoch});
-    }
+
+    result.addAll({'createdAt': DateTime.now().millisecondsSinceEpoch});
 
     return result;
   }

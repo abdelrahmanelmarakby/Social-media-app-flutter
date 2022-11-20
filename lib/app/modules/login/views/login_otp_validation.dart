@@ -127,9 +127,7 @@ class _OtpVerificationLoginForm extends State<OtpVerificationLoginForm> {
                   onCompleted: (v) {
                     controller.otpVerify(otpController.text);
                   },
-                  onChanged: (String value) {
-                    Get.log(value);
-                  },
+                  onChanged: (String value) {},
                 ),
               )),
           Container(
@@ -137,7 +135,7 @@ class _OtpVerificationLoginForm extends State<OtpVerificationLoginForm> {
             width: 342,
             margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
             decoration: BoxDecoration(
-               gradient: ColorsManger.buttonGradient,
+                gradient: ColorsManger.buttonGradient,
                 borderRadius: BorderRadius.circular(50),
                 boxShadow: [
                   BoxShadow(
@@ -158,7 +156,8 @@ class _OtpVerificationLoginForm extends State<OtpVerificationLoginForm> {
                 child: Center(
                     child: Text(
                   "VERIFY".toUpperCase(),
-                  style: getBoldTextStyle(fontSize: 18,color: ColorsManger.white),
+                  style:
+                      getBoldTextStyle(fontSize: 18, color: ColorsManger.white),
                 )),
               ),
             ),

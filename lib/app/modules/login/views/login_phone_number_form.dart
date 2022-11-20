@@ -57,23 +57,23 @@ class MobileNumberLoginForm extends GetWidget<LoginController> {
             ),
             const Spacer(),
             Container(
-                height: 56,
-                width: 342,
-              decoration:  BoxDecoration(
+              height: 56,
+              width: 342,
+              decoration: BoxDecoration(
                   gradient: ColorsManger.buttonGradient,
-              borderRadius: BorderRadius.circular(50)),
-                child:TextButton(
+                  borderRadius: BorderRadius.circular(50)),
+              child: TextButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     controller.verifyPhone(controller.fullNumber);
-                    Get.log(controller.fullNumber);
                     controller.nextPage();
                   }
                 },
                 child: Text("Next",
-                    style: getBoldTextStyle(fontSize: FontSize.medium,color: ColorsManger.white)),
-              ) ,)
-            ,
+                    style: getBoldTextStyle(
+                        fontSize: FontSize.medium, color: ColorsManger.white)),
+              ),
+            ),
             const Spacer()
           ],
         ).paddingSymmetric(horizontal: 20),
