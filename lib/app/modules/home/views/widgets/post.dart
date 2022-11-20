@@ -7,8 +7,10 @@ import 'package:future_chat/app/data/remote_firebase_services/user_services.dart
 import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
+import '../../../../routes/app_pages.dart';
 import 'reaction_button.dart';
 import 'share_bottom_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -99,14 +101,26 @@ class PostWidget extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              leading: CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                  post.user?.photoUrl ?? '',
+              leading: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.OTHER_PROFILE,
+                      arguments: {'userId': post.user?.uid});
+                },
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(
+                    post.user?.photoUrl ?? '',
+                  ),
                 ),
               ),
-              title: Text('${post.user?.firstName} ${post.user?.lastName}',
-                  style: getBoldTextStyle(color: ColorsManger.black)),
+              title: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.OTHER_PROFILE,
+                      arguments: {'userId': post.user?.uid});
+                },
+                child: Text('${post.user?.firstName} ${post.user?.lastName}',
+                    style: getBoldTextStyle(color: ColorsManger.black)),
+              ),
               subtitle: Text(
                   timeago.format(
                     post.createdAt!,
@@ -153,31 +167,32 @@ class PostWidget extends StatelessWidget {
               FadeIn(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    post.imageUrl ?? '',
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return const Center(
-                        child: CupertinoActivityIndicator(),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Center(
-                          child: Column(
-                        children: [
-                          const Icon(
-                            Iconsax.image4,
-                            color: ColorsManger.error,
-                          ),
-                          Text(
-                            'Error loading image',
-                            style: getRegularTextStyle(
-                                fontSize: 12, color: ColorsManger.error),
-                          ).paddingOnly(bottom: 10)
-                        ],
-                      ));
-                    },
+                  child: InstaImageViewer(
+                    child: Image.network(
+                      post.imageUrl ?? '',
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(
+                          child: CupertinoActivityIndicator(),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(
+                            child: Column(
+                          children: [
+                            const Icon(
+                              Iconsax.image4,
+                              color: ColorsManger.error,
+                            ),
+                            Text(
+                              'Error loading image',
+                              style: getRegularTextStyle(
+                                  fontSize: 12, color: ColorsManger.error),
+                            ).paddingOnly(bottom: 10)
+                          ],
+                        ));
+                      },
+                    ),
                   ),
                 ),
               ),

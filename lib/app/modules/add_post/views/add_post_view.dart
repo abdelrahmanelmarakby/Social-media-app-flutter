@@ -38,7 +38,11 @@ class AddPostView extends GetView<AddPostController> {
               if (!isKeyboard) {
                 return ColumnItem(controller);
               } else {
-                return RowItem(controller);
+                return Column(
+                  children: [
+                    RowItem(controller),
+                  ],
+                );
               }
             })
           ],
@@ -82,43 +86,26 @@ class PostTextField extends GetWidget<AddPostController> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Container(
-        decoration: BoxDecoration(
-            color: ColorsManger.light,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(.1),
-                  offset: const Offset(1, -2),
-                  blurRadius: 5),
-              BoxShadow(
-                  color: Colors.black.withOpacity(.1),
-                  offset: const Offset(-1, 2),
-                  blurRadius: 5)
-            ]),
-        child: SizedBox(
-          child: TextFormField(
-            controller: controller.postEditingController,
-            minLines: 4,
-            maxLines: 8,
-            maxLength: 250,
-            decoration: InputDecoration(
-              counterStyle: getLightTextStyle(),
-              filled: true,
-              //helperText: "Hi this is a helper widget",
-              fillColor: ColorsManger.light,
-              hintText: 'what’s on your mind? ',
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
-            ),
-            onTap: () {},
-          ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: TextFormField(
+        controller: controller.postEditingController,
+        minLines: 4,
+        maxLines: 8,
+        maxLength: 250,
+        decoration: InputDecoration(
+          counterStyle: getLightTextStyle(),
+          filled: true,
+          //helperText: "Hi this is a helper widget",
+          fillColor: ColorsManger.light,
+          hintText: 'what’s on your mind? ',
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
         ),
+        onTap: () {},
       ),
     );
   }
@@ -329,10 +316,8 @@ Widget RowItem(
   AddPostController controller,
 ) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
-      const SizedBox(
-        width: 20,
-      ),
       SizedBox(
         height: 46,
         width: 46,
@@ -352,9 +337,6 @@ Widget RowItem(
           ),
         ),
       ),
-      const SizedBox(
-        width: 50,
-      ),
       SizedBox(
         height: 46,
         width: 46,
@@ -373,9 +355,6 @@ Widget RowItem(
             },
           ),
         ),
-      ),
-      const SizedBox(
-        width: 50,
       ),
       SizedBox(
         height: 46,

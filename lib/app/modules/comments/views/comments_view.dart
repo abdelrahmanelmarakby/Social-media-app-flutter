@@ -46,7 +46,7 @@ class CommentsView extends GetView<CommentsController> {
                     ],
                   ).paddingOnly(left: 8),
                   Expanded(
-                      flex: 6,
+                      flex: 1,
                       child: ListView.builder(
                           itemCount: post.comments?.length ?? 0,
                           keyboardDismissBehavior:
