@@ -66,6 +66,8 @@ dependencies:
   advstory: ^0.2.1
   diamond_dial_fab: ^0.0.3
   floating_bottom_bar: ^0.0.1
+  insta_like_button: ^0.1.1
+  like_button: ^2.0.5
 
 dev_dependencies:
   flutter_lints: 2.0.1

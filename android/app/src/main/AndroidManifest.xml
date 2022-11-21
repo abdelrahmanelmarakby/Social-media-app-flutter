@@ -1,5 +1,20 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.metamisr.future_chat">
+<manifest 
+xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+              package="com.metamisr.future_chat">
+
+
+<queries>
+    <!-- Explicit apps you know in advance about: -->
+          
+    <package android:name="com.instagram.android" />
+    <package android:name="com.zhiliaoapp.musically" />
+    <package android:name="com.facebook.katana" />
+    <package android:name="com.facebook.orca" />
+    <package android:name="org.telegram.messenger" />
+    <package android:name="com.whatsapp" />
+    <package android:name="com.twitter.android" />
+</queries>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
      <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
      <!-- Always include this permission -->
@@ -10,7 +25,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-   <application
+   <application  
         android:label="Future chat"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"

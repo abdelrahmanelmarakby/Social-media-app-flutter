@@ -21,15 +21,19 @@ class Stories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 160,
-        padding: const EdgeInsets.only(left: 5, top: 5),
-        margin: const EdgeInsets.only(left: 24, top: 20),
+        height: 100,
+        padding: const EdgeInsets.only(
+          left: 5,
+        ),
+        margin: const EdgeInsets.only(
+          left: 24,
+        ),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16), bottomLeft: Radius.circular(16)),
+                topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
             border: Border.all(
               color: const Color(0xFFCAF0F8),
-              width: 1,
+              width: .5,
             )),
         child: Directionality(
             textDirection: TextDirection.ltr,
@@ -61,55 +65,54 @@ class Stories extends StatelessWidget {
                   });
 
                   return SizedBox(
-                      height: 70,
                       child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: storiesForEachUser.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Get.to(() => Scaffold(
-                                    body: Directionality(
-                                      textDirection: TextDirection.ltr,
-                                      child: StoryView(
-                                        storyItems:
-                                            storiesForEachUser[index].map((e) {
-                                          if (e.storyText != null &&
-                                              (e.storyImageUrl == null ||
-                                                  e.storyImageUrl == "")) {
-                                            return StoryItem.text(
-                                                title: e.storyText!,
-                                                textStyle: getBoldTextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
-                                                backgroundColor:
-                                                    ColorsManger.primary);
-                                          } else if ((e.storyText == null &&
-                                                  e.storyText != "") ||
-                                              e.storyImageUrl != null) {
-                                            return StoryItem.inlineImage(
-                                              url: e.storyImageUrl ?? "",
-                                              controller:
-                                                  controller.storyController,
-                                              caption: Text(
-                                                e.storyText ?? "",
-                                                textAlign: TextAlign.center,
-                                                style: getBoldTextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
-                                              ),
-                                            );
-                                          } else {
-                                            return StoryItem.pageImage(
-                                              url: e.storyImageUrl ?? "",
-                                              controller:
-                                                  controller.storyController,
-                                              caption: e.storyText ?? "",
-                                            );
-                                          }
-                                        }).toList(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: storiesForEachUser.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(() => Scaffold(
+                                body: Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: StoryView(
+                                    storyItems:
+                                        storiesForEachUser[index].map((e) {
+                                      if (e.storyText != null &&
+                                          (e.storyImageUrl == null ||
+                                              e.storyImageUrl == "")) {
+                                        return StoryItem.text(
+                                            title: e.storyText!,
+                                            textStyle: getBoldTextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20),
+                                            backgroundColor:
+                                                ColorsManger.primary);
+                                      } else if ((e.storyText == null &&
+                                              e.storyText != "") ||
+                                          e.storyImageUrl != null) {
+                                        return StoryItem.inlineImage(
+                                          url: e.storyImageUrl ?? "",
+                                          controller:
+                                              controller.storyController,
+                                          caption: Text(
+                                            e.storyText ?? "",
+                                            textAlign: TextAlign.center,
+                                            style: getBoldTextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20),
+                                          ),
+                                        );
+                                      } else {
+                                        return StoryItem.pageImage(
+                                          url: e.storyImageUrl ?? "",
+                                          controller:
+                                              controller.storyController,
+                                          caption: e.storyText ?? "",
+                                        );
+                                      }
+                                    }).toList(),
 
-                                        /* stories.map((e) {
+                                    /* stories.map((e) {
                                           if (e.storyText != null &&
                                               (e.storyImageUrl == null ||
                                                   e.storyImageUrl == "")) {
@@ -144,46 +147,40 @@ class Stories extends StatelessWidget {
                                             );
                                           }
                                         }).toList(),*/
-                                        controller: controller.storyController,
-                                        onComplete: () {
-                                          Get.back();
-                                        },
-                                      ),
-                                    ),
-                                  ));
-                            },
-                            child: SizedBox(
-                              width: context.width / 4,
-                              child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 30,
-                                        backgroundImage: NetworkImage(
-                                            storiesForEachUser[index][0]
-                                                    .user
-                                                    ?.photoUrl ??
-                                                ""),
-                                      ),
-                                      Text(
-                                        storiesForEachUser[index][0]
-                                                .user
-                                                ?.firstName ??
-                                            "",
-                                        style: getMediumTextStyle(
-                                            color: ColorsManger.grey,
-                                            fontSize: 12),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                          );
+                                    controller: controller.storyController,
+                                    onComplete: () {
+                                      Get.back();
+                                    },
+                                  ),
+                                ),
+                              ));
                         },
-                      ));
+                        child: SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 25,
+                                backgroundImage: NetworkImage(
+                                    storiesForEachUser[index][0]
+                                            .user
+                                            ?.photoUrl ??
+                                        ""),
+                              ),
+                              Text(
+                                storiesForEachUser[index][0].user?.firstName ??
+                                    "",
+                                overflow: TextOverflow.ellipsis,
+                                style: getMediumTextStyle(
+                                    color: ColorsManger.grey, fontSize: 12),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ));
                 } else {
                   return const Center(
                     child: CupertinoActivityIndicator(),

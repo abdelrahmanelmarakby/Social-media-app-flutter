@@ -13,6 +13,7 @@ class ShareBottomSheet extends GetWidget<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: Get.height * .8,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -20,7 +21,6 @@ class ShareBottomSheet extends GetWidget<HomeController> {
           topRight: Radius.circular(20),
         ),
       ),
-      height: context.height * 0.6,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(

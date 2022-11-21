@@ -658,6 +658,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  insta_like_button:
+    dependency: "direct main"
+    description:
+      name: insta_like_button
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   internet_connection_checker:
     dependency: "direct main"
     description:
@@ -700,6 +707,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.7.0"
+  like_button:
+    dependency: "direct main"
+    description:
+      name: like_button
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
   linkify:
     dependency: transitive
     description:

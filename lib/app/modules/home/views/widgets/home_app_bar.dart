@@ -22,18 +22,21 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           size: 30,
         ).paddingSymmetric(horizontal: 12),
       ],
-      title: Row(
-        children: [
-          const SizedBox(
-            width: 10,
-          ),
-          Text('Future ',
-              style: getMediumTextStyle(
-                  fontSize: 20, color: ColorsManger.primary)),
-          Text('Chat',
-              style:
-                  getMediumTextStyle(fontSize: 20, color: ColorsManger.black)),
-        ],
+      title: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 10,
+            ),
+            Text('Future ',
+                style: getMediumTextStyle(
+                    fontSize: 20, color: ColorsManger.primary)),
+            Text('Chat',
+                style: getMediumTextStyle(
+                    fontSize: 20, color: ColorsManger.black)),
+          ],
+        ),
       ),
       centerTitle: false,
       elevation: 0,
