@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/modules/add_post_bottom_sheet/views/add_post_bottom_sheet_view.dart';
 import 'package:future_chat/app/modules/chat/views/chat_history.dart';
@@ -8,6 +9,18 @@ import 'package:future_chat/app/modules/profile/views/profile_view.dart';
 import 'package:get/get.dart';
 
 class BottomNavBarController extends GetxController {
+  @override
+  void onInit() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ));
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.top,
+    ]);
+    super.onInit();
+  }
+
   Widget _currentScreen = const HomeView();
 
   // ignore: non_constant_identifier_names
@@ -25,7 +38,6 @@ class BottomNavBarController extends GetxController {
         }
       case 1:
         {
-
           _currentScreen = ChatHistory(
             myId: UserService.myUser?.phoneNumber
                     ?.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "") ??
