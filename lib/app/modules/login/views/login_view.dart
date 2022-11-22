@@ -17,18 +17,20 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       body: Column(
         children: [
-          IconButton(onPressed: () {Get.to(const ProfileView());},
-            icon: const Icon(Iconsax.more)),
+          IconButton(
+              onPressed: () {
+                () => Get.to(const ProfileView());
+              },
+              icon: const Icon(Iconsax.more)),
           Container(
             height: context.height * .25,
-            decoration: const BoxDecoration(
-                gradient: ColorsManger.backgroundGradient),
+            decoration:
+                const BoxDecoration(gradient: ColorsManger.backgroundGradient),
             child: SafeArea(
               child: Center(
                 child: Text(
                   "Login",
                   style: getBoldTextStyle(fontSize: 30, color: Colors.white),
-
                 ),
               ),
             ),

@@ -43,16 +43,16 @@ class ShareBottomSheetView extends GetView<ShareBottomSheetController> {
                     Text('Refaat Mohamed',
                       style:getMediumTextStyle(fontSize:FontSize.large),)
                     ],)),
-             Padding(padding: const EdgeInsets.only(top:10,left: 22),
-               child: Container(
-               width: 339,
-               height: 120,
-               decoration: BoxDecoration(
-                   color:ColorsManger.light,
-                   borderRadius: BorderRadius.circular(5),
-                   boxShadow: [
-                     BoxShadow(
-                         color: Colors.black.withOpacity(.1),
+              Padding(padding: const EdgeInsets.only(top:10,left: 22),
+                child: Container(
+                width: 339,
+                height: 120,
+                decoration: BoxDecoration(
+                    color:ColorsManger.light,
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(.1),
                          offset: const Offset(1, -2),
                          blurRadius: 5),
                      BoxShadow(

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/account/bindings/account_binding.dart';
+import '../modules/account/views/account_view.dart';
 import '../modules/add_post/views/add_post_view.dart';
 import '../modules/add_post_bottom_sheet/bindings/add_post_bottom_sheet_binding.dart';
 import '../modules/add_post_bottom_sheet/views/add_post_bottom_sheet_view.dart';
@@ -9,10 +11,16 @@ import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/bottom_nav_bar/bindings/bottom_nav_bar_binding.dart';
 import '../modules/bottom_nav_bar/views/bottom_nav_bar_view.dart';
+import '../modules/contact_us/bindings/contact_us_binding.dart';
+import '../modules/contact_us/views/contact_us_view.dart';
 import '../modules/create_post_bottom_sheet/bindings/create_post_bottom_sheet_binding.dart';
 import '../modules/create_post_bottom_sheet/views/create_post_bottom_sheet_view.dart';
+import '../modules/delete_account/bindings/delete_account_binding.dart';
+import '../modules/delete_account/views/delete_account_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
+import '../modules/help/bindings/help_binding.dart';
+import '../modules/help/views/help_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/intro/bindings/intro_binding.dart';
@@ -25,6 +33,8 @@ import '../modules/other_profile/bindings/other_profile_binding.dart';
 import '../modules/other_profile/views/other_profile_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/profile_notification/bindings/profile_notification_binding.dart';
+import '../modules/profile_notification/views/profile_notification_view.dart';
 import '../modules/share_bottom_sheet/bindings/share_bottom_sheet_binding.dart';
 import '../modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -112,6 +122,31 @@ class AppPages {
       name: _Paths.ADD_STORY,
       page: () => const AddStoryView(),
       binding: AddStoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACCOUNT,
+      page: () => const AccountView(),
+      binding: AccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELETE_ACCOUNT,
+      page: () => const DeleteAccountView(),
+      binding: DeleteAccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_NOTIFICATION,
+      page: () => const ProfileNotificationView(),
+      binding: ProfileNotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.HELP,
+      page: () => const HelpView(),
+      binding: HelpBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONTACT_US,
+      page: () => const ContactUsView(),
+      binding: ContactUsBinding(),
     ),
   ];
 }

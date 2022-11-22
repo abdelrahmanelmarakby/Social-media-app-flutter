@@ -102,7 +102,7 @@ class SignupController extends GetxController {
   verifyPhone(String phone) async {
     isLoading.value = true;
     await auth.verifyPhoneNumber(
-        timeout: const Duration(seconds: 70),
+        timeout: const Duration(seconds: 120),
         phoneNumber: phone,
         verificationCompleted: (AuthCredential authCredential) {
           // ignore: avoid_print
