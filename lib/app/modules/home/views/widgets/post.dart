@@ -35,8 +35,8 @@ class PostList extends GetWidget<HomeController> {
           builder: (context, snapshot) {
             //  Get.log("User Posts :$posts");
             if (snapshot.hasData) {
+              controller.posts.clear();
               snapshot.data?.docs.map((e) {
-                controller.posts.clear();
                 controller.posts.add(PostModel.fromMap(e.data()));
               }).toList();
               return ListView.builder(

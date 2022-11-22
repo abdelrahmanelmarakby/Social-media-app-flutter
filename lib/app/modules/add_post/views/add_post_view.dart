@@ -127,7 +127,7 @@ class UserInfoWidget extends StatelessWidget {
               width: 50,
               child: CircleAvatar(
                 backgroundImage:
-                    NetworkImage(UserService.myUser?.photoUrl ?? ""),
+                    NetworkImage(UserService.myUser?.photoUrl ?? " "),
               ),
             ),
             const SizedBox(
