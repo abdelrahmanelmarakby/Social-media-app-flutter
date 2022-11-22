@@ -16,6 +16,7 @@ Future<void> main() async {
   //=============================== Firebase ====================================
   await Firebase.initializeApp();
   //=============================== Contacts ======================================
+
   FlutterContacts.config.includeNotesOnIos13AndAbove = true;
   FlutterContacts.config.includeNonVisibleOnAndroid = true;
   //============================== Shared Preferences =================================

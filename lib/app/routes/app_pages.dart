@@ -29,6 +29,8 @@ import '../modules/share_bottom_sheet/bindings/share_bottom_sheet_binding.dart';
 import '../modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
+import '../modules/video_chat/bindings/video_chat_binding.dart';
+import '../modules/video_chat/views/video_chat_view.dart';
 
 part 'app_routes.dart';
 
@@ -112,6 +114,11 @@ class AppPages {
       name: _Paths.ADD_STORY,
       page: () => const AddStoryView(),
       binding: AddStoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO_CHAT,
+      page: () => const VideoChatView(),
+      binding: VideoChatBinding(),
     ),
   ];
 }

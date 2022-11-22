@@ -145,14 +145,15 @@ class CommentsView extends GetView<CommentsController> {
                             controller: _commentController,
                             minLines: 1,
                             maxLines: 3,
-                            onFieldSubmitted: (value) {
+                            onFieldSubmitted: (value) async {
                               if (value.isNotEmpty) {
-                                PostService.addCommentToPost(
-                                    post.id ?? "",
-                                    Comment(
-                                        comment: value,
-                                        user: UserService.myUser,
-                                        createdAt: DateTime.now()));
+                                await PostService.addCommentToPost(
+                                        post.id ?? "",
+                                        Comment(
+                                            comment: value,
+                                            user: UserService.myUser,
+                                            createdAt: DateTime.now()))
+                                    .then((value) => Get.forceAppUpdate());
                                 _commentController.clear();
                               }
                             },
@@ -163,13 +164,13 @@ class CommentsView extends GetView<CommentsController> {
                               border: InputBorder.none,
                               suffixIcon: GestureDetector(
                                 onTap: () async {
-                                  PostService.addCommentToPost(
+                                  await PostService.addCommentToPost(
                                       post.id ?? "",
                                       Comment(
                                         comment: _commentController.text,
                                         user: UserService.myUser,
                                         createdAt: DateTime.now(),
-                                      ));
+                                      )).then((value) => Get.forceAppUpdate());
 
                                   _commentController.clear();
                                   await PostService()

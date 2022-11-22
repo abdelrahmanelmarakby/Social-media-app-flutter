@@ -22,6 +22,7 @@ abstract class Routes {
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const OTHER_PROFILE = _Paths.OTHER_PROFILE;
   static const ADD_STORY = _Paths.ADD_STORY;
+  static const VIDEO_CHAT = _Paths.VIDEO_CHAT;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const EDIT_PROFILE = '/edit-profile';
   static const OTHER_PROFILE = '/other-profile';
   static const ADD_STORY = '/add-story';
+  static const VIDEO_CHAT = '/video-chat';
 }

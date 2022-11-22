@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
+import 'package:future_chat/core/resourses/styles_manger.dart';
 
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -22,6 +23,8 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
   _bottomNavigationBar() {
     return GetBuilder<BottomNavBarController>(
       init: BottomNavBarController(),
+      autoRemove: true,
+      global: true,
       builder: (controller) => AnimatedBottomNavigationBar(
         bottomBarItems: [
           BottomBarItemsModel(
@@ -33,6 +36,7 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
               color: ColorsManger.primary,
             ),
             title: "Home",
+            titleStyle: getLightTextStyle(fontSize: 14),
             dotColor: ColorsManger.primary,
             onTap: () => controller.onSelected(0),
           ),
@@ -45,6 +49,7 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
               color: ColorsManger.primary,
             ),
             title: "Chat",
+            titleStyle: getLightTextStyle(fontSize: 14),
             dotColor: ColorsManger.primary,
             onTap: () => controller.onSelected(1),
           ),
@@ -57,6 +62,7 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
               color: ColorsManger.primary,
             ),
             title: "Notification",
+            titleStyle: getLightTextStyle(fontSize: 14),
             dotColor: ColorsManger.primary,
             onTap: () => controller.onSelected(3),
           ),
@@ -70,13 +76,17 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
             ),
             title: "Profile",
             dotColor: ColorsManger.primary,
+            titleStyle: getLightTextStyle(fontSize: 14),
             onTap: () => controller.onSelected(4),
           ),
         ],
         bottomBarCenterModel: BottomBarCenterModel(
           centerBackgroundColor: ColorsManger.primary,
-          centerIcon: const FloatingCenterButton(
-            child: Icon(
+          centerIcon: FloatingCenterButton(
+            onAnimationComplete: () {
+              Navigator.pop(Get.context!);
+            },
+            child: const Icon(
               Icons.add,
               color: AppColors.white,
             ),
