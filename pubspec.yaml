@@ -43,6 +43,7 @@ dependencies:
   iconsax: ^0.0.8
   image_picker: ^0.8.6
   image_viewer: ^1.5.0
+  agora_rtc_engine:
   insta_image_viewer: ^1.0.2
   internet_connection_checker: ^1.0.0+1
   intl: ^0.17.0

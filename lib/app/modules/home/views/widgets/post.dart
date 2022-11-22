@@ -70,12 +70,12 @@ class PostList extends GetWidget<HomeController> {
                           post: controller.posts[index],
                         )
                       ],
-                    );
+                    ).paddingSymmetric(vertical: 8);
                   } else {
                     return PostWidget(
                       index: index,
                       post: controller.posts[index],
-                    );
+                    ).paddingSymmetric(vertical: 8);
                   }
                 },
               );
@@ -354,7 +354,7 @@ class ImageWidget extends StatelessWidget {
         child: InstaLikeButton(
           imageBoxfit: BoxFit.cover,
           icon: Iconsax.like_15,
-          iconColor: ColorsManger.red,
+          iconColor: ColorsManger.primary,
           onChanged: () async {
             await PostService.addReactionToPost(
                 post.id ?? "",

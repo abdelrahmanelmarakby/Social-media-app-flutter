@@ -9,30 +9,33 @@ import 'package:intl/intl.dart';
 
 class AddPostController extends GetxController {
   late TextEditingController postEditingController;
-  File image = File("");
+  Rx<File> image = Rx<File>(File(""));
   RxString imageUrl = ''.obs;
-  Future<String> addImageToPost(ImageSource imageSource) async {
+  Future<bool?> addImageToPost(ImageSource imageSource) async {
     ImagePicker imagePicker = ImagePicker();
-    imagePicker.pickImage(source: imageSource, imageQuality: 100);
+    imagePicker.pickImage(
+      source: imageSource,
+      imageQuality: 100,
+    );
     final pickedFile = await imagePicker.pickImage(source: imageSource);
-    if (pickedFile != null) {
-      DateTime now = DateTime.now();
-      var datestamp = DateFormat("yyyyMMdd'T'HHmmss");
-      String currentdate = datestamp.format(now);
-      image = File(pickedFile.path);
-      final Reference ref = FirebaseStorage.instance
-          .ref()
-          .child('postImages')
-          .child(UserService.myUser!.uid ?? "")
-          .child(currentdate);
-      UploadTask task = ref.putFile(image);
-      await task.whenComplete(() async {
-        imageUrl.value = await ref.getDownloadURL();
-      });
+    image.value = File(pickedFile?.path ?? "");
+    return true;
+  }
 
-      return imageUrl.value;
-    }
-    return imageUrl.value;
+  Future<bool> uploadPost() async {
+    DateTime now = DateTime.now();
+    var datestamp = DateFormat("yyyyMMdd'T'HHmmss");
+    String currentdate = datestamp.format(now);
+    final Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('postImages')
+        .child(UserService.myUser!.uid ?? "")
+        .child(currentdate);
+    UploadTask task = ref.putFile(image.value);
+    await task.whenComplete(() async {
+      imageUrl.value = await ref.getDownloadURL();
+    });
+    return imageUrl.value != null || imageUrl.value == "";
   }
 
   @override
