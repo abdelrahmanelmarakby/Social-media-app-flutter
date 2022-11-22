@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/modules/contact_us/views/contact_us_view.dart';
 
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,7 +17,7 @@ class HelpView extends GetView<HelpController> {
         body: Column(
       children: [
         const SizedBox(
-          height: 20,
+          height: 40,
         ),
         GestureDetector(
           child: ListTile(
@@ -32,8 +33,8 @@ class HelpView extends GetView<HelpController> {
             ),
           ),
           onTap: () {
-                Get.back();
-              },
+            Get.back();
+          },
         ),
         const SizedBox(
           height: 40,
@@ -58,7 +59,9 @@ class HelpView extends GetView<HelpController> {
             'Contact Us',
             style: getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
           ),
-          onTap: () {},
+          onTap: () {
+            Get.to(() => const ContactUsView());
+          },
         )),
         const SizedBox(
           height: 10,
@@ -87,7 +90,9 @@ class HelpView extends GetView<HelpController> {
             Get.to(() => const TermsAndPolicy());
           },
         )),
-        const SizedBox(height:550,),
+        const SizedBox(
+          height: 550,
+        ),
       ],
     ));
   }
