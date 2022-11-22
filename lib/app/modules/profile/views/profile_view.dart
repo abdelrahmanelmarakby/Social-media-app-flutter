@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
@@ -8,6 +7,8 @@ import 'package:future_chat/app/modules/edit_profile/views/edit_profile_view.dar
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../account/views/account_view.dart';
+import '../../help/views/help_view.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -17,6 +18,7 @@ class ProfileView extends GetView<ProfileController> {
     return Scaffold(
       body: Column(
         children: [
+          const SizedBox(height: 20,),
           ListTile(
             leading: const Icon(
               Iconsax.arrow_left,
@@ -38,14 +40,14 @@ class ProfileView extends GetView<ProfileController> {
           Expanded(
               child: ListTile(
             leading: Container(
-              height: 90, width: 90,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50)
-              ),
-              child:  CircleAvatar(
+              height: 90,
+              width: 90,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(50)),
+              child: CircleAvatar(
                 radius: 50,
-                backgroundImage:NetworkImage(UserService.myUser?.photoUrl ??'')
-                ,
+                backgroundImage:
+                    NetworkImage(UserService.myUser?.photoUrl ?? ''),
               ),
             ),
             title: Text(
@@ -89,7 +91,9 @@ class ProfileView extends GetView<ProfileController> {
               'Privacy, Delete Account',
               style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
             ),
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const AccountView());
+            },
           )),
           const SizedBox(
             height: 10,
@@ -149,7 +153,7 @@ class ProfileView extends GetView<ProfileController> {
               'Help center, contact us, privacy policy',
               style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
             ),
-            onTap: () {},
+            onTap: () {Get.to(()=>const HelpView());},
           )),
           const SizedBox(
             height: 10,
