@@ -75,6 +75,10 @@ class CommentsView extends GetView<CommentsController> {
                                             comments[index].commentImageUrl ??
                                                 "",
                                             fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return const Icon(Icons.error);
+                                            },
                                           ),
                                         ListTile(
                                           leading: CircleAvatar(

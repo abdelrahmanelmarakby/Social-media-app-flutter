@@ -54,7 +54,12 @@ class Stories extends StatelessWidget {
                     stories
                         .add(Story.fromMap(e.data() as Map<String, dynamic>));
                   }).toList();
-
+                  stories = stories
+                      .where((element) => (DateTime.now()
+                              .difference(element.createdAt ?? DateTime.now())
+                              .inDays <
+                          1))
+                      .toList();
                   List<List<Story>> storiesForEachUser = stories
                       .fold<List<List<Story>>>([], (previousValue, element) {
                     if (previousValue.isEmpty) {

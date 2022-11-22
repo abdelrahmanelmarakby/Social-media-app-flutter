@@ -68,6 +68,7 @@ dependencies:
   floating_bottom_bar: ^0.0.1
   insta_like_button: ^0.1.1
   like_button: ^2.0.5
+  rich_text_view: ^1.1.0
 
 dev_dependencies:
   flutter_lints: 2.0.1

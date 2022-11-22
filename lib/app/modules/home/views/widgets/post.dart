@@ -7,6 +7,7 @@ import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
 import '../../../../routes/app_pages.dart';
@@ -14,6 +15,8 @@ import 'reaction_button.dart';
 import 'share_bottom_sheet.dart';
 import 'package:insta_like_button/insta_like_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import 'package:rich_text_view/rich_text_view.dart';
 
 class PostList extends GetWidget<HomeController> {
   const PostList({
@@ -53,6 +56,9 @@ class PostList extends GetWidget<HomeController> {
                               fit: BoxFit.cover,
                               width: 30,
                               height: 30,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(Icons.error);
+                              },
                             ),
                           ),
                           title: Text(
@@ -132,10 +138,28 @@ class PostTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Text(
-        post.title ?? '',
-        overflow: TextOverflow.ellipsis,
-        maxLines: 4,
+      child: RichTextView(
+        text: post.title ?? '',
+        selectable: true,
+        viewMoreText: "see more",
+        onEmailClicked: (email) => launchUrl(Uri.parse("mailto:$email"),
+            mode: LaunchMode.externalApplication),
+        onHashTagClicked: (hashtag) => print('is $hashtag trending?'),
+        onUrlClicked: (url) =>
+            launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication),
+        onPhoneClicked: (phone) =>
+            launchUrl(Uri.parse(phone), mode: LaunchMode.externalApplication),
+        truncate: true,
+        maxLines: 5,
+        viewLessText: "see less",
+        supportedTypes: const [
+          ParsedType.EMAIL,
+          ParsedType.HASH,
+          ParsedType.URL,
+          ParsedType.BOLD,
+          ParsedType.PHONE,
+        ],
+        linkStyle: const TextStyle(color: Colors.blue),
         style: const TextStyle(
           color: ColorsManger.grey,
         ),
