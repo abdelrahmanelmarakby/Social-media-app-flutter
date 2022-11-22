@@ -117,7 +117,6 @@ class SignupController extends GetxController {
         verificationFailed: (authException) {
           Get.snackbar("Couldn't send verification message",
               authException.message.toString());
-          Get.log(authException.message.toString());
         },
         codeSent: (String id, [int? forceResent]) {
           // ignore: avoid_print
@@ -160,7 +159,6 @@ class SignupController extends GetxController {
           if (user.uid != null) {
             await ContactsService.getAllRegisterdContacts();
             authUserID = user.uid!;
-            Get.log("User added : ${UserService.myUser.toString()} ");
             Get.offAllNamed(Routes.BOTTOM_NAV_BAR);
           }
           BotToast.closeAllLoading();

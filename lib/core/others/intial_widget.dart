@@ -24,9 +24,7 @@ class _CheckSigningInState extends State<CheckSigningIn> {
   Future<SocialMediaUser?>? _futureMediaUser;
   bool isLoading = true;
   Future<SocialMediaUser?> getUser() async {
-    Get.log('getUser() called');
     _mediaUser = await UserService().getProfile(_user?.uid ?? "");
-    Get.log('${_mediaUser?.firstName}');
     return _mediaUser;
   }
 
@@ -36,7 +34,6 @@ class _CheckSigningInState extends State<CheckSigningIn> {
     _auth = FirebaseAuth.instance;
     _user = _auth.currentUser;
     isLoading = false;
-    Get.log(_user.toString());
     if (_user != null) {
       _futureMediaUser = getUser();
     }
@@ -62,7 +59,6 @@ class _CheckSigningInState extends State<CheckSigningIn> {
               ),
             );
           } else {
-            Get.log(snapshot.data.toString());
             return const IntroView();
           }
         }

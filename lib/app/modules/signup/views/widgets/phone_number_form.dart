@@ -58,7 +58,7 @@ class MobileNumberForm extends GetWidget<SignupController> {
             Container(
               width: 342,
               height: 50,
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: ColorsManger.buttonGradient,
                 borderRadius: BorderRadius.circular(50),
               ),
@@ -66,13 +66,13 @@ class MobileNumberForm extends GetWidget<SignupController> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     controller.verifyPhone(controller.fullNumber);
-                    Get.log(controller.fullNumber);
                     controller.nextPage();
                   }
                 },
-                child:  Text("Next",
-                    style: getBoldTextStyle(fontSize: 18,
-                        color: ColorsManger.white),
+                child: Text(
+                  "Next",
+                  style:
+                      getBoldTextStyle(fontSize: 18, color: ColorsManger.white),
                 ),
               ),
             ),

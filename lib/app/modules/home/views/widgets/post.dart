@@ -1,28 +1,33 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/modules/comments/views/comments_view.dart';
+import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
+import '../../../../routes/app_pages.dart';
 import 'reaction_button.dart';
 import 'share_bottom_sheet.dart';
+import 'package:insta_like_button/insta_like_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class PostList extends StatelessWidget {
+import 'package:rich_text_view/rich_text_view.dart';
+
+class PostList extends GetWidget<HomeController> {
   const PostList({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Expanded(
+    return Expanded(
+      child: Directionality(
+        textDirection: TextDirection.ltr,
         child: FutureBuilder(
           future: PostService().getAllUserPosts(
             [
@@ -33,18 +38,45 @@ class PostList extends StatelessWidget {
           builder: (context, snapshot) {
             //  Get.log("User Posts :$posts");
             if (snapshot.hasData) {
-              List<PostModel> posts = [];
+              controller.posts.clear();
               snapshot.data?.docs.map((e) {
-                posts.add(PostModel.fromMap(e.data() as Map<String, dynamic>));
+                controller.posts.add(PostModel.fromMap(e.data()));
               }).toList();
-              Get.log("User Posts :$posts");
               return ListView.builder(
-                itemCount: posts.length,
+                itemCount: controller.posts.length,
                 itemBuilder: (context, index) {
-                  return PostWidget(
-                    index: index,
-                    post: posts[index],
-                  );
+                  if (controller.posts[index].sharedFrom != null) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network(
+                              controller.posts[index].user?.photoUrl ?? '',
+                              fit: BoxFit.cover,
+                              width: 30,
+                              height: 30,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(Icons.error);
+                              },
+                            ),
+                          ),
+                          title: Text(
+                              "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
+                              style: getRegularTextStyle(fontSize: 14)),
+                        ),
+                        PostWidget(
+                          index: index,
+                          post: controller.posts[index],
+                        )
+                      ],
+                    );
+                  } else {
+                    return PostWidget(
+                      index: index,
+                      post: controller.posts[index],
+                    );
+                  }
                 },
               );
             } else {
@@ -66,176 +98,293 @@ class PostWidget extends StatelessWidget {
   final PostModel post;
   @override
   Widget build(BuildContext context) {
-    return FadeInUp(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+              color: ColorsManger.black.withOpacity(.05),
+              blurRadius: 10,
+              spreadRadius: 1)
+        ],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          UserWidget(post: post),
+          PostTitle(post: post),
+          if (post.imageUrl != null && post.imageUrl != '')
+            ImageWidget(post: post).paddingSymmetric(horizontal: 10),
+          const SizedBox(height: 8.0),
+          InteractionsWidget(post: post),
+          const SizedBox(
+            height: 8,
+          )
+        ],
+      ),
+    ).paddingSymmetric(horizontal: 8);
+  }
+}
 
-          // boxShadow: [
-          // BoxShadow(
-          // color: Colors.black.withOpacity(0.1),
-          //  spreadRadius: 5,
-          //  blurRadius: 10,
-          //  offset: const Offset(0, 3), // changes position of shadow
-          //),
-          //],
+class PostTitle extends StatelessWidget {
+  const PostTitle({
+    Key? key,
+    required this.post,
+  }) : super(key: key);
+
+  final PostModel post;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: RichTextView(
+        text: post.title ?? '',
+        selectable: true,
+        viewMoreText: "see more",
+        onEmailClicked: (email) => launchUrl(Uri.parse("mailto:$email"),
+            mode: LaunchMode.externalApplication),
+        onHashTagClicked: (hashtag) => print('is $hashtag trending?'),
+        onUrlClicked: (url) =>
+            launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication),
+        onPhoneClicked: (phone) =>
+            launchUrl(Uri.parse(phone), mode: LaunchMode.externalApplication),
+        truncate: true,
+        maxLines: 5,
+        viewLessText: "see less",
+        supportedTypes: const [
+          ParsedType.EMAIL,
+          ParsedType.HASH,
+          ParsedType.URL,
+          ParsedType.BOLD,
+          ParsedType.PHONE,
+        ],
+        linkStyle: const TextStyle(color: Colors.blue),
+        style: const TextStyle(
+          color: ColorsManger.grey,
         ),
-        child: Column(
-          children: [
-            ListTile(
-              leading: CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                  post.user?.photoUrl ?? '',
-                ),
-              ),
-              title: Text('${post.user?.firstName} ${post.user?.lastName}',
-                  style: getBoldTextStyle(color: ColorsManger.black)),
-              subtitle: Text(
-                  timeago.format(
-                    post.createdAt!,
-                    locale: 'en',
+      ),
+    );
+  }
+}
+
+class InteractionsWidget extends StatelessWidget {
+  const InteractionsWidget({
+    Key? key,
+    required this.post,
+  }) : super(key: key);
+
+  final PostModel post;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: context.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ReactionButton(
+            reactionCount: post.reactions?.length ?? 0,
+            reactions: post.reactions ?? [],
+            post: post,
+          ),
+          InkWell(
+            onTap: () {
+              Get.to(
+                  CommentsView(
+                    post: post,
                   ),
-                  style: getMediumTextStyle(
-                      color: ColorsManger.grey, fontSize: 12)),
-              trailing: PopupMenuButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                initialValue: 3,
-                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                  PopupMenuItem(
-                      child: Text(
-                    'Unfollow ${post.user?.firstName} ${post.user?.lastName} posts',
-                    style: getMediumTextStyle(
-                        fontSize: 11, color: ColorsManger.grey),
-                  )),
-                  PopupMenuItem(
-                      child: Text(
-                    'Report post',
-                    style: getMediumTextStyle(
-                        fontSize: 11, color: ColorsManger.grey),
-                  )),
-                  PopupMenuItem(
-                      child: Text(
-                    'Copy link',
-                    style: getMediumTextStyle(
-                        fontSize: 11, color: ColorsManger.grey),
-                  )),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Text(
-                post.title ?? '',
-                style: const TextStyle(
-                  color: ColorsManger.grey,
-                ),
-              ),
-            ),
-            if (post.imageUrl != null && post.imageUrl != '')
-              FadeIn(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    post.imageUrl ?? '',
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return const Center(
-                        child: CupertinoActivityIndicator(),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Center(
-                          child: Column(
-                        children: [
-                          const Icon(
-                            Iconsax.image4,
-                            color: ColorsManger.error,
-                          ),
-                          Text(
-                            'Error loading image',
-                            style: getRegularTextStyle(
-                                fontSize: 12, color: ColorsManger.error),
-                          ).paddingOnly(bottom: 10)
-                        ],
-                      ));
-                    },
-                  ),
-                ),
-              ),
-            const SizedBox(height: 8.0),
-            SizedBox(
-              width: context.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ReactionButton(),
-                  InkWell(
-                    onTap: () {
-                      Get.bottomSheet(
-                        CommentsView(
-                          post: post,
-                        ),
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        const CircleAvatar(
-                            backgroundColor: ColorsManger.grey1,
-                            child: Icon(Iconsax.message)),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text((post.comments?.length ?? 0).toString(),
-                            style: getRegularTextStyle(
-                                fontSize: 12, color: ColorsManger.grey))
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => Get.bottomSheet(
-                      const ShareBottomSheet(),
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      enableDrag: false,
-                      elevation: 0,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(32),
-                            topRight: Radius.circular(32)),
+                  transition: Transition.downToUp);
+            },
+            child: Row(
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: ColorsManger.primary.withOpacity(.05)),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Iconsax.message,
+                        color: ColorsManger.primary,
                       ),
-                    ),
-                    child: Row(
-                      children: const [
-                        CircleAvatar(
-                            backgroundColor: ColorsManger.light,
-                            child: Icon(Iconsax.export)),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text('Share'),
-                      ],
-                    ),
-                  ),
-                ],
+                    )),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text((post.comments?.length ?? 0).toString(),
+                    style: getRegularTextStyle(
+                        fontSize: 12, color: ColorsManger.grey))
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: () => Get.bottomSheet(
+              ShareBottomSheet(
+                post: post,
+              ),
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              enableDrag: true,
+              elevation: 0,
+              isDismissible: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(32),
+                    topRight: Radius.circular(32)),
               ),
             ),
-            const SizedBox(height: 8.0),
-            const Divider(
-              color: ColorsManger.light,
-              height: 20,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            )
-          ],
+            child: Row(
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                      color: ColorsManger.primary.withOpacity(.05),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Iconsax.export,
+                      color: ColorsManger.primary,
+                    ).paddingAll(8)),
+                const SizedBox(
+                  width: 5,
+                ),
+                const Text('Share'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class UserWidget extends StatelessWidget {
+  const UserWidget({
+    Key? key,
+    required this.post,
+  }) : super(key: key);
+
+  final PostModel post;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: GestureDetector(
+        onTap: () {
+          Get.toNamed(Routes.OTHER_PROFILE,
+              arguments: {'userId': post.user?.uid});
+        },
+        child: CircleAvatar(
+          radius: 25,
+          backgroundImage: NetworkImage(
+            post.user?.photoUrl ?? '',
+          ),
         ),
-      ).paddingAll(10),
+      ),
+      title: GestureDetector(
+        onTap: () {
+          Get.toNamed(Routes.OTHER_PROFILE,
+              arguments: {'userId': post.user?.uid});
+        },
+        child: Text('${post.user?.firstName} ${post.user?.lastName}',
+            style: getMediumTextStyle(color: ColorsManger.black, fontSize: 14)),
+      ),
+      subtitle: Text(
+          timeago.format(
+            post.createdAt!,
+            locale: 'en',
+          ),
+          style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12)),
+      trailing: PopupMenuButton(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        initialValue: 3,
+        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+          PopupMenuItem(
+              child: Text(
+            'Unfollow ${post.user?.firstName} ${post.user?.lastName} posts',
+            style: getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
+          )),
+          PopupMenuItem(
+              child: Text(
+            'Report post',
+            style: getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
+          )),
+          PopupMenuItem(
+              child: Text(
+            'Copy link',
+            style: getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
+          )),
+          if (post.uid == UserService.myUser?.uid)
+            PopupMenuItem(
+                onTap: () async {
+                  await PostService.deletePostToUser(postId: post.id!)
+                      .then((value) => Get.forceAppUpdate());
+                },
+                child: Text(
+                  'Delete',
+                  style: getMediumTextStyle(
+                      fontSize: 11, color: ColorsManger.grey),
+                )),
+        ],
+        icon: const Icon(
+          Icons.more_vert,
+          color: ColorsManger.primary,
+        ),
+      ),
+    );
+  }
+}
+
+class ImageWidget extends StatelessWidget {
+  const ImageWidget({
+    Key? key,
+    required this.post,
+  }) : super(key: key);
+
+  final PostModel post;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: GestureDetector(
+        onTap: () {},
+        onDoubleTap: () {},
+        child: InstaLikeButton(
+          imageBoxfit: BoxFit.cover,
+          icon: Iconsax.like_15,
+          iconColor: ColorsManger.red,
+          onChanged: () async {
+            await PostService.addReactionToPost(
+                post.id ?? "",
+                Reaction(
+                  createdAt: DateTime.now(),
+                  user: UserService.myUser,
+                  reaction: PostReactions.like.name,
+                  postId: post.id,
+                  uid: UserService.myUser?.uid,
+                ));
+          },
+          image: NetworkImage(post.imageUrl!),
+          onImageError: (error, stackTrace) {
+            return Center(
+                child: Column(
+              children: [
+                const Icon(
+                  Iconsax.image4,
+                  color: ColorsManger.error,
+                ),
+                Text(
+                  'Error loading image',
+                  style: getRegularTextStyle(
+                      fontSize: 12, color: ColorsManger.error),
+                ).paddingOnly(bottom: 10)
+              ],
+            ));
+          },
+        ),
+      ),
     );
   }
 }

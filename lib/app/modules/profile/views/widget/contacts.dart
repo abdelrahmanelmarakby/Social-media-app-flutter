@@ -66,8 +66,6 @@ class ContactsView extends StatelessWidget {
                             Text(snapshot.data?[index]?.phoneNumber ?? 'N/A'),
                         trailing: IconButton(
                           onPressed: () {
-                            Get.log(
-                                "Chatting with ${UserService.myUser?.phoneNumber?.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "") ?? ""}");
                             Get.to(() => ChatScreen(
                                 myId: UserService.myUser?.phoneNumber
                                         ?.replaceAll(

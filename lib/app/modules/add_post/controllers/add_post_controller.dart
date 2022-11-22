@@ -28,7 +28,6 @@ class AddPostController extends GetxController {
       UploadTask task = ref.putFile(image);
       await task.whenComplete(() async {
         imageUrl.value = await ref.getDownloadURL();
-        Get.log(imageUrl.value);
       });
 
       return imageUrl.value;

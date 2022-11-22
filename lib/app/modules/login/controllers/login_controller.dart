@@ -61,7 +61,6 @@ class LoginController extends GetxController {
         verificationFailed: (authException) {
           Get.snackbar("Couldn't send verification message",
               authException.message.toString());
-          Get.log(authException.message.toString());
         },
         codeSent: (String id, [int? forceResent]) {
           // ignore: avoid_print
@@ -94,7 +93,6 @@ class LoginController extends GetxController {
             .then((user) {
           if (user?.uid != null) {
             authUserID = user?.uid ?? "";
-            Get.log("User added : ${user.toString()} ");
             Get.offAllNamed(Routes.BOTTOM_NAV_BAR);
           }
           return user;

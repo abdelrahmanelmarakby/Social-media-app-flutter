@@ -169,7 +169,10 @@ class _MessageBuilderState extends State<MessageBuilder> {
 }
 
 class LinkPreviewText extends StatefulWidget {
-  LinkPreviewText({super.key, required this.url});
+  LinkPreviewText({
+    super.key,
+    required this.url,
+  });
   String url;
   Map<String, PreviewData> datas = {};
   @override
@@ -226,7 +229,7 @@ class _LinkPreviewTextState extends State<LinkPreviewText> {
         text: TwemojiTextSpan(
           text: widget.url,
           style: getRegularTextStyle(
-            color: ColorsManger.grey1,
+            color: ColorsManger.black,
             fontSize: 12,
           ),
           // style: Theme.of(context).textTheme.headline6,

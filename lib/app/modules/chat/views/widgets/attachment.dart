@@ -108,7 +108,9 @@ class Attachment {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               dialogBtn(
                   icon: Iconsax.image,
                   text: 'Image',
@@ -144,8 +146,10 @@ class Attachment {
                     Get.back();
                     sendMyLocationToStorage(ctx);
                   }),
-                  const SizedBox(height: 20,),
-                  ],
+              const SizedBox(
+                height: 20,
+              ),
+            ],
           ),
         ));
   }
@@ -333,25 +337,21 @@ class Attachment {
   }
 
   Future sendMyLocationToStorage(BuildContext context) async {
-    Get.log('sendMyLocationToStorage');
     //request permission
     await [
       Permission.location,
       Permission.locationWhenInUse,
       Permission.locationAlways
     ].request();
-    Get.log('sendMyLocationToStorage');
     //get current location
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    Get.log('sendMyLocationToStorage');
     final String lat = position.latitude.toString();
     final String lng = position.longitude.toString();
     final String location = ('$lat,$lng');
     postMsg(
         fluff:
             'https://www.google.com/maps/search/?api=1&query=$location&zoom=15');
-    Get.log('location: $location');
   }
 
   //image + صورة

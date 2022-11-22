@@ -127,9 +127,7 @@ class _OtpVerificationFormState extends State<OtpVerificationForm> {
                   onCompleted: (v) {
                     controller.otpVerify(otpController.text);
                   },
-                  onChanged: (String value) {
-                    Get.log(value);
-                  },
+                  onChanged: (String value) {},
                 ),
               )),
           Container(
@@ -158,8 +156,8 @@ class _OtpVerificationFormState extends State<OtpVerificationForm> {
                 child: Center(
                     child: Text(
                   "VERIFY".toUpperCase(),
-                  style: getBoldTextStyle(fontSize: 18,
-                      color: ColorsManger.white),
+                  style:
+                      getBoldTextStyle(fontSize: 18, color: ColorsManger.white),
                 )),
               ),
             ),
