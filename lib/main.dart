@@ -36,7 +36,9 @@ Future<void> main() async {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    SystemUiOverlay.top,
+  ]);
   //============================================================================
   await SentryFlutter.init(
     (options) {

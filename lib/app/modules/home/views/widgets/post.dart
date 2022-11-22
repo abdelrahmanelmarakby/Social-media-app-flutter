@@ -4,6 +4,7 @@ import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/modules/comments/views/comments_view.dart';
+import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../../../core/resourses/color_manger.dart';
@@ -14,16 +15,16 @@ import 'share_bottom_sheet.dart';
 import 'package:insta_like_button/insta_like_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class PostList extends StatelessWidget {
+class PostList extends GetWidget<HomeController> {
   const PostList({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Expanded(
+    return Expanded(
+      child: Directionality(
+        textDirection: TextDirection.ltr,
         child: FutureBuilder(
           future: PostService().getAllUserPosts(
             [
@@ -34,40 +35,40 @@ class PostList extends StatelessWidget {
           builder: (context, snapshot) {
             //  Get.log("User Posts :$posts");
             if (snapshot.hasData) {
-              List<PostModel> posts = [];
               snapshot.data?.docs.map((e) {
-                posts.add(PostModel.fromMap(e.data() as Map<String, dynamic>));
+                controller.posts.clear();
+                controller.posts.add(PostModel.fromMap(e.data()));
               }).toList();
               return ListView.builder(
-                itemCount: posts.length,
+                itemCount: controller.posts.length,
                 itemBuilder: (context, index) {
-                  if (posts[index].sharedFrom != null) {
+                  if (controller.posts[index].sharedFrom != null) {
                     return Column(
                       children: [
                         ListTile(
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
                             child: Image.network(
-                              posts[index].user?.photoUrl ?? '',
+                              controller.posts[index].user?.photoUrl ?? '',
                               fit: BoxFit.cover,
                               width: 30,
                               height: 30,
                             ),
                           ),
                           title: Text(
-                              "${posts[index].user?.firstName ?? ''} ${posts[index].user?.lastName ?? ''}  Shared a Post",
+                              "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
                               style: getRegularTextStyle(fontSize: 14)),
                         ),
                         PostWidget(
                           index: index,
-                          post: posts[index],
+                          post: controller.posts[index],
                         )
                       ],
                     );
                   } else {
                     return PostWidget(
                       index: index,
-                      post: posts[index],
+                      post: controller.posts[index],
                     );
                   }
                 },
@@ -94,6 +95,12 @@ class PostWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+              color: ColorsManger.black.withOpacity(.05),
+              blurRadius: 10,
+              spreadRadius: 1)
+        ],
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -104,16 +111,12 @@ class PostWidget extends StatelessWidget {
             ImageWidget(post: post).paddingSymmetric(horizontal: 10),
           const SizedBox(height: 8.0),
           InteractionsWidget(post: post),
-          const Divider(
-            color: ColorsManger.light,
-            height: 15,
-            thickness: 1,
-            indent: 10,
-            endIndent: 10,
+          const SizedBox(
+            height: 8,
           )
         ],
       ),
-    );
+    ).paddingSymmetric(horizontal: 8);
   }
 }
 
@@ -131,6 +134,8 @@ class PostTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Text(
         post.title ?? '',
+        overflow: TextOverflow.ellipsis,
+        maxLines: 4,
         style: const TextStyle(
           color: ColorsManger.grey,
         ),
@@ -161,19 +166,25 @@ class InteractionsWidget extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Get.bottomSheet(
-                CommentsView(
-                  post: post,
-                ),
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-              );
+              Get.to(
+                  CommentsView(
+                    post: post,
+                  ),
+                  transition: Transition.downToUp);
             },
             child: Row(
               children: [
-                const CircleAvatar(
-                    backgroundColor: ColorsManger.grey1,
-                    child: Icon(Iconsax.message)),
+                Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: ColorsManger.primary.withOpacity(.05)),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Iconsax.message,
+                        color: ColorsManger.primary,
+                      ),
+                    )),
                 const SizedBox(
                   width: 5,
                 ),
@@ -200,14 +211,20 @@ class InteractionsWidget extends StatelessWidget {
               ),
             ),
             child: Row(
-              children: const [
-                CircleAvatar(
-                    backgroundColor: ColorsManger.light,
-                    child: Icon(Iconsax.export)),
-                SizedBox(
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                      color: ColorsManger.primary.withOpacity(.05),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Iconsax.export,
+                      color: ColorsManger.primary,
+                    ).paddingAll(8)),
+                const SizedBox(
                   width: 5,
                 ),
-                Text('Share'),
+                const Text('Share'),
               ],
             ),
           ),
@@ -274,7 +291,22 @@ class UserWidget extends StatelessWidget {
             'Copy link',
             style: getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
           )),
+          if (post.uid == UserService.myUser?.uid)
+            PopupMenuItem(
+                onTap: () async {
+                  await PostService.deletePostToUser(postId: post.id!)
+                      .then((value) => Get.forceAppUpdate());
+                },
+                child: Text(
+                  'Delete',
+                  style: getMediumTextStyle(
+                      fontSize: 11, color: ColorsManger.grey),
+                )),
         ],
+        icon: const Icon(
+          Icons.more_vert,
+          color: ColorsManger.primary,
+        ),
       ),
     );
   }
@@ -297,9 +329,19 @@ class ImageWidget extends StatelessWidget {
         onDoubleTap: () {},
         child: InstaLikeButton(
           imageBoxfit: BoxFit.cover,
-          icon: Iconsax.lovely,
-          iconColor: ColorsManger.primary,
-          onChanged: () {},
+          icon: Iconsax.like_15,
+          iconColor: ColorsManger.red,
+          onChanged: () async {
+            await PostService.addReactionToPost(
+                post.id ?? "",
+                Reaction(
+                  createdAt: DateTime.now(),
+                  user: UserService.myUser,
+                  reaction: PostReactions.like.name,
+                  postId: post.id,
+                  uid: UserService.myUser?.uid,
+                ));
+          },
           image: NetworkImage(post.imageUrl!),
           onImageError: (error, stackTrace) {
             return Center(

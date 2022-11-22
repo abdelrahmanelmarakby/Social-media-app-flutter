@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
+import 'search_post.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({
@@ -16,11 +17,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       actions: [
-        const Icon(
-          CupertinoIcons.search,
-          color: ColorsManger.primary,
-          size: 30,
-        ).paddingSymmetric(horizontal: 12),
+        GestureDetector(
+          onTap: () => Get.to(() => const SearchPosts()),
+          child: const Icon(
+            CupertinoIcons.search,
+            color: ColorsManger.primary,
+            size: 30,
+          ).paddingSymmetric(horizontal: 12),
+        ),
       ],
       title: Directionality(
         textDirection: TextDirection.ltr,

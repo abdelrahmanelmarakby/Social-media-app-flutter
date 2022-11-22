@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/post_model.dart';
@@ -7,9 +8,9 @@ import '../models/post_model.dart';
 class PostService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  static addPost(PostModel post, String uid) {
+  static Future<bool> addPost(PostModel post, String uid) async {
     DocumentReference documentReference = _firestore.collection("Posts").doc();
-    FirebaseFirestore.instance.runTransaction((transaction) async {
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
       transaction.set(
         documentReference,
         post
@@ -17,8 +18,9 @@ class PostService {
                 uid: uid, id: documentReference.id, createdAt: DateTime.now())
             .toMap(),
       );
-    });
+    }).then((value) => BotToast.showText(text: "Post Added"));
     print("Post $post Added");
+    return true;
   }
 
   static updatePost(String postId, PostModel post) {
@@ -33,24 +35,29 @@ class PostService {
     return null;
   }
 
-  static addReactionToPost(String postId, Reaction reaction) {
-    DocumentReference documentReference =
-        _firestore.collection("Posts").doc(postId);
-    FirebaseFirestore.instance.runTransaction((transaction) async {
-      transaction.update(
-        documentReference,
-        {
-          "reactions": FieldValue.arrayUnion([reaction.toMap()]),
-        },
-      );
-    });
-    return null;
+  static Future<bool> addReactionToPost(
+      String postId, Reaction reaction) async {
+    try {
+      DocumentReference documentReference =
+          _firestore.collection("Posts").doc(postId);
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        transaction.update(
+          documentReference,
+          {
+            "reactions": FieldValue.arrayUnion([reaction.toMap()]),
+          },
+        );
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
-  static addCommentToPost(String postId, Comment comment) {
+  static Future<bool> addCommentToPost(String postId, Comment comment) async {
     DocumentReference documentReference =
         _firestore.collection("Posts").doc(postId);
-    FirebaseFirestore.instance.runTransaction((transaction) async {
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
       transaction.update(
         documentReference,
         {
@@ -58,10 +65,10 @@ class PostService {
         },
       );
     });
-    return null;
+    return true;
   }
 
-  Future<List<Comment>> getComments(String postId) {
+  Future<List<Comment>> getComments(String postId) async {
     return _firestore.collection("Posts").doc(postId).get().then((value) {
       List<Comment> comments = [];
       value.data()?["comments"].map((e) {
@@ -71,22 +78,21 @@ class PostService {
     });
   }
 
-  static deletePostToUser({required String uid, required String postId}) async {
-    _firestore.collection("Posts").doc(postId).delete();
+  static Future deletePostToUser({required String postId}) async {
+    await _firestore.collection("Posts").doc(postId).delete();
 
     print("Deleted");
   }
 
-  Future<QuerySnapshot<Object?>> getAllUserPosts(List<String> uids) async {
+  Future<QuerySnapshot<Map<String, dynamic>>> getAllUserPosts(
+      List<String> uids) async {
     print("uids $uids");
-    final data = _firestore
+
+    final data = await _firestore
         .collection("Posts")
         .orderBy("createdAt", descending: true)
         .where("uid", whereIn: uids)
         .get();
-    await data.then((value) {
-      print("value ${value.docs.length}");
-    });
     return data;
   }
 }

@@ -126,65 +126,62 @@ class CommentsView extends GetView<CommentsController> {
                               8,
                             );
                           })),
-                  Expanded(
-                    child: Container(
-                      height: 200,
-                      padding: const EdgeInsets.only(left: 8),
-                      color: ColorsManger.white,
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                UserService.myUser?.photoUrl ?? ""),
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _commentController,
-                              minLines: 1,
-                              maxLines: 3,
-                              onFieldSubmitted: (value) {
-                                if (value.isNotEmpty) {
+                  Container(
+                    height: 80,
+                    padding: const EdgeInsets.only(left: 8),
+                    color: ColorsManger.white,
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(UserService.myUser?.photoUrl ?? ""),
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _commentController,
+                            minLines: 1,
+                            maxLines: 3,
+                            onFieldSubmitted: (value) {
+                              if (value.isNotEmpty) {
+                                PostService.addCommentToPost(
+                                    post.id ?? "",
+                                    Comment(
+                                        comment: value,
+                                        user: UserService.myUser,
+                                        createdAt: DateTime.now()));
+                                _commentController.clear();
+                              }
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: ColorsManger.white,
+                              hintText: 'Add a comment',
+                              border: InputBorder.none,
+                              suffixIcon: GestureDetector(
+                                onTap: () async {
                                   PostService.addCommentToPost(
                                       post.id ?? "",
                                       Comment(
-                                          comment: value,
-                                          user: UserService.myUser,
-                                          createdAt: DateTime.now()));
-                                  _commentController.clear();
-                                  Get.forceAppUpdate();
-                                }
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: ColorsManger.white,
-                                hintText: 'Add a comment',
-                                border: InputBorder.none,
-                                suffixIcon: GestureDetector(
-                                  onTap: () async {
-                                    PostService.addCommentToPost(
-                                        post.id ?? "",
-                                        Comment(
-                                          comment: _commentController.text,
-                                          user: UserService.myUser,
-                                          createdAt: DateTime.now(),
-                                        ));
+                                        comment: _commentController.text,
+                                        user: UserService.myUser,
+                                        createdAt: DateTime.now(),
+                                      ));
 
-                                    _commentController.clear();
-                                    await PostService()
-                                        .getComments(post.id ?? "");
-                                    await Get.forceAppUpdate();
-                                  },
-                                  child: const Icon(Iconsax.send1),
-                                ),
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
+                                  _commentController.clear();
+                                  await PostService()
+                                      .getComments(post.id ?? "");
+                                  await Get.forceAppUpdate();
+                                },
+                                child: const Icon(Iconsax.send1),
                               ),
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ],

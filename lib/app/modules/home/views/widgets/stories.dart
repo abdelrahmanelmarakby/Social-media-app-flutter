@@ -22,13 +22,18 @@ class Stories extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 100,
-        padding: const EdgeInsets.only(
-          left: 5,
-        ),
         margin: const EdgeInsets.only(
           left: 24,
         ),
         decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: ColorsManger.black.withOpacity(.05),
+                spreadRadius: 1,
+                blurRadius: 10,
+              )
+            ],
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
             border: Border.all(
@@ -180,13 +185,13 @@ class Stories extends StatelessWidget {
                         ),
                       );
                     },
-                  ));
+                  )).paddingSymmetric(horizontal: 8);
                 } else {
                   return const Center(
                     child: CupertinoActivityIndicator(),
                   );
                 }
               },
-            )));
+            ))).paddingOnly();
   }
 }

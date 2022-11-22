@@ -179,8 +179,8 @@ class AddPostAppBar extends GetWidget<AddPostController> {
             ),
             child: ButtonTheme(
               child: TextButton(
-                onPressed: () {
-                  PostService.addPost(
+                onPressed: () async {
+                  await PostService.addPost(
                       PostModel(
                           title: controller.postEditingController.text,
                           user: UserService.myUser,
@@ -188,8 +188,10 @@ class AddPostAppBar extends GetWidget<AddPostController> {
                           imageUrl: controller.imageUrl.value,
                           uid: UserService.myUser?.uid ?? ""),
                       UserService.myUser?.uid ?? "");
-                  Get.offNamedUntil(Routes.BOTTOM_NAV_BAR, (route) => false);
-                  Get.forceAppUpdate();
+
+                  await Get.offNamedUntil(
+                          Routes.BOTTOM_NAV_BAR, (route) => false)
+                      ?.then((value) => Get.forceAppUpdate());
                 },
                 child: const Center(
                     child: Text(
