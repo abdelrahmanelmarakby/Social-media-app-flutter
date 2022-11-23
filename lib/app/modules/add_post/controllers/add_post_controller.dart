@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
@@ -35,6 +36,7 @@ class AddPostController extends GetxController {
   }
 
   Future<bool> uploadPost() async {
+    BotToast.showLoading();
     DateTime now = DateTime.now();
     var datestamp = DateFormat("yyyyMMdd'T'HHmmss");
     String currentdate = datestamp.format(now);
@@ -47,6 +49,7 @@ class AddPostController extends GetxController {
     await task.whenComplete(() async {
       imageUrl.value = await ref.getDownloadURL();
     });
+    BotToast.closeAllLoading();
     return imageUrl.value == "";
   }
 

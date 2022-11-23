@@ -23,9 +23,7 @@ class AddPostView extends GetView<AddPostController> {
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
 
     return Scaffold(
-        body: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
+        body: ListView(
       children: [
         const AddPostAppBar(),
         const UserInfoWidget(),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
@@ -7,6 +8,7 @@ import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
@@ -351,38 +353,41 @@ class ImageWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: () {},
         onDoubleTap: () {},
-        child: InstaLikeButton(
-          imageBoxfit: BoxFit.cover,
-          icon: Iconsax.like_15,
-          iconColor: ColorsManger.primary,
-          onChanged: () async {
-            await PostService.addReactionToPost(
-                post.id ?? "",
-                Reaction(
-                  createdAt: DateTime.now(),
-                  user: UserService.myUser,
-                  reaction: PostReactions.like.name,
-                  postId: post.id,
-                  uid: UserService.myUser?.uid,
-                ));
-          },
-          image: NetworkImage(post.imageUrl!),
-          onImageError: (error, stackTrace) {
-            return Center(
-                child: Column(
-              children: [
-                const Icon(
-                  Iconsax.image4,
-                  color: ColorsManger.error,
-                ),
-                Text(
-                  'Error loading image',
-                  style: getRegularTextStyle(
-                      fontSize: 12, color: ColorsManger.error),
-                ).paddingOnly(bottom: 10)
-              ],
-            ));
-          },
+        child: InstaImageViewer(
+          child: InstaLikeButton(
+            icon: Iconsax.like_15,
+            iconColor: ColorsManger.primary,
+            onChanged: () async {
+              await PostService.addReactionToPost(
+                  post.id ?? "",
+                  Reaction(
+                    createdAt: DateTime.now(),
+                    user: UserService.myUser,
+                    reaction: PostReactions.like.name,
+                    postId: post.id,
+                    uid: UserService.myUser?.uid,
+                  ));
+            },
+            image: CachedNetworkImageProvider(
+              post.imageUrl!,
+            ),
+            onImageError: (error, stackTrace) {
+              return Center(
+                  child: Column(
+                children: [
+                  const Icon(
+                    Iconsax.image4,
+                    color: ColorsManger.error,
+                  ),
+                  Text(
+                    'Error loading image',
+                    style: getRegularTextStyle(
+                        fontSize: 12, color: ColorsManger.error),
+                  ).paddingOnly(bottom: 10)
+                ],
+              ));
+            },
+          ),
         ),
       ),
     );

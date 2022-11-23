@@ -6,6 +6,8 @@ environment:
   sdk: ">=2.18.2 <3.0.0"
 
 dependencies:
+  advstory: ^0.2.1
+  agora_rtc_engine: null
   alt_sms_autofill: ^1.0.0
   animate_do: ^2.1.0
   bot_toast: ^4.0.3
@@ -14,6 +16,7 @@ dependencies:
   cloud_firestore: ^4.0.4
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
+  diamond_dial_fab: ^0.0.3
   dio: ^4.0.0
   emoji_picker_flutter: ^1.5.0
   file_picker: ^5.2.2
@@ -22,6 +25,7 @@ dependencies:
   firebase_messaging: ^14.0.4
   firebase_storage: ^11.0.4
   flashy_tab_bar2: ^0.0.4
+  floating_bottom_bar: ^0.0.1
   flutter:
     sdk: flutter
   flutter_chat_types: ^3.6.0
@@ -41,18 +45,21 @@ dependencies:
   get_storage: ^2.0.3
   google_sign_in: ^5.1.1
   iconsax: ^0.0.8
+  image_picker_plus: ^0.5.5+2
   image_viewer: ^1.5.0
-  agora_rtc_engine:
   insta_image_viewer: ^1.0.2
+  insta_like_button: ^0.1.1
   internet_connection_checker: ^1.0.0+1
   intl: ^0.17.0
   intl_phone_field: ^3.1.0
+  like_button: ^2.0.5
   lottie: ^2.0.0
   permission_handler: ^10.2.0
   pin_code_fields: ^7.4.0
   pretty_dio_logger: ^1.1.1
   provider: ^6.0.4
   responsive_framework: ^0.2.0
+  rich_text_view: ^1.1.0
   sentry: ^6.14.0
   sentry_flutter: ^6.14.0
   shared_preferences: ^2.0.15
@@ -63,14 +70,6 @@ dependencies:
   url_launcher: ^6.1.6
   video_thumbnail: ^0.5.3
   video_viewer: ^1.2.7
-  advstory: ^0.2.1
-  diamond_dial_fab: ^0.0.3
-  floating_bottom_bar: ^0.0.1
-  insta_like_button: ^0.1.1
-  like_button: ^2.0.5
-  rich_text_view: ^1.1.0
-
-  image_picker_plus: ^0.5.5+2
 
 dev_dependencies:
   flutter_lints: 2.0.1
