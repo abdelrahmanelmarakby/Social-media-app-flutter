@@ -22,11 +22,14 @@ abstract class Routes {
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const OTHER_PROFILE = _Paths.OTHER_PROFILE;
   static const ADD_STORY = _Paths.ADD_STORY;
+
   static const ACCOUNT = _Paths.ACCOUNT;
   static const DELETE_ACCOUNT = _Paths.DELETE_ACCOUNT;
   static const PROFILE_NOTIFICATION = _Paths.PROFILE_NOTIFICATION;
   static const HELP = _Paths.HELP;
   static const CONTACT_US = _Paths.CONTACT_US;
+  static const VIDEO_CHAT = _Paths.VIDEO_CHAT;
+
 }
 
 abstract class _Paths {
@@ -48,9 +51,12 @@ abstract class _Paths {
   static const EDIT_PROFILE = '/edit-profile';
   static const OTHER_PROFILE = '/other-profile';
   static const ADD_STORY = '/add-story';
+
   static const ACCOUNT = '/account';
   static const DELETE_ACCOUNT = '/delete-account';
   static const PROFILE_NOTIFICATION = '/profile-notification';
   static const HELP = '/help';
   static const CONTACT_US = '/contact-us';
+  static const VIDEO_CHAT = '/video-chat';
+
 }

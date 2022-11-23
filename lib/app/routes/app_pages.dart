@@ -39,6 +39,8 @@ import '../modules/share_bottom_sheet/bindings/share_bottom_sheet_binding.dart';
 import '../modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
+import '../modules/video_chat/bindings/video_chat_binding.dart';
+import '../modules/video_chat/views/video_chat_view.dart';
 
 part 'app_routes.dart';
 
@@ -124,6 +126,7 @@ class AppPages {
       binding: AddStoryBinding(),
     ),
     GetPage(
+
       name: _Paths.ACCOUNT,
       page: () => const AccountView(),
       binding: AccountBinding(),
@@ -147,6 +150,7 @@ class AppPages {
       name: _Paths.CONTACT_US,
       page: () => const ContactUsView(),
       binding: ContactUsBinding(),
+
     ),
   ];
 }
