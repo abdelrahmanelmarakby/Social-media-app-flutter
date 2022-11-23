@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
@@ -172,15 +173,20 @@ class AddPostAppBar extends GetWidget<AddPostController> {
             child: ButtonTheme(
               child: TextButton(
                 onPressed: () async {
-                  await controller.uploadPost();
+                  await controller.uploadPost().catchError((e) {
+                    Get.snackbar('Error', e.toString());
+                    BotToast.closeAllLoading();
+                  });
                   await PostService.addPost(
-                      PostModel(
-                          title: controller.postEditingController.text,
-                          user: UserService.myUser,
-                          description: controller.postEditingController.text,
-                          imageUrl: controller.imageUrl.value,
-                          uid: UserService.myUser?.uid ?? ""),
-                      UserService.myUser?.uid ?? "");
+                          PostModel(
+                              title: controller.postEditingController.text,
+                              user: UserService.myUser,
+                              description:
+                                  controller.postEditingController.text,
+                              imageUrl: controller.imageUrl.value,
+                              uid: UserService.myUser?.uid ?? ""),
+                          UserService.myUser?.uid ?? "")
+                      .catchError((e) => Get.snackbar('Error', e.toString()));
 
                   await Get.offNamedUntil(
                           Routes.BOTTOM_NAV_BAR, (route) => false)

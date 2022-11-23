@@ -45,11 +45,15 @@ class AddPostController extends GetxController {
         .child('postImages')
         .child(UserService.myUser!.uid ?? "")
         .child(currentdate);
-    UploadTask task = ref.putFile(image.value);
-    await task.whenComplete(() async {
-      imageUrl.value = await ref.getDownloadURL();
-    });
+    if (image.value.path.isNotEmpty) {
+      await ref.putFile(image.value).then((value) async {
+        await value.ref.getDownloadURL().then((value) {
+          imageUrl.value = value;
+        });
+      });
+    }
     BotToast.closeAllLoading();
+
     return imageUrl.value == "";
   }
 
