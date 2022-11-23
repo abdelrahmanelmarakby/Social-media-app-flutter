@@ -112,7 +112,7 @@ class CommentsView extends GetView<CommentsController> {
                                         const SizedBox(
                                           width: 20,
                                         ),
-                                        InkWell(
+                                        GestureDetector(
                                           child: Text(
                                             'Like',
                                             style: getLightTextStyle(

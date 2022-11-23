@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
-import 'package:future_chat/app/modules/profile/views/widget/contacts.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +11,7 @@ import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/font_manger.dart';
 import '../../../../../core/resourses/values_manger.dart';
 import '../../../../data/models/chat_model.dart';
+import '../../../../routes/app_pages.dart';
 import '../chat_screen.dart';
 
 class RecentChats extends StatefulWidget {
@@ -52,23 +52,16 @@ class _RecentChatsState extends State<RecentChats> {
             ),
           ),
           PopupMenuButton(
+            onSelected: (value) {
+              if (value == 1) {
+                Get.toNamed(Routes.GROUP_CHAT);
+              }
+            },
             itemBuilder: (context) {
               return [
                 PopupMenuItem(
-                  onTap: () {
-                    Get.log(
-                        "add new contact : ${UserService.myUser?.followers}");
-                    Get.bottomSheet(
-                        ContactsView(
-                            contacts: UserService.myUser?.followers ?? []),
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                        ));
-                  },
+                  value: 1,
+                  onTap: () {},
                   child: Text(
                     'New Group',
                     style: getMediumTextStyle(

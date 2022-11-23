@@ -198,34 +198,49 @@ class OtherProfileView extends GetView<OtherProfileController> {
                           style: getMediumTextStyle(
                               color: ColorsManger.black, fontSize: 16),
                         ).paddingOnly(left: 27),
-                        Expanded(
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 10,
-                              itemBuilder: (context, index) {
-                                return SizedBox(
-                                  height: 95,
-                                  width: 95,
-                                  child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 5, left: 5),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.network(
-                                              "https://picsum.photos/${(index * 100) + 500}",
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                );
-                              }),
+                        FutureBuilder(
+                          future: controller
+                              .getChatImagesUrl(user.phoneNumber ?? ""),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              List<String> images =
+                                  snapshot.data as List<String>;
+                              return Expanded(
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: images.length,
+                                    itemBuilder: (context, index) {
+                                      return SizedBox(
+                                        height: 95,
+                                        width: 95,
+                                        child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 5, left: 5),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Image.network(
+                                                    images[index],
+                                                    height: 70,
+                                                    width: 70,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                      );
+                                    }),
+                              );
+                            } else {
+                              return const SizedBox();
+                            }
+                          },
                         ),
                         Padding(
                           padding: const EdgeInsets.only(

@@ -6,6 +6,12 @@ import 'package:permission_handler/permission_handler.dart';
 
 class VideoChatController extends GetxController {
   @override
+  void onInit() {
+    setupVideoSDKEngine();
+    super.onInit();
+  }
+
+  @override
   void onClose() async {
     await agoraEngine.leaveChannel();
     super.onClose();

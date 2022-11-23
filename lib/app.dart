@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:future_chat/core/others/intial_widget.dart';
 import 'package:future_chat/core/services/bindings.dart';
@@ -21,6 +22,12 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   final botToastBuilder = BotToastInit();
+  @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +71,7 @@ class MyAppState extends State<MyApp> {
               defaultScale: true,
               breakpoints: [
                 const ResponsiveBreakpoint.resize(350, name: MOBILE),
-                const ResponsiveBreakpoint.autoScale(600, name: TABLET),
+                const ResponsiveBreakpoint.resize(600, name: TABLET),
                 const ResponsiveBreakpoint.resize(800, name: DESKTOP),
                 const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
               ],

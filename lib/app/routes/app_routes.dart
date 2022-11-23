@@ -29,7 +29,8 @@ abstract class Routes {
   static const HELP = _Paths.HELP;
   static const CONTACT_US = _Paths.CONTACT_US;
   static const VIDEO_CHAT = _Paths.VIDEO_CHAT;
-
+  static const SEARCH = _Paths.SEARCH;
+  static const GROUP_CHAT = _Paths.GROUP_CHAT;
 }
 
 abstract class _Paths {
@@ -58,5 +59,6 @@ abstract class _Paths {
   static const HELP = '/help';
   static const CONTACT_US = '/contact-us';
   static const VIDEO_CHAT = '/video-chat';
-
+  static const SEARCH = '/search';
+  static const GROUP_CHAT = '/group-chat';
 }

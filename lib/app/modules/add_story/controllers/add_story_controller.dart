@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_plus/image_picker_plus.dart';
 import 'package:intl/intl.dart';
 
 import '../../../data/remote_firebase_services/user_services.dart';
@@ -13,14 +14,25 @@ class AddStoryController extends GetxController {
   File image = File("");
   RxString imageUrl = ''.obs;
   Future<String> addImageToStory(ImageSource imageSource) async {
-    ImagePicker imagePicker = ImagePicker();
-    imagePicker.pickImage(source: imageSource, imageQuality: 100);
+    ImagePickerPlus imagePicker = ImagePickerPlus(Get.context!);
+    imagePicker.pickImage(
+      source: imageSource,
+      multiImages: false,
+      galleryDisplaySettings: GalleryDisplaySettings(
+        appTheme: AppTheme(
+          primaryColor: ColorsManger.primary,
+        ),
+        cropImage: true,
+        showImagePreview: true,
+        tabsTexts: TabsTexts(),
+      ),
+    );
     final pickedFile = await imagePicker.pickImage(source: imageSource);
     if (pickedFile != null) {
       DateTime now = DateTime.now();
       var datestamp = DateFormat("yyyyMMdd'T'HHmmss");
       String currentdate = datestamp.format(now);
-      image = File(pickedFile.path);
+      image = File(pickedFile.selectedFiles.first.selectedFile.path);
       final Reference ref = FirebaseStorage.instance
           .ref()
           .child('storyImages')

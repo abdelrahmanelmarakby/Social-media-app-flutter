@@ -8,7 +8,7 @@ import 'package:future_chat/core/resourses/styles_manger.dart';
 
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_plus/image_picker_plus.dart';
 
 import '../../../../core/resourses/font_manger.dart';
 import '../../../routes/app_pages.dart';
@@ -59,17 +59,11 @@ class ImageWidget extends GetWidget<AddPostController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => controller.imageUrl.value != ''
+    return Obx(() => controller.image.value.path != ''
         ? ClipRRect(
-            child: Image.network(
-              controller.imageUrl.value,
+            child: Image.file(
+              controller.image.value,
               fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
-              },
               errorBuilder: (context, error, stackTrace) => const Center(
                 child: Icon(CupertinoIcons.photo_fill_on_rectangle_fill),
               ),
@@ -180,6 +174,7 @@ class AddPostAppBar extends GetWidget<AddPostController> {
             child: ButtonTheme(
               child: TextButton(
                 onPressed: () async {
+                  await controller.uploadPost();
                   await PostService.addPost(
                       PostModel(
                           title: controller.postEditingController.text,

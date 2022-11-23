@@ -4,15 +4,16 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:image_picker_plus/image_picker_plus.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:image_picker/image_picker.dart';
 import "package:firebase_core/firebase_core.dart" as firebase_core;
 
 import '../../../../core/global/var.dart';
+import '../../../../core/resourses/color_manger.dart';
 import '../../../../core/services/contacts_service.dart';
 import '../../../routes/app_pages.dart';
 
@@ -59,11 +60,22 @@ class SignupController extends GetxController {
   late File image;
   String imageUploadedUrl = '';
 
-  final picker = ImagePicker();
   Future pickImage() async {
-    final pickedFile = await picker.pickImage(
-        source: ImageSource.gallery, maxHeight: 750, maxWidth: 750);
-    image = File(pickedFile!.path);
+    ImagePickerPlus imagePicker = ImagePickerPlus(Get.context!);
+
+    final pickedFile = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+      multiImages: false,
+      galleryDisplaySettings: GalleryDisplaySettings(
+        appTheme: AppTheme(
+          primaryColor: ColorsManger.primary,
+        ),
+        cropImage: true,
+        showImagePreview: true,
+        tabsTexts: TabsTexts(),
+      ),
+    );
+    image = File(pickedFile!.selectedFiles.first.selectedFile.path);
     imagePicked.value = true;
     Get.forceAppUpdate();
     uploadFile();
