@@ -17,7 +17,7 @@ class TermsAndPolicy extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
             GestureDetector(
               child: ListTile(
@@ -53,7 +53,7 @@ class TermsAndPolicy extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Text(
-                'We’re constantly developing new technologies and features to improve our services. For example, we use artificial intelligence and machine learning to provide you with simultaneous translations, and to better detect and block spam and malware. As part of this continual improvement, we sometimes add or remove features and functionalities, increase or decrease limits to our services, and start offering new services or stop offering old ones. When a service requires or includes downloadable software, that software sometimes updates automatically on your device once a new version or feature is available. Some services let you adjust your automatic update settings',
+                'We’re constantly developing new technologies and features to improve our services. For example, we use artificial intelligence and machine learning to provide you with simultaneous translations, and to better detect and block spam and malware. As part of this continual improvement, we sometimes add or remove ',
                 style:
                     getMediumTextStyle(color: ColorsManger.black, fontSize: 14),
               ),
@@ -75,7 +75,7 @@ class TermsAndPolicy extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
               child: Text(
-                'We’re constantly developing new technologies and features to improve our services. For example, we use artificial intelligence and machine learning to provide you with simultaneous translations, and to better detect and block spam and malware. As part of this continual improvement, we sometimes add or remove features and functionalities, increase or decrease limits to our services, and start offering new services or stop offering old ones. When a service requires or includes downloadable software, that software sometimes updates automatically on your device once a new version or feature is available. Some services let you adjust your automatic update settings',
+                'We’re constantly developing new technologies and features to improve our services. For example, we use artificial intelligence and machine learning to provide you with simultaneous translations, and to better detect and block spam and malware. As part of this continual improvement, we sometimes add or remove features and functionalities, increase or decrease limits to our servicess',
                 style:
                     getMediumTextStyle(color: ColorsManger.black, fontSize: 14),
               ),

@@ -16,27 +16,28 @@ class ProfileNotificationView extends GetView<ProfileNotificationController> {
           child: Column(
         children: [
           const SizedBox(
-            height: 20,
+            height: 40,
           ),
-          ListTile(
-            leading: GestureDetector(
-              child: const Icon(
+          GestureDetector(
+            child: ListTile(
+              leading: const Icon(
                 Iconsax.arrow_left,
                 color: ColorsManger.black,
               ),
-            ),
-            title: Text(
-              'Notification',
-              style: getBoldTextStyle(
-                color: ColorsManger.black,
+              title: Text(
+                'Notification',
+                style: getBoldTextStyle(
+                  color: ColorsManger.black,
+                ),
               ),
             ),
             onTap: () {
               Get.back();
             },
           ),
-          const SizedBox(height: 40,),
-
+          const SizedBox(
+            height: 40,
+          ),
         ],
       )),
     );

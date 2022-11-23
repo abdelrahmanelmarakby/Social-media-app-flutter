@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/app/modules/profile_notification/views/profile_notification_view.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:future_chat/app/modules/edit_profile/views/edit_profile_view.dart';
@@ -27,6 +28,27 @@ class ProfileView extends GetView<ProfileController> {
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 40,
+          ),
+          GestureDetector(
+            child: ListTile(
+              leading: const Icon(
+                Iconsax.arrow_left,
+                color: ColorsManger.black,
+              ),
+              title: Text(
+                'Profile',
+                style: getBoldTextStyle(
+                  color: ColorsManger.black,
+                ),
+              ),
+            ),
+            onTap: () {},
+          ),
+          const SizedBox(
+            height: 30,
+          ),
           Expanded(
               child: ListTile(
             leading: Container(
@@ -113,7 +135,9 @@ class ProfileView extends GetView<ProfileController> {
               'messages, group and others',
               style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
             ),
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const ProfileNotificationView());
+            },
           )),
           const SizedBox(
             height: 10,
