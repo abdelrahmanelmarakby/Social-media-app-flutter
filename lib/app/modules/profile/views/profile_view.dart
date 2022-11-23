@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/app/modules/profile_notification/views/profile_notification_view.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:future_chat/app/modules/edit_profile/views/edit_profile_view.dart';
@@ -18,21 +19,23 @@ class ProfileView extends GetView<ProfileController> {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 20,),
-          ListTile(
-            leading: const Icon(
-              Iconsax.arrow_left,
-              color: ColorsManger.black,
-            ),
-            title: Text(
-              'Profile',
-              style: getBoldTextStyle(
+          const SizedBox(
+            height: 40,
+          ),
+          GestureDetector(
+            child: ListTile(
+              leading: const Icon(
+                Iconsax.arrow_left,
                 color: ColorsManger.black,
               ),
+              title: Text(
+                'Profile',
+                style: getBoldTextStyle(
+                  color: ColorsManger.black,
+                ),
+              ),
             ),
-            onTap: () {
-              Get.back();
-            },
+            onTap: () {},
           ),
           const SizedBox(
             height: 30,
@@ -123,7 +126,9 @@ class ProfileView extends GetView<ProfileController> {
               'messages, group and others',
               style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
             ),
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const ProfileNotificationView());
+            },
           )),
           const SizedBox(
             height: 10,
@@ -153,7 +158,9 @@ class ProfileView extends GetView<ProfileController> {
               'Help center, contact us, privacy policy',
               style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
             ),
-            onTap: () {Get.to(()=>const HelpView());},
+            onTap: () {
+              Get.to(() => const HelpView());
+            },
           )),
           const SizedBox(
             height: 10,
