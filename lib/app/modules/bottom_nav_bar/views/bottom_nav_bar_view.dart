@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
-import 'package:future_chat/core/resourses/styles_manger.dart';
 
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../routes/app_pages.dart';
+import 'package:pandabar/pandabar.dart';
 import '../controllers/bottom_nav_bar_controller.dart';
-import 'package:floating_bottom_bar/animated_bottom_navigation_bar.dart';
 
 class BottomNavBarView extends GetView<BottomNavBarController> {
   const BottomNavBarView({Key? key}) : super(key: key);
@@ -14,6 +12,7 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
   Widget build(BuildContext context) {
     return GetBuilder<BottomNavBarController>(
       builder: (controller) => Scaffold(
+        extendBody: true,
         body: controller.CurrentScreen,
         bottomNavigationBar: _bottomNavigationBar(),
       ),
@@ -22,97 +21,32 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
 
   _bottomNavigationBar() {
     return GetBuilder<BottomNavBarController>(
-      init: BottomNavBarController(),
-      autoRemove: true,
-      global: true,
       builder: (controller) => SafeArea(
-        child: AnimatedBottomNavigationBar(
-          bottomBarItems: [
-            BottomBarItemsModel(
-              icon: const Icon(
-                Iconsax.home,
-              ),
-              iconSelected: const Icon(
-                Iconsax.home,
-                color: ColorsManger.primary,
-              ),
-              title: "Home",
-              titleStyle: getMediumTextStyle(fontSize: 10),
-              dotColor: ColorsManger.primary,
-              onTap: () => controller.onSelected(0),
-            ),
-            BottomBarItemsModel(
-              icon: const Icon(
-                Iconsax.message,
-              ),
-              iconSelected: const Icon(
-                Iconsax.message,
-                color: ColorsManger.primary,
-              ),
-              title: "Chat",
-              titleStyle: getMediumTextStyle(fontSize: 10),
-              dotColor: ColorsManger.primary,
-              onTap: () => controller.onSelected(1),
-            ),
-            BottomBarItemsModel(
-              icon: const Icon(
-                Iconsax.notification,
-              ),
-              iconSelected: const Icon(
-                Iconsax.notification,
-                color: ColorsManger.primary,
-              ),
-              title: "Notification",
-              titleStyle: getMediumTextStyle(fontSize: 10),
-              dotColor: ColorsManger.primary,
-              onTap: () => controller.onSelected(3),
-            ),
-            BottomBarItemsModel(
-              icon: const Icon(
-                Iconsax.user,
-              ),
-              iconSelected: const Icon(
-                Iconsax.user,
-                color: ColorsManger.primary,
-              ),
-              title: "Profile",
-              dotColor: ColorsManger.primary,
-              titleStyle: getLightTextStyle(fontSize: 10),
-              onTap: () => controller.onSelected(4),
-            ),
-          ],
-          bottomBarCenterModel: BottomBarCenterModel(
-            centerBackgroundColor: ColorsManger.primary,
-            centerIcon: FloatingCenterButton(
-              onAnimationComplete: () {
-                Navigator.pop(Get.context!);
-              },
-              child: const Icon(
-                Icons.add,
-                color: AppColors.white,
-              ),
-            ),
-            centerIconChild: [
-              FloatingCenterButtonChild(
-                child: const Icon(
-                  Iconsax.story,
-                  color: AppColors.white,
-                ),
-                onTap: () {
-                  Get.toNamed(Routes.ADD_STORY);
-                },
-              ),
-              FloatingCenterButtonChild(
-                child: const Icon(
-                  Iconsax.magicpen,
-                  color: AppColors.white,
-                ),
-                onTap: () {
-                  Get.toNamed(Routes.ADD_POST);
-                },
-              ),
-            ],
+        child: PandaBar(
+          backgroundColor: ColorsManger.white,
+          fabIcon: IconButton(
+            icon: const Icon(Iconsax.add),
+            onPressed: () {
+              controller.onSelected(2);
+            },
           ),
+          fabColors: [
+            ColorsManger.primary,
+            ColorsManger.primary.withOpacity(.5)
+          ],
+          buttonSelectedColor: ColorsManger.primary,
+          buttonData: [
+            PandaBarButtonData(id: 0, icon: Iconsax.home, title: 'Home'),
+            PandaBarButtonData(id: 1, icon: Iconsax.messages, title: 'Chat'),
+            PandaBarButtonData(
+              id: 3,
+              icon: Iconsax.notification,
+              title: 'Notification',
+            ),
+            PandaBarButtonData(id: 4, icon: Iconsax.user, title: 'Profile'),
+          ],
+          onChange: (index) => controller.onSelected(index),
+          onFabButtonPressed: () {},
         ),
       ),
     );

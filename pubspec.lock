@@ -260,13 +260,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
-  emoji_picker_flutter:
-    dependency: "direct main"
-    description:
-      name: emoji_picker_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.0"
   equatable:
     dependency: transitive
     description:
@@ -386,20 +379,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.14"
-  flashy_tab_bar2:
-    dependency: "direct main"
-    description:
-      name: flashy_tab_bar2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.4"
-  floating_bottom_bar:
-    dependency: "direct main"
-    description:
-      name: floating_bottom_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -433,13 +412,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.5+1"
-  flutter_feed_reaction:
-    dependency: "direct main"
-    description:
-      name: flutter_feed_reaction
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.5"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -487,13 +459,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
-  flutter_portal:
-    dependency: transitive
-    description:
-      name: flutter_portal
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.2"
   flutter_social_textfield:
     dependency: "direct main"
     description:
@@ -501,13 +466,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  flutter_story_list:
-    dependency: "direct main"
-    description:
-      name: flutter_story_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4+2"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -735,13 +693,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.5+2"
-  image_viewer:
-    dependency: "direct main"
-    description:
-      name: image_viewer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.0"
   insta_image_viewer:
     dependency: "direct main"
     description:
@@ -777,13 +728,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
-  io:
-    dependency: transitive
-    description:
-      name: io
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   iris_event:
     dependency: transitive
     description:
@@ -889,6 +833,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  pandabar:
+    dependency: "direct main"
+    description:
+      name: pandabar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   path:
     dependency: transitive
     description:
@@ -1258,13 +1209,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
-  twemoji:
-    dependency: "direct main"
-    description:
-      name: twemoji
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.3"
   typed_data:
     dependency: transitive
     description:

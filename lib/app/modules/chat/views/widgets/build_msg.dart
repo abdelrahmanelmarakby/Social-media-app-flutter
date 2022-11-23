@@ -5,7 +5,6 @@ import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:twemoji/twemoji.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_viewer/video_viewer.dart';
 
@@ -226,12 +225,13 @@ class _LinkPreviewTextState extends State<LinkPreviewText> {
       );
     } else {
       return RichText(
-        text: TwemojiTextSpan(
+        text: TextSpan(
           text: widget.url,
           style: getRegularTextStyle(
-            color: ColorsManger.black,
+            color: Colors.white,
             fontSize: 12,
           ),
+
           // style: Theme.of(context).textTheme.headline6,
         ),
       );
