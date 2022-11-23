@@ -7,6 +7,7 @@ import 'package:future_chat/core/resourses/values_manger.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../core/resourses/color_manger.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/intro_controller.dart';
 
@@ -19,15 +20,10 @@ class IntroView extends GetView<IntroController> {
       height: context.height,
       width: context.width,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: const NetworkImage("https://picsum.photos/2500"),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.3),
-            BlendMode.darken,
-          ),
-        ),
-      ),
+          gradient: LinearGradient(colors: [
+        ColorsManger.primary,
+        ColorsManger.primary.withOpacity(0.5)
+      ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
       child: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
