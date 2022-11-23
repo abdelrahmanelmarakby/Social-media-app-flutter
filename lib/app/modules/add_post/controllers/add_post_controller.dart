@@ -3,23 +3,35 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_plus/image_picker_plus.dart';
 import 'package:intl/intl.dart';
 
 class AddPostController extends GetxController {
   late TextEditingController postEditingController;
   Rx<File> image = Rx<File>(File(""));
   RxString imageUrl = ''.obs;
-  Future<bool?> addImageToPost(ImageSource imageSource) async {
-    ImagePicker imagePicker = ImagePicker();
+  addImageToPost(ImageSource imageSource) async {
+    ImagePickerPlus imagePicker = ImagePickerPlus(Get.context!);
     imagePicker.pickImage(
       source: imageSource,
-      imageQuality: 100,
+      multiImages: false,
+      galleryDisplaySettings: GalleryDisplaySettings(
+        appTheme: AppTheme(
+          primaryColor: ColorsManger.primary,
+        ),
+        cropImage: true,
+        showImagePreview: true,
+        tabsTexts: TabsTexts(),
+      ),
     );
-    final pickedFile = await imagePicker.pickImage(source: imageSource);
-    image.value = File(pickedFile?.path ?? "");
-    return true;
+    final pickedFile =
+        await imagePicker.pickImage(source: imageSource).then((value) {
+      return image.value = File(value!.selectedFiles.first.selectedFile.path);
+    });
+
+    print(pickedFile.path);
   }
 
   Future<bool> uploadPost() async {
@@ -35,7 +47,7 @@ class AddPostController extends GetxController {
     await task.whenComplete(() async {
       imageUrl.value = await ref.getDownloadURL();
     });
-    return imageUrl.value != null || imageUrl.value == "";
+    return imageUrl.value == "";
   }
 
   @override

@@ -41,7 +41,6 @@ dependencies:
   get_storage: ^2.0.3
   google_sign_in: ^5.1.1
   iconsax: ^0.0.8
-  image_picker: ^0.8.6
   image_viewer: ^1.5.0
   agora_rtc_engine:
   insta_image_viewer: ^1.0.2
@@ -70,6 +69,8 @@ dependencies:
   insta_like_button: ^0.1.1
   like_button: ^2.0.5
   rich_text_view: ^1.1.0
+
+  image_picker_plus: ^0.5.5+2
 
 dev_dependencies:
   flutter_lints: 2.0.1

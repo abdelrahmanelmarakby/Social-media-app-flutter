@@ -77,7 +77,7 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
               ),
               title: "Profile",
               dotColor: ColorsManger.primary,
-              titleStyle: getMediumTextStyle(fontSize: 10),
+              titleStyle: getLightTextStyle(fontSize: 10),
               onTap: () => controller.onSelected(4),
             ),
           ],

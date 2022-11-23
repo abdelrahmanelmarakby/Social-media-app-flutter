@@ -19,6 +19,8 @@ import '../modules/delete_account/bindings/delete_account_binding.dart';
 import '../modules/delete_account/views/delete_account_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
+import '../modules/group_chat/bindings/group_chat_binding.dart';
+import '../modules/group_chat/views/group_chat_view.dart';
 import '../modules/help/bindings/help_binding.dart';
 import '../modules/help/views/help_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -35,12 +37,12 @@ import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/profile_notification/bindings/profile_notification_binding.dart';
 import '../modules/profile_notification/views/profile_notification_view.dart';
+import '../modules/search/bindings/search_binding.dart';
+import '../modules/search/views/search_view.dart';
 import '../modules/share_bottom_sheet/bindings/share_bottom_sheet_binding.dart';
 import '../modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
-import '../modules/video_chat/bindings/video_chat_binding.dart';
-import '../modules/video_chat/views/video_chat_view.dart';
 
 part 'app_routes.dart';
 
@@ -126,7 +128,6 @@ class AppPages {
       binding: AddStoryBinding(),
     ),
     GetPage(
-
       name: _Paths.ACCOUNT,
       page: () => const AccountView(),
       binding: AccountBinding(),
@@ -150,7 +151,16 @@ class AppPages {
       name: _Paths.CONTACT_US,
       page: () => const ContactUsView(),
       binding: ContactUsBinding(),
-
+    ),
+    GetPage(
+      name: _Paths.SEARCH,
+      page: () => const SearchView(),
+      binding: SearchBinding(),
+    ),
+    GetPage(
+      name: _Paths.GROUP_CHAT,
+      page: () => const GroupChatView(),
+      binding: GroupChatBinding(),
     ),
   ];
 }

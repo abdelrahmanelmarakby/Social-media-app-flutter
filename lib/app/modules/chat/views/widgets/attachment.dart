@@ -155,7 +155,6 @@ class Attachment {
   }
 
   Future uploadVideoToStorage(BuildContext context) async {
-    print('video ttt');
     try {
       final file = await ImagePicker().pickVideo(source: ImageSource.gallery);
       final DateTime now = DateTime.now();
@@ -164,7 +163,6 @@ class Attachment {
       final String date = now.day.toString();
       final String storageId = ('${millSeconds.toString()}+id:$myId+');
       final String today = ('$month-$date');
-      print(storageId);
 
       /// create thumbnail from file///////////////////////
       final thumbnail = await VideoThumbnail.thumbnailData(

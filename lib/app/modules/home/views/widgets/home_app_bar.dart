@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
-import 'search_post.dart';
+import '../../../../routes/app_pages.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({
@@ -18,7 +18,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       actions: [
         GestureDetector(
-          onTap: () => Get.to(() => const SearchPosts()),
+          onTap: () => Get.toNamed(Routes.SEARCH),
           child: const Icon(
             CupertinoIcons.search,
             color: ColorsManger.primary,

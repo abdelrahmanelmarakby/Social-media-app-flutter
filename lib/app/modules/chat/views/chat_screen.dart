@@ -123,6 +123,35 @@ class ChatScreenX extends StatelessWidget {
                 const PopupMenuItem(
                   child: Text('Clear Chat'),
                 ),
+                const PopupMenuItem(
+                  child: Text('Mute Notification'),
+                ),
+                PopupMenuItem(
+                  onTap: () {
+                    Get.dialog(
+                      AlertDialog(
+                        title: const Text('Report Chat'),
+                        content: const Text(
+                            'Are you sure you want to report this chat?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: const Text('report'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: const Text('Report'),
+                ),
               ];
             },
             icon: const Icon(

@@ -188,7 +188,7 @@ class InteractionsWidget extends StatelessWidget {
             reactions: post.reactions ?? [],
             post: post,
           ),
-          InkWell(
+          GestureDetector(
             onTap: () {
               Get.to(
                   CommentsView(
@@ -218,7 +218,7 @@ class InteractionsWidget extends StatelessWidget {
               ],
             ),
           ),
-          InkWell(
+          GestureDetector(
             onTap: () => Get.bottomSheet(
               ShareBottomSheet(
                 post: post,

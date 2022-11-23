@@ -16,27 +16,17 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Profile",
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: Column(
         children: [
-          const SizedBox(height: 20,),
-          ListTile(
-            leading: const Icon(
-              Iconsax.arrow_left,
-              color: ColorsManger.black,
-            ),
-            title: Text(
-              'Profile',
-              style: getBoldTextStyle(
-                color: ColorsManger.black,
-              ),
-            ),
-            onTap: () {
-              Get.back();
-            },
-          ),
-          const SizedBox(
-            height: 30,
-          ),
           Expanded(
               child: ListTile(
             leading: Container(
@@ -153,7 +143,9 @@ class ProfileView extends GetView<ProfileController> {
               'Help center, contact us, privacy policy',
               style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
             ),
-            onTap: () {Get.to(()=>const HelpView());},
+            onTap: () {
+              Get.to(() => const HelpView());
+            },
           )),
           const SizedBox(
             height: 10,
