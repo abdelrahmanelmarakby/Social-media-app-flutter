@@ -134,11 +134,11 @@ class GroupChatModel {
       lastMessageTime: map['lastMessageTime'],
       lastMessageSender: map['lastMessageSender'],
       unreadMessages: map['unreadMessages']?.toInt(),
-      members: List<String>.from(map['members']),
-      admins: List<String>.from(map['admins']),
-      blocked: List<String>.from(map['blocked']),
-      muted: List<String>.from(map['muted']),
-      keywords: List<String>.from(map['keywords']),
+      members: List<String>.from(map['members'] ?? []),
+      admins: List<String>.from(map['admins'] ?? []),
+      blocked: List<String>.from(map['blocked'] ?? []),
+      muted: List<String>.from(map['muted'] ?? []),
+      keywords: List<String>.from(map['keywords'] ?? []),
       createdAt: map['createdAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
           : null,

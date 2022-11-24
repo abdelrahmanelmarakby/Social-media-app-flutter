@@ -7,7 +7,6 @@ import 'package:future_chat/app/data/remote_firebase_services/post_services.dart
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
-import 'package:future_chat/app/modules/home/views/widgets/stories.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
@@ -16,7 +15,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
 import '../../../../routes/app_pages.dart';
-import 'home_app_bar.dart';
 import 'reaction_button.dart';
 import 'share_bottom_sheet.dart';
 import 'package:insta_like_button/insta_like_button.dart';
@@ -320,29 +318,10 @@ class UserWidget extends StatelessWidget {
           PopupMenuItem(
               value: 3,
               onTap: () async {
-                await AppinioSocialShare().shareToFacebook(
-                  post.postUrl ?? '',
-                  post.postUrl ?? '',
-                );
-
-                await AppinioSocialShare().shareToInstagramFeed(
-                  post.postUrl ?? '',
-                );
-
                 await AppinioSocialShare().shareToSystem(
                   post.postUrl ?? '',
                   post.postUrl ?? '',
                 );
-                await AppinioSocialShare().shareToFacebook(
-                  post.postUrl ?? '',
-                  post.postUrl ?? '',
-                );
-                await AppinioSocialShare().shareToFacebook(
-                  post.postUrl ?? '',
-                  post.postUrl ?? '',
-                );
-
-                print('share');
               },
               child: Text(
                 'Copy link',
