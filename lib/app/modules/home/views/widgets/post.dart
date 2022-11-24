@@ -6,6 +6,7 @@ import 'package:future_chat/app/data/remote_firebase_services/post_services.dart
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
+import 'package:future_chat/app/modules/home/views/widgets/stories.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
@@ -13,6 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
 import '../../../../routes/app_pages.dart';
+import 'home_app_bar.dart';
 import 'reaction_button.dart';
 import 'share_bottom_sheet.dart';
 import 'package:insta_like_button/insta_like_button.dart';
@@ -48,31 +50,34 @@ class PostList extends GetWidget<HomeController> {
                 itemCount: controller.posts.length,
                 itemBuilder: (context, index) {
                   if (controller.posts[index].sharedFrom != null) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: Image.network(
-                              controller.posts[index].user?.photoUrl ?? '',
-                              fit: BoxFit.cover,
-                              width: 30,
-                              height: 30,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Icon(Icons.error);
-                              },
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                controller.posts[index].user?.photoUrl ?? '',
+                                fit: BoxFit.cover,
+                                width: 30,
+                                height: 30,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Icon(Icons.error);
+                                },
+                              ),
                             ),
+                            title: Text(
+                                "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
+                                style: getRegularTextStyle(fontSize: 14)),
                           ),
-                          title: Text(
-                              "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
-                              style: getRegularTextStyle(fontSize: 14)),
-                        ),
-                        PostWidget(
-                          index: index,
-                          post: controller.posts[index],
-                        )
-                      ],
-                    ).paddingSymmetric(vertical: 8);
+                          PostWidget(
+                            index: index,
+                            post: controller.posts[index],
+                          )
+                        ],
+                      ).paddingSymmetric(vertical: 8),
+                    );
                   } else {
                     return PostWidget(
                       index: index,
