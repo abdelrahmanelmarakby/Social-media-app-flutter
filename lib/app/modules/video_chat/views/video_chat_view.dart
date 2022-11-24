@@ -27,46 +27,48 @@ class VideoChatView extends GetView<VideoChatController> {
             backgroundColor: ColorsManger.white,
             elevation: 0,
           ),
-          body: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            children: [
-              // Container for the local video
-              Container(
-                height: 240,
-                decoration: BoxDecoration(border: Border.all()),
-                child: Center(child: _localPreview()),
-              ),
-              const SizedBox(height: 10),
-              //Container for the Remote video
-              Container(
-                height: 240,
-                decoration: BoxDecoration(border: Border.all()),
-                child: Center(child: _remoteVideo()),
-              ),
-              // Button Row
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: controller.isJoined
-                          ? null
-                          : () => {controller.join()},
-                      child: const Text("Join"),
+          body: GetBuilder<VideoChatController>(
+            builder: (controller) => ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              children: [
+                // Container for the local video
+                Container(
+                  height: 240,
+                  decoration: BoxDecoration(border: Border.all()),
+                  child: Center(child: _localPreview()),
+                ),
+                const SizedBox(height: 10),
+                //Container for the Remote video
+                Container(
+                  height: 240,
+                  decoration: BoxDecoration(border: Border.all()),
+                  child: Center(child: _remoteVideo()),
+                ),
+                // Button Row
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: controller.isJoined
+                            ? null
+                            : () => {controller.join()},
+                        child: const Text("Join"),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: controller.isJoined
-                          ? () => {controller.leave()}
-                          : null,
-                      child: const Text("Leave"),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: controller.isJoined
+                            ? () => {controller.leave()}
+                            : null,
+                        child: const Text("Leave"),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              // Button Row ends
-            ],
+                  ],
+                ),
+                // Button Row ends
+              ],
+            ),
           )),
     );
   }
