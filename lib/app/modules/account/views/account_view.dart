@@ -16,24 +16,24 @@ class AccountView extends GetView<AccountController> {
         body: Column(
       children: [
         const SizedBox(
-          height: 20,
+          height: 40,
         ),
-        ListTile(
-          leading: const Icon(
-            Iconsax.arrow_left,
-            color: ColorsManger.black,
-          ),
-          title: GestureDetector(
-            child: Text(
+        GestureDetector(
+          child: ListTile(
+            leading: const Icon(
+              Iconsax.arrow_left,
+              color: ColorsManger.black,
+            ),
+            title: Text(
               'Account',
               style: getBoldTextStyle(
                 color: ColorsManger.black,
               ),
             ),
-            onTap: () {
+          ),
+          onTap: () {
             Get.back();
           },
-          ),
         ),
         const SizedBox(
           height: 50,
@@ -57,67 +57,68 @@ class AccountView extends GetView<AccountController> {
           title: GestureDetector(
             child: Text(
               'Privacy',
-              style: getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
+              style:
+                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
             ),
             onTap: () {
-            Get.bottomSheet(
-                backgroundColor: Colors.white,
-                elevation: 0,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(32),
-                      topRight: Radius.circular(32)),
-                ),
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text('Privacy',
-                              style: getMediumTextStyle(
-                                fontSize: 18,
-                                color: ColorsManger.black,
-                              )).paddingOnly(left: 130),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            ' Profile photo',
-                            style: getRegularTextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            'Story',
-                            style: getRegularTextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            'Read recepits',
-                            style: getRegularTextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            'Online statue',
-                            style: getRegularTextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                        ]),
+              Get.bottomSheet(
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(32),
+                        topRight: Radius.circular(32)),
                   ),
-                ));
-          },
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text('Privacy',
+                                style: getMediumTextStyle(
+                                  fontSize: 18,
+                                  color: ColorsManger.black,
+                                )).paddingOnly(left: 130),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              ' Profile photo',
+                              style: getRegularTextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'Story',
+                              style: getRegularTextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'Read recepits',
+                              style: getRegularTextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'Online statue',
+                              style: getRegularTextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                          ]),
+                    ),
+                  ));
+            },
           ),
         )),
         const SizedBox(
@@ -142,11 +143,12 @@ class AccountView extends GetView<AccountController> {
           title: GestureDetector(
             child: Text(
               'Delete my account',
-              style: getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
+              style:
+                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
             ),
             onTap: () {
-            Get.to(() => const DeleteAccountView());
-          },
+              Get.to(() => const DeleteAccountView());
+            },
           ),
         )),
         const SizedBox(

@@ -15,98 +15,121 @@ class EditProfileView extends GetView<EditProfileController> {
     return Scaffold(
       body: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(
+            height: 40,
+          ),
           Expanded(
-              child: Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(
+            child: GestureDetector(
+              child: ListTile(
+                leading: const Icon(
                   Iconsax.arrow_left,
                   color: ColorsManger.black,
                 ),
-              ),
-              const SizedBox(width: 10,),
-              Text('Edit Profile',
-              style: getBoldTextStyle(
-              color: ColorsManger.black,
-              fontSize: 20,
-          ),)
-            ],),),
-            const SizedBox(height: 20,),
-            SizedBox(
-              height: 150,width: 150,
-              child: Stack(
-                children: [
-                      SizedBox(height: 150,width:150,
-                    child:  CircleAvatar(
-                      backgroundImage:  NetworkImage(
-
-                        UserService.myUser?.photoUrl ??''
-                        ),
+                title: Text(
+                  'Edit Profile',
+                  style: getBoldTextStyle(
+                    color: ColorsManger.black,
+                    fontSize: 20,
                   ),
-                  ),
-                  Positioned(right: 5,
-                    bottom: 3,
-                  child: SizedBox(width: 38,height: 38,
-                  child:FloatingActionButton(
-                    backgroundColor: ColorsManger.white,
-                    onPressed: () {},
-                    child: const Icon(Iconsax.camera,
-                    color: ColorsManger.primary,size: 22,),
-                  ) ,),
+                ),
               ),
-                ],
-              ),
+              onTap: () {
+                Get.back();
+              },
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            height: 150,
+            width: 150,
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: 150,
+                  width: 150,
+                  child: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(UserService.myUser?.photoUrl ?? ''),
+                  ),
+                ),
+                Positioned(
+                  right: 5,
+                  bottom: 3,
+                  child: SizedBox(
+                    width: 38,
+                    height: 38,
+                    child: FloatingActionButton(
+                      backgroundColor: ColorsManger.white,
+                      onPressed: () {},
+                      child: const Icon(
+                        Iconsax.camera,
+                        color: ColorsManger.primary,
+                        size: 22,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 50,left: 25),
-                  child: Text('Name',
-                  style: getMediumTextStyle(color: ColorsManger.grey,
-                  fontSize: 14),),
+                  padding: const EdgeInsets.only(top: 50, left: 25),
+                  child: Text(
+                    'Name',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.grey, fontSize: 14),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 5,left: 25),
+                  padding: const EdgeInsets.only(top: 5, left: 25),
                   child: Text(
                     '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
-                  style: getMediumTextStyle(color: ColorsManger.black,
-                  fontSize: 18),),
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 18),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30,left: 25),
-                  child: Text('About',
-                  style: getMediumTextStyle(color: ColorsManger.grey,
-                  fontSize: 14),),
+                  padding: const EdgeInsets.only(top: 30, left: 25),
+                  child: Text(
+                    'About',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.grey, fontSize: 14),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 5,left: 25,bottom: 250),
-                  child: Text('${UserService.myUser?.bio}',
-                  style: getMediumTextStyle(color: ColorsManger.black,
-                  fontSize: 18),),
+                  padding: const EdgeInsets.only(top: 5, left: 25, bottom: 250),
+                  child: Text(
+                    '${UserService.myUser?.bio}',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 18),
+                  ),
                 ),
-              ],),
+              ],
             ),
-            Container(
-                height: 56,
-                width: 342,
-              decoration:  BoxDecoration(
-                  gradient: ColorsManger.buttonGradient,
-              borderRadius: BorderRadius.circular(50)),
-                child:TextButton(
-                onPressed: () {
-                },
-                child: Text("Save Changes",
-                    style: getBoldTextStyle(fontSize: 18,color: ColorsManger.white)),
-              ) ,).paddingOnly(bottom: 50),
+          ),
+          Container(
+            height: 56,
+            width: 342,
+            decoration: BoxDecoration(
+                gradient: ColorsManger.buttonGradient,
+                borderRadius: BorderRadius.circular(50)),
+            child: TextButton(
+              onPressed: () {},
+              child: Text("Save Changes",
+                  style: getBoldTextStyle(
+                      fontSize: 18, color: ColorsManger.white)),
+            ),
+          ).paddingOnly(bottom: 70),
         ],
       )),
     );
