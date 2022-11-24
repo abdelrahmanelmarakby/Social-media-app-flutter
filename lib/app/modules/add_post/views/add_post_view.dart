@@ -173,10 +173,17 @@ class AddPostAppBar extends GetWidget<AddPostController> {
             child: ButtonTheme(
               child: TextButton(
                 onPressed: () async {
+                  if (controller.postEditingController.text.isEmpty) {
+                    Get.snackbar(
+                        "Can't add an empty post", "Please write a post ",
+                        snackPosition: SnackPosition.TOP);
+                    return;
+                  }
                   await controller.uploadPost().catchError((e) {
                     Get.snackbar('Error', e.toString());
                     BotToast.closeAllLoading();
                   });
+
                   await PostService.addPost(
                           PostModel(
                               title: controller.postEditingController.text,

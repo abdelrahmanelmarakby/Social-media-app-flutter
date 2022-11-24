@@ -1,3 +1,4 @@
+import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
@@ -299,7 +301,6 @@ class UserWidget extends StatelessWidget {
       trailing: PopupMenuButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        initialValue: 3,
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
           PopupMenuItem(
               child: Text(
@@ -312,10 +313,37 @@ class UserWidget extends StatelessWidget {
             style: getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
           )),
           PopupMenuItem(
+              value: 3,
+              onTap: () async {
+                await AppinioSocialShare().shareToFacebook(
+                  post.postUrl ?? '',
+                  post.postUrl ?? '',
+                );
+
+                await AppinioSocialShare().shareToInstagramFeed(
+                  post.postUrl ?? '',
+                );
+
+                await AppinioSocialShare().shareToSystem(
+                  post.postUrl ?? '',
+                  post.postUrl ?? '',
+                );
+                await AppinioSocialShare().shareToFacebook(
+                  post.postUrl ?? '',
+                  post.postUrl ?? '',
+                );
+                await AppinioSocialShare().shareToFacebook(
+                  post.postUrl ?? '',
+                  post.postUrl ?? '',
+                );
+
+                print('share');
+              },
               child: Text(
-            'Copy link',
-            style: getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
-          )),
+                'Copy link',
+                style:
+                    getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
+              )),
           if (post.uid == UserService.myUser?.uid)
             PopupMenuItem(
                 onTap: () async {
@@ -328,6 +356,12 @@ class UserWidget extends StatelessWidget {
                       fontSize: 11, color: ColorsManger.grey),
                 )),
         ],
+        onSelected: (value) {
+          if (value == 3) {
+            Share.share('check out my website ${post.postUrl}',
+                subject: 'Look what I made!');
+          }
+        },
         icon: const Icon(
           Icons.more_vert,
           color: ColorsManger.primary,

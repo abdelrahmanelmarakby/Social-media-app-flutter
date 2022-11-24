@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:future_chat/core/services/dynamic_links.dart';
+import 'package:get/get.dart';
 
 import '../models/post_model.dart';
 
@@ -10,8 +12,12 @@ class PostService {
 
   static Future<bool> addPost(PostModel post, String uid) async {
     DocumentReference documentReference = _firestore.collection("Posts").doc();
-    print("documentReference: ${documentReference.id}");
-    print("post: ${post.toString()}");
+    final postUrl = await Get.find<DynamicLinkService>()
+        .createDynamicLink("post", documentReference.id)
+        .catchError((e) {
+      Get.snackbar("Error", "Error creating post link");
+    });
+    Get.snackbar("Post Link", postUrl.toString());
     await FirebaseFirestore.instance
         .runTransaction((transaction) async {
           transaction.set(
@@ -20,6 +26,7 @@ class PostService {
                 .copyWith(
                     uid: uid,
                     id: documentReference.id,
+                    postUrl: postUrl.toString(),
                     createdAt: DateTime.now())
                 .toMap(),
           );
@@ -33,7 +40,6 @@ class PostService {
           BotToast.closeAllLoading();
           return BotToast.showText(text: "Error : $error");
         });
-    print("Post $post Added");
     return true;
   }
 
