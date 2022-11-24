@@ -37,7 +37,7 @@ class GroupChatView extends GetView<GroupChatController> {
                         ),
                         onChanged: (value) {
                           controller.users = controller.getUsersByName(
-                              controller.users ?? [], value);
+                              controller.users, value);
                           controller.update();
                         },
                       ),

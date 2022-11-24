@@ -13,6 +13,7 @@ class PostModel {
   String? title;
   String? description;
   String? imageUrl;
+  String? postUrl;
   SocialMediaUser? user;
   String? sharedFrom;
   String? sharedComment;
@@ -25,6 +26,7 @@ class PostModel {
     this.title,
     this.description,
     this.imageUrl,
+    this.postUrl,
     this.user,
     this.sharedFrom,
     this.sharedComment,
@@ -39,6 +41,7 @@ class PostModel {
     String? title,
     String? description,
     String? imageUrl,
+    String? postUrl,
     SocialMediaUser? user,
     String? sharedFrom,
     String? sharedComment,
@@ -52,6 +55,7 @@ class PostModel {
       title: title ?? this.title,
       description: description ?? this.description,
       imageUrl: imageUrl ?? this.imageUrl,
+      postUrl: postUrl ?? this.postUrl,
       user: user ?? this.user,
       sharedFrom: sharedFrom ?? this.sharedFrom,
       sharedComment: sharedComment ?? this.sharedComment,
@@ -64,40 +68,18 @@ class PostModel {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    if (id != null) {
-      result.addAll({'id': id});
-    }
-    if (uid != null) {
-      result.addAll({'uid': uid});
-    }
-    if (title != null) {
-      result.addAll({'title': title});
-    }
-    if (description != null) {
-      result.addAll({'description': description});
-    }
-    if (imageUrl != null) {
-      result.addAll({'imageUrl': imageUrl});
-    }
-    if (user != null) {
-      result.addAll({'user': user!.toMap()});
-    }
-    if (sharedFrom != null) {
-      result.addAll({'sharedFrom': sharedFrom});
-    }
-    if (sharedComment != null) {
-      result.addAll({'sharedComment': sharedComment});
-    }
-    if (createdAt != null) {
-      result.addAll({'createdAt': DateTime.now().millisecondsSinceEpoch});
-    }
-
-    result
-        .addAll({'comments': (comments ?? []).map((x) => x.toMap()).toList()});
-
-    if (reactions != null) {
-      result.addAll({'reactions': reactions!.map((x) => x.toMap()).toList()});
-    }
+    result.addAll({'id': id});
+    result.addAll({'uid': uid});
+    result.addAll({'title': title});
+    result.addAll({'description': description});
+    result.addAll({'imageUrl': imageUrl});
+    result.addAll({'postUrl': postUrl});
+    result.addAll({'user': user?.toMap()});
+    result.addAll({'sharedFrom': sharedFrom});
+    result.addAll({'sharedComment': sharedComment});
+    result.addAll({'createdAt': DateTime.now().millisecondsSinceEpoch});
+    result.addAll({'comments': comments?.map((x) => x.toMap()).toList()});
+    result.addAll({'reactions': reactions?.map((x) => x.toMap()).toList()});
 
     return result;
   }
@@ -109,6 +91,7 @@ class PostModel {
       title: map['title'],
       description: map['description'],
       imageUrl: map['imageUrl'],
+      postUrl: map['postUrl'],
       user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
       sharedFrom: map['sharedFrom'],
       sharedComment: map['sharedComment'],
@@ -132,7 +115,7 @@ class PostModel {
 
   @override
   String toString() {
-    return 'PostModel(id: $id, uid: $uid, title: $title, description: $description, imageUrl: $imageUrl, user: $user, sharedFrom: $sharedFrom, sharedComment: $sharedComment, createdAt: $createdAt, comments: $comments, reactions: $reactions)';
+    return 'PostModel(id: $id, uid: $uid, title: $title, description: $description, imageUrl: $imageUrl, postUrl: $postUrl, user: $user, sharedFrom: $sharedFrom, sharedComment: $sharedComment, createdAt: $createdAt, comments: $comments, reactions: $reactions)';
   }
 
   @override
@@ -145,6 +128,7 @@ class PostModel {
         other.title == title &&
         other.description == description &&
         other.imageUrl == imageUrl &&
+        other.postUrl == postUrl &&
         other.user == user &&
         other.sharedFrom == sharedFrom &&
         other.sharedComment == sharedComment &&
@@ -160,6 +144,7 @@ class PostModel {
         title.hashCode ^
         description.hashCode ^
         imageUrl.hashCode ^
+        postUrl.hashCode ^
         user.hashCode ^
         sharedFrom.hashCode ^
         sharedComment.hashCode ^
