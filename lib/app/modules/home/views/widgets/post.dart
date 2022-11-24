@@ -29,7 +29,7 @@ class PostList extends GetWidget<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: FutureBuilder(
@@ -46,9 +46,8 @@ class PostList extends GetWidget<HomeController> {
               snapshot.data?.docs.map((e) {
                 controller.posts.add(PostModel.fromMap(e.data()));
               }).toList();
-              return ListView.builder(
-                itemCount: controller.posts.length,
-                itemBuilder: (context, index) {
+              return Column(
+                children: List.generate(controller.posts.length, (index) {
                   if (controller.posts[index].sharedFrom != null) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -84,7 +83,7 @@ class PostList extends GetWidget<HomeController> {
                       post: controller.posts[index],
                     ).paddingSymmetric(vertical: 8);
                   }
-                },
+                }),
               );
             } else {
               return const Center(

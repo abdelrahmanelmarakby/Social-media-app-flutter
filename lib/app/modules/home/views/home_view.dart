@@ -17,9 +17,11 @@ class HomeView extends GetView<HomeController> {
       body: RefreshIndicator(
         onRefresh: () => Get.forceAppUpdate(),
         color: ColorsManger.primary,
-        child: Column(
+        child: ListView(
           children: [
+
             Stories().paddingSymmetric(vertical: 8),
+
             const PostList(),
           ],
         ),

@@ -8,4 +8,16 @@ class HomeController extends GetxController {
   TextEditingController sharedCommentEditingController =
       TextEditingController();
   List<PostModel> posts = [];
+
+  ScrollController scrollController = ScrollController();
+  @override
+  void onInit() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        print("end");
+      }
+    });
+    super.onInit();
+  }
 }

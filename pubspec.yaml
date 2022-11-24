@@ -7,7 +7,7 @@ environment:
 
 dependencies:
   advstory: ^0.2.1
-  agora_rtc_engine: null
+  agora_rtc_engine: any
   alt_sms_autofill: ^1.0.0
   animate_do: ^2.1.0
   bot_toast: ^4.0.3
@@ -17,25 +17,21 @@ dependencies:
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   diamond_dial_fab: ^0.0.3
+  pandabar: any
   dio: ^4.0.0
-  emoji_picker_flutter: ^1.5.0
   file_picker: ^5.2.2
   firebase_auth: ^4.1.1
   firebase_core: ^2.1.1
   firebase_messaging: ^14.0.4
   firebase_storage: ^11.0.4
-  flashy_tab_bar2: ^0.0.4
-  floating_bottom_bar: ^0.0.1
   flutter:
     sdk: flutter
   flutter_chat_types: ^3.6.0
   flutter_contacts: ^1.1.5+1
-  flutter_feed_reaction: ^0.0.5
   flutter_link_previewer: ^3.2.0
   flutter_localizations:
     sdk: flutter
   flutter_social_textfield: ^0.1.2
-  flutter_story_list: ^1.0.4+2
   flutter_svg: ^1.1.6
   font_awesome: ^5.10.1
   font_awesome_flutter: ^10.2.1
@@ -46,7 +42,6 @@ dependencies:
   google_sign_in: ^5.1.1
   iconsax: ^0.0.8
   image_picker_plus: ^0.5.5+2
-  image_viewer: ^1.5.0
   insta_image_viewer: ^1.0.2
   insta_like_button: ^0.1.1
   internet_connection_checker: ^1.0.0+1
@@ -66,7 +61,6 @@ dependencies:
   shimmer: ^2.0.0
   story_view: ^0.14.0
   timeago: ^3.3.0
-  twemoji: ^0.4.3
   url_launcher: ^6.1.6
   video_thumbnail: ^0.5.3
   video_viewer: ^1.2.7

@@ -10,15 +10,29 @@ class PostService {
 
   static Future<bool> addPost(PostModel post, String uid) async {
     DocumentReference documentReference = _firestore.collection("Posts").doc();
-    await FirebaseFirestore.instance.runTransaction((transaction) async {
-      transaction.set(
-        documentReference,
-        post
-            .copyWith(
-                uid: uid, id: documentReference.id, createdAt: DateTime.now())
-            .toMap(),
-      );
-    }).then((value) => BotToast.showText(text: "Post Added"));
+    print("documentReference: ${documentReference.id}");
+    print("post: ${post.toString()}");
+    await FirebaseFirestore.instance
+        .runTransaction((transaction) async {
+          transaction.set(
+            documentReference,
+            post
+                .copyWith(
+                    uid: uid,
+                    id: documentReference.id,
+                    createdAt: DateTime.now())
+                .toMap(),
+          );
+        })
+        .onError((error, stackTrace) {
+          BotToast.showText(text: "Error");
+          BotToast.closeAllLoading();
+        })
+        .then((value) => BotToast.showText(text: "Post Added"))
+        .catchError((error) {
+          BotToast.closeAllLoading();
+          return BotToast.showText(text: "Error : $error");
+        });
     print("Post $post Added");
     return true;
   }
