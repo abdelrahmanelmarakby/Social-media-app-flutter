@@ -19,7 +19,9 @@ class HomeView extends GetView<HomeController> {
         color: ColorsManger.primary,
         child: ListView(
           children: [
-            Stories(),
+
+            Stories().paddingSymmetric(vertical: 8),
+
             const PostList(),
           ],
         ),

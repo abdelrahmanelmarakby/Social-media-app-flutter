@@ -18,11 +18,17 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Profile",
-          style: TextStyle(color: Colors.black),
+        leading: const Icon(
+          Iconsax.arrow_left,
+          color: ColorsManger.black,
         ),
-        centerTitle: true,
+        title: Text(
+          "Profile",
+          style: getBoldTextStyle(
+            color: ColorsManger.black,
+          ),
+        ),
+        centerTitle: false,
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -31,45 +37,30 @@ class ProfileView extends GetView<ProfileController> {
           const SizedBox(
             height: 40,
           ),
-          GestureDetector(
+          Expanded(
+              child: GestureDetector(
             child: ListTile(
-              leading: const Icon(
-                Iconsax.arrow_left,
-                color: ColorsManger.black,
-              ),
-              title: Text(
-                'Profile',
-                style: getBoldTextStyle(
-                  color: ColorsManger.black,
+              leading: Container(
+                height: 90,
+                width: 90,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage:
+                      NetworkImage(UserService.myUser?.photoUrl ?? ''),
                 ),
               ),
-            ),
-            onTap: () {},
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Expanded(
-              child: ListTile(
-            leading: Container(
-              height: 90,
-              width: 90,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(50)),
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage:
-                    NetworkImage(UserService.myUser?.photoUrl ?? ''),
+              title: Text(
+                '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
+                style:
+                    getMediumTextStyle(color: ColorsManger.black, fontSize: 18),
               ),
-            ),
-            title: Text(
-              '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 18),
-            ),
-            subtitle: Text(
-              'Edit Profile',
-              style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
+              subtitle: Text(
+                'Edit Profile',
+                style:
+                    getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
+              ),
             ),
             onTap: () {
               Get.to(() => const EditProfileView());
@@ -79,29 +70,32 @@ class ProfileView extends GetView<ProfileController> {
             height: 40,
           ),
           Expanded(
-              child: ListTile(
-            leading: CircleAvatar(
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: ColorsManger.light,
-                ),
-                child: const Icon(
-                  Iconsax.key,
-                  color: ColorsManger.primary,
+              child: GestureDetector(
+            child: ListTile(
+              leading: CircleAvatar(
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: ColorsManger.light,
+                  ),
+                  child: const Icon(
+                    Iconsax.key,
+                    color: ColorsManger.primary,
+                  ),
                 ),
               ),
-            ),
-            title: Text(
-              'Account',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-            ),
-            subtitle: Text(
-              'Privacy, Delete Account',
-              style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
+              title: Text(
+                'Account',
+                style:
+                    getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
+              ),
+              subtitle: Text(
+                'Privacy, Delete Account',
+                style:
+                    getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
+              ),
             ),
             onTap: () {
               Get.to(() => const AccountView());
@@ -111,29 +105,32 @@ class ProfileView extends GetView<ProfileController> {
             height: 10,
           ),
           Expanded(
-              child: ListTile(
-            leading: CircleAvatar(
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: ColorsManger.light,
-                ),
-                child: const Icon(
-                  Iconsax.notification,
-                  color: ColorsManger.primary,
+              child: GestureDetector(
+            child: ListTile(
+              leading: CircleAvatar(
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: ColorsManger.light,
+                  ),
+                  child: const Icon(
+                    Iconsax.notification,
+                    color: ColorsManger.primary,
+                  ),
                 ),
               ),
-            ),
-            title: Text(
-              'Notifications',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-            ),
-            subtitle: Text(
-              'messages, group and others',
-              style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
+              title: Text(
+                'Notifications',
+                style:
+                    getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
+              ),
+              subtitle: Text(
+                'messages, group and others',
+                style:
+                    getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
+              ),
             ),
             onTap: () {
               Get.to(() => const ProfileNotificationView());
@@ -143,62 +140,67 @@ class ProfileView extends GetView<ProfileController> {
             height: 10,
           ),
           Expanded(
-              child: ListTile(
-            leading: CircleAvatar(
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: ColorsManger.light,
-                ),
-                child: const Icon(
-                  Iconsax.warning_2,
-                  color: ColorsManger.primary,
+              child: GestureDetector(
+            child: ListTile(
+              leading: CircleAvatar(
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: ColorsManger.light,
+                  ),
+                  child: const Icon(
+                    Iconsax.warning_2,
+                    color: ColorsManger.primary,
+                  ),
                 ),
               ),
-            ),
-            title: Text(
-              'Help',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-            ),
-            subtitle: Text(
-              'Help center, contact us, privacy policy',
-              style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
+              title: Text(
+                'Help',
+                style:
+                    getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
+              ),
+              subtitle: Text(
+                'Help center, contact us, privacy policy',
+                style:
+                    getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
+              ),
             ),
             onTap: () {
               Get.to(() => const HelpView());
             },
           )),
           const SizedBox(
-            height: 10,
+            height: 15,
           ),
           Expanded(
-              child: ListTile(
-            leading: CircleAvatar(
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: ColorsManger.light,
-                ),
-                child: const Icon(
-                  Iconsax.profile_2user,
-                  color: ColorsManger.primary,
+              child: GestureDetector(
+            child: ListTile(
+              leading: CircleAvatar(
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: ColorsManger.light,
+                  ),
+                  child: const Icon(
+                    Iconsax.profile_2user,
+                    color: ColorsManger.primary,
+                  ),
                 ),
               ),
-            ),
-            title: Text(
-              'Invite a Friend',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
+              title: Text(
+                'Invite a Friend',
+                style:
+                    getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
+              ),
             ),
             onTap: () {},
           )),
           const SizedBox(
-            height: 270,
+            height: 210,
           )
         ],
       ),
