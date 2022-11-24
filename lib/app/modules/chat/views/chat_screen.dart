@@ -9,6 +9,7 @@ import '../../../../core/resourses/font_manger.dart';
 import '../../../../core/services/chat/private/private_chat.dart';
 import '../../../data/models/private_chat_message.dart';
 import '../../../routes/app_pages.dart';
+import '../../video_chat/views/video_chat_view.dart';
 import 'widgets/attachment.dart';
 import 'widgets/build_msg.dart';
 
@@ -96,7 +97,7 @@ class ChatScreenX extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              Get.toNamed(Routes.VIDEO_CHAT);
+              Get.to(() => VideoChatView());
             },
           ),
           IconButton(
