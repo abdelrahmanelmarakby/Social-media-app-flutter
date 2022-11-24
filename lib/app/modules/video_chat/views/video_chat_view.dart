@@ -1,22 +1,31 @@
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../core/resourses/color_manger.dart';
+import '../../../../core/resourses/styles_manger.dart';
 import '../controllers/video_chat_controller.dart';
 
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
-
 class VideoChatView extends GetView<VideoChatController> {
-  const VideoChatView({Key? key}) : super(key: key);
   @override
   // Build UI
   @override
   Widget build(BuildContext context) {
+    Get.put(VideoChatController());
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: controller.scaffoldMessengerKey,
       home: Scaffold(
+          backgroundColor: ColorsManger.white,
           appBar: AppBar(
-            title: const Text('Get started with Video Calling'),
+            title: Text(
+              'Get started with Video Calling',
+              style:
+                  getMediumTextStyle(color: ColorsManger.black, fontSize: 18),
+            ),
+            backgroundColor: ColorsManger.white,
+            elevation: 0,
           ),
           body: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -62,7 +71,7 @@ class VideoChatView extends GetView<VideoChatController> {
     );
   }
 
-// Display local video preview
+  // Display local video preview
   Widget _localPreview() {
     if (controller.isJoined) {
       return AgoraVideoView(

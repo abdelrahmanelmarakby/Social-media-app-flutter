@@ -56,15 +56,7 @@ class ProfileView extends GetView<ProfileController> {
                 style:
                     getMediumTextStyle(color: ColorsManger.black, fontSize: 18),
               ),
-              subtitle: Text(
-                'Edit Profile',
-                style:
-                    getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
-              ),
             ),
-            onTap: () {
-              Get.to(() => const EditProfileView());
-            },
           )),
           const SizedBox(
             height: 40,
@@ -92,7 +84,7 @@ class ProfileView extends GetView<ProfileController> {
                     getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
               ),
               subtitle: Text(
-                'Privacy, Delete Account',
+                'Edit Profile, Delete Account',
                 style:
                     getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
               ),
