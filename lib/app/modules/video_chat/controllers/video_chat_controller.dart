@@ -77,7 +77,7 @@ class VideoChatController extends GetxController {
     );
 
     await agoraEngine.joinChannel(
-      token: agoraToken,
+      token: "",
       channelId: "id:201094959669+id:201019706842+",
       options: options,
       uid: 0,

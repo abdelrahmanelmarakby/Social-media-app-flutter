@@ -318,29 +318,10 @@ class UserWidget extends StatelessWidget {
           PopupMenuItem(
               value: 3,
               onTap: () async {
-                await AppinioSocialShare().shareToFacebook(
-                  post.postUrl ?? '',
-                  post.postUrl ?? '',
-                );
-
-                await AppinioSocialShare().shareToInstagramFeed(
-                  post.postUrl ?? '',
-                );
-
                 await AppinioSocialShare().shareToSystem(
                   post.postUrl ?? '',
                   post.postUrl ?? '',
                 );
-                await AppinioSocialShare().shareToFacebook(
-                  post.postUrl ?? '',
-                  post.postUrl ?? '',
-                );
-                await AppinioSocialShare().shareToFacebook(
-                  post.postUrl ?? '',
-                  post.postUrl ?? '',
-                );
-
-                print('share');
               },
               child: Text(
                 'Copy link',

@@ -9,9 +9,10 @@ class DynamicLinkService extends GetxService {
         uriPrefix: 'https://futurechat.page.link',
         link: Uri.parse('https://futurechat.page.link/path=$path&id=$id'),
         androidParameters: AndroidParameters(
-            packageName: 'com.metamisr.future_chat',
-            minimumVersion: 1,
-            fallbackUrl: Uri.parse('https://fb.com/elmarakbeno')),
+          packageName: 'com.metamisr.future_chat',
+          minimumVersion: 1,
+          fallbackUrl: Uri.parse('https://fb.com/elmarakbeno'),
+        ),
         iosParameters: IOSParameters(
           bundleId: 'your_ios_bundle_identifier',
           minimumVersion: '1',

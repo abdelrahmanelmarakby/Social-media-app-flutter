@@ -86,8 +86,10 @@ class MyAppState extends State<MyApp> {
           return;
         }
         debugPrint('Received URI: $uri');
+
         setState(() {
           _currentURI = uri;
+          Get.log("Received URI: $uri");
           Get.toNamed("/%{uri?.queryParameters['path']}",
               arguments: uri?.queryParameters['id']);
           _err = null;
@@ -107,12 +109,6 @@ class MyAppState extends State<MyApp> {
         });
       });
     }
-  }
-
-  @override
-  void dispose() {
-    _streamSubscription?.cancel();
-    super.dispose();
   }
 
   @override

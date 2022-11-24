@@ -18,7 +18,4 @@ NetworkService networkService = NetworkService(
     ,
   },
 );
-const String agoraID = "2a5f6928a6c741ac9a0a51a48a3b68cd";
-const String agoraCertificate = "122f4ad456f6434098d361e9a63f4136";
-const String agoraToken =
-    "007eJxTYNhcw/nTrjrteNkZjvhjG0RMrcKvO285+rSqev6PClbnynQFBqNE0zQzSyOLRLNkcxPDxGTLRINEU8NEE4tE4yQzi+SUq+tqkhsCGRlirnUyMEIhiK/AkJliZWRgaGBpYmlqaWZmqQ3lG1qaG5hZmBhpMzAAAE/5Jgw=";
+const String agoraID = "94da441195764983969462cd0ca79e98";

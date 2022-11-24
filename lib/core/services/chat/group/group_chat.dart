@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:future_chat/app/data/models/group_chat_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:get/get.dart';
 
 import '../../../../app/data/models/group_chat_message.dart';
 
@@ -48,19 +49,22 @@ class GroupChatService {
     }
   }
 
-  static Stream<List<GroupChatMessage>> getGroupChatMessages(
-      String groupChatId) {
+  static Stream<List<GroupChatModel>> getGroupChats() {
     return FirebaseFirestore.instance
         .collection("GroupChats")
-        .doc(groupChatId)
-        .collection('messages')
-        .orderBy('sentAt', descending: true)
+        .where("members", arrayContains: UserService.myUser?.uid ?? "")
         .snapshots()
-        .map((event) =>
-            event.docs.map((e) => GroupChatMessage.fromMap(e.data())).toList());
+        .map((event) {
+      var groups = event.docs.map((e) {
+        Get.log(e.data().toString());
+        return GroupChatModel.fromMap(e.data());
+      }).toList();
+      Get.log(groups.length.toString());
+      return groups;
+    });
   }
 
-  static Stream<List<GroupChatMessage>> getGroupChatMessagesByDate(
+  static Stream<List<GroupChatMessage>> getGroupChatMessages(
     String groupChatId,
   ) {
     return FirebaseFirestore.instance
