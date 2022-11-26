@@ -7,8 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 class VideoChatController extends GetxController {
   @override
   void onInit() {
-    setupVideoSDKEngine();
     super.onInit();
+    setupVideoSDKEngine();
   }
 
   var arguments = Get.arguments;
@@ -19,9 +19,13 @@ class VideoChatController extends GetxController {
     super.onClose();
   }
 
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
+  bool videoCallEstablished = false;
   int? remoteUid; // uid of the remote user
   bool isJoined = false; // Indicates if the local user has joined the channel
   late RtcEngine agoraEngine; // Agora engine instance
+  bool localAudioMute = false;
+  bool localUserJoined = false;
 
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>(); // Global key to access the scaffold
@@ -56,6 +60,7 @@ class VideoChatController extends GetxController {
           showMessage("Remote user uid:$remoteUid left the channel");
 
           remoteUid = null;
+          leave();
           update();
         },
       ),
@@ -67,6 +72,7 @@ class VideoChatController extends GetxController {
     remoteUid = null;
     update();
     agoraEngine.leaveChannel();
+    Get.back();
   }
 
   void join() async {
@@ -85,6 +91,24 @@ class VideoChatController extends GetxController {
       uid: 0,
     );
     update();
+  }
+
+  Future switchCamera() async {
+    try {
+      await agoraEngine.switchCamera();
+    } catch (e) {
+      showMessage(e.toString());
+    }
+  }
+
+  Future toggleLotcalAudioMuted() async {
+    try {
+      localAudioMute = !localAudioMute;
+      await agoraEngine.muteLocalAudioStream(localAudioMute);
+      update();
+    } catch (e) {
+      showMessage(e.toString());
+    }
   }
 
   showMessage(String message) {
