@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:story_view/story_view.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
+import '../../../../../core/resourses/font_manger.dart';
 import '../../controllers/home_controller.dart';
 
 // ignore: must_be_immutable
@@ -79,8 +80,12 @@ class Stories extends StatelessWidget {
                     children: [
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: const Text(
+                        child: Text(
                           "Stories",
+                          style: getLightTextStyle(
+                            color: ColorsManger.black,
+                            fontSize: FontSize.medium,
+                          ),
                         ),
                       ).paddingAll(8),
                       Expanded(
@@ -213,9 +218,9 @@ class Stories extends StatelessWidget {
                                                     ?.firstName ??
                                                 "",
                                             overflow: TextOverflow.ellipsis,
-                                            style: getMediumTextStyle(
+                                            style: getLightTextStyle(
                                                 color: ColorsManger.grey,
-                                                fontSize: 12),
+                                                fontSize: FontSize.medium),
                                           )
                                         ],
                                       ),

@@ -23,20 +23,24 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
     return GetBuilder<BottomNavBarController>(
       builder: (controller) => SafeArea(
         child: PandaBar(
-          backgroundColor: ColorsManger.white,
+          backgroundColor: ColorsManger.grey1,
           fabIcon: IconButton(
             icon: const Icon(Iconsax.add),
             onPressed: () {
               controller.onSelected(2);
             },
           ),
-          fabColors: [
+          fabColors: const [
             ColorsManger.primary,
-            ColorsManger.primary.withOpacity(.5)
+            Color.fromARGB(255, 31, 177, 255)
           ],
           buttonSelectedColor: ColorsManger.primary,
           buttonData: [
-            PandaBarButtonData(id: 0, icon: Iconsax.home, title: 'Home'),
+            PandaBarButtonData(
+              id: 0,
+              icon: Iconsax.home,
+              title: 'Home',
+            ),
             PandaBarButtonData(id: 1, icon: Iconsax.messages, title: 'Chat'),
             PandaBarButtonData(
               id: 3,

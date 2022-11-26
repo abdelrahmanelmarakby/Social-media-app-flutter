@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart';
+
 import 'package:future_chat/app/data/models/user_model.dart';
 
 class Notification {
@@ -9,7 +12,7 @@ class Notification {
   final String? type;
   final String? data;
   final SocialMediaUser? fromUser;
-  final SocialMediaUser? toUser;
+  final List<String>? toUsers;
   final String? createdAt;
   final String? imageUrl;
   Notification({
@@ -19,7 +22,7 @@ class Notification {
     required this.type,
     required this.data,
     this.fromUser,
-    this.toUser,
+    this.toUsers,
     required this.createdAt,
     required this.imageUrl,
   });
@@ -31,7 +34,7 @@ class Notification {
     String? type,
     String? data,
     SocialMediaUser? fromUser,
-    SocialMediaUser? toUser,
+    List<String>? toUsers,
     String? createdAt,
     String? imageUrl,
   }) {
@@ -42,7 +45,7 @@ class Notification {
       type: type ?? this.type,
       data: data ?? this.data,
       fromUser: fromUser ?? this.fromUser,
-      toUser: toUser ?? this.toUser,
+      toUsers: toUsers ?? this.toUsers,
       createdAt: createdAt ?? this.createdAt,
       imageUrl: imageUrl ?? this.imageUrl,
     );
@@ -69,8 +72,8 @@ class Notification {
     if (fromUser != null) {
       result.addAll({'fromUser': fromUser!.toMap()});
     }
-    if (toUser != null) {
-      result.addAll({'toUser': toUser!.toMap()});
+    if (toUsers != null) {
+      result.addAll({'toUsers': toUsers});
     }
     if (createdAt != null) {
       result.addAll({'createdAt': createdAt});
@@ -92,8 +95,7 @@ class Notification {
       fromUser: map['fromUser'] != null
           ? SocialMediaUser.fromMap(map['fromUser'])
           : null,
-      toUser:
-          map['toUser'] != null ? SocialMediaUser.fromMap(map['toUser']) : null,
+      toUsers: List<String>.from(map['toUsers']),
       createdAt: map['createdAt'],
       imageUrl: map['imageUrl'],
     );
@@ -106,7 +108,7 @@ class Notification {
 
   @override
   String toString() {
-    return 'Notification(id: $id, title: $title, body: $body, type: $type, data: $data, fromUser: $fromUser, toUser: $toUser, createdAt: $createdAt, imageUrl: $imageUrl)';
+    return 'Notification(id: $id, title: $title, body: $body, type: $type, data: $data, fromUser: $fromUser, toUsers: $toUsers, createdAt: $createdAt, imageUrl: $imageUrl)';
   }
 
   @override
@@ -120,7 +122,7 @@ class Notification {
         other.type == type &&
         other.data == data &&
         other.fromUser == fromUser &&
-        other.toUser == toUser &&
+        listEquals(other.toUsers, toUsers) &&
         other.createdAt == createdAt &&
         other.imageUrl == imageUrl;
   }
@@ -133,7 +135,7 @@ class Notification {
         type.hashCode ^
         data.hashCode ^
         fromUser.hashCode ^
-        toUser.hashCode ^
+        toUsers.hashCode ^
         createdAt.hashCode ^
         imageUrl.hashCode;
   }

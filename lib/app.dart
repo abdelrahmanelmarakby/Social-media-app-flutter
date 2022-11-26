@@ -150,10 +150,8 @@ class MyAppState extends State<MyApp> {
           ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
             return CustomError(errorDetails: errorDetails);
           };
-
           child = botToastBuilder(context, child!);
-          return ResponsiveWrapper.builder(
-              ClampingScrollWrapper.builder(context, child),
+          return ResponsiveWrapper.builder(child,
               maxWidth: 1200,
               minWidth: 480,
               defaultScale: true,

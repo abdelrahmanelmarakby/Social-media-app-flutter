@@ -9,14 +9,13 @@ import 'values_manger.dart';
 ThemeData getApplicationTheme() {
   return ThemeData(
     //main colors of the app
-    scaffoldBackgroundColor: ColorsManger.white,
+    scaffoldBackgroundColor: ColorsManger.grey1,
     primaryColor: ColorsManger.primary,
     primaryColorLight: ColorsManger.primary.withOpacity(.7),
     disabledColor: ColorsManger.grey1,
     platform: TargetPlatform.iOS,
     splashColor: ColorsManger.primary.withOpacity(.7),
     fontFamily: FontConstants.fontName,
-
     //card theme for the cards
     cardTheme: CardTheme(
       color: ColorsManger.white,
