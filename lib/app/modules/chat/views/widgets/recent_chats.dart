@@ -1,6 +1,10 @@
+import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:future_chat/core/services/encryption_service.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
@@ -90,14 +94,20 @@ class _RecentChatsState extends State<RecentChats> {
           )
         ],
       ),
-      body: ListView.builder(
-        itemCount: getRecentChat.isNotEmpty ? getRecentChat.length : 0,
-        padding: const EdgeInsets.only(top: 10),
-        itemBuilder: (context, index) {
-          final ChatRoom chatRoom = getRecentChat[index];
+      body: AnimationLimiter(
+        child: ListView.builder(
+          itemCount: getRecentChat.isNotEmpty ? getRecentChat.length : 0,
+          padding: const EdgeInsets.only(top: 10),
+          itemBuilder: (context, index) {
+            final ChatRoom chatRoom = getRecentChat[index];
 
-          return rowChat(context, chatRoom);
-        },
+            return AnimationConfiguration.staggeredList(
+                delay: const Duration(milliseconds: 100),
+                duration: const Duration(milliseconds: 500),
+                position: index,
+                child: SlideAnimation(child: rowChat(context, chatRoom)));
+          },
+        ),
       ),
     );
   }
@@ -107,26 +117,22 @@ class _RecentChatsState extends State<RecentChats> {
   }*/
 
   Widget rowChat(BuildContext context, ChatRoom chatRoom) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (_) => ChatScreen(
-                    hisId: chatRoom.userA.toString() == widget.myId.toString()
-                        ? chatRoom.userB.toString()
-                        : chatRoom.userA.toString(),
-                    myId: widget.myId,
-                    myName: UserService.myUser?.firstName ?? "",
-                    myImage: UserService.myUser?.photoUrl ?? "",
-                    hisName: chatRoom.userA.toString() == widget.myId.toString()
-                        ? chatRoom.bName.toString()
-                        : chatRoom.aName.toString(),
-                    hisImage:
-                        chatRoom.userA.toString() == widget.myId.toString()
-                            ? chatRoom.bImage.toString()
-                            : chatRoom.aImage.toString(),
-                  ))),
-      child: Container(
+    return OpenContainer(
+      openBuilder: (context, action) => ChatScreen(
+        hisId: chatRoom.userA.toString() == widget.myId.toString()
+            ? chatRoom.userB.toString()
+            : chatRoom.userA.toString(),
+        myId: widget.myId,
+        myName: UserService.myUser?.firstName ?? "",
+        myImage: UserService.myUser?.photoUrl ?? "",
+        hisName: chatRoom.userA.toString() == widget.myId.toString()
+            ? chatRoom.bName.toString()
+            : chatRoom.aName.toString(),
+        hisImage: chatRoom.userA.toString() == widget.myId.toString()
+            ? chatRoom.bImage.toString()
+            : chatRoom.aImage.toString(),
+      ),
+      closedBuilder: (context, action) => Container(
           margin: const EdgeInsets.only(top: 2, bottom: 4, right: 8, left: 8),
           padding: EdgeInsets.symmetric(
             horizontal: context.width * .04,
@@ -196,7 +202,7 @@ class _RecentChatsState extends State<RecentChats> {
                       ),
                       SizedBox(
                           width: context.width * .35,
-                          child: Text('${chatRoom.lastMsg}',
+                          child: Text('${chatRoom.lastMsg?.decrypt}',
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontSize: FontSize.small,

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../app/data/models/chat_model.dart';
 import '../../../../app/data/models/private_chat_message.dart';
 
+import 'package:future_chat/core/services/encryption_service.dart';
+
 class PrivateChatService {
   final String myId;
   final String? hisId;
@@ -62,7 +64,7 @@ class PrivateChatService {
                     bImage: bImage,
                     bName: bName,
                     keywords: keyword,
-                    lastMsg: privateMessage!.text,
+                    lastMsg: privateMessage!.text?.encrypt,
                     lastSender: privateMessage.sender,
                     lastChat: privateMessage.time)
                 .toJson())

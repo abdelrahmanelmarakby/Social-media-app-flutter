@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
+import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -391,9 +392,9 @@ class Attachment {
   }) async {
     PrivateMessage newFluff = PrivateMessage(
         sender: myId,
-        image: image,
-        text: fluff,
-        video: video,
+        image: image?.encrypt,
+        text: fluff?.encrypt,
+        video: video?.encrypt,
         time: Timestamp.now().toDate());
 
     String userA, userB, aName, bName, aImage, bImage;

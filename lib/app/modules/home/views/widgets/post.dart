@@ -2,11 +2,13 @@ import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/modules/comments/views/comments_view.dart';
 import 'package:future_chat/app/modules/home/controllers/home_controller.dart';
+import 'package:future_chat/core/resourses/font_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
@@ -46,44 +48,53 @@ class PostList extends GetWidget<HomeController> {
               snapshot.data?.docs.map((e) {
                 controller.posts.add(PostModel.fromMap(e.data()));
               }).toList();
-              return Column(
-                children: List.generate(controller.posts.length, (index) {
-                  if (controller.posts[index].sharedFrom != null) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.network(
-                                controller.posts[index].user?.photoUrl ?? '',
-                                fit: BoxFit.cover,
-                                width: 30,
-                                height: 30,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return const Icon(Icons.error);
-                                },
-                              ),
-                            ),
-                            title: Text(
-                                "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
-                                style: getRegularTextStyle(fontSize: 14)),
-                          ),
-                          PostWidget(
-                            index: index,
-                            post: controller.posts[index],
-                          )
-                        ],
-                      ).paddingSymmetric(vertical: 8),
+              return AnimationLimiter(
+                child: Column(
+                  children: List.generate(controller.posts.length, (index) {
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      child: ScaleAnimation(
+                          child: (controller.posts[index].sharedFrom != null)
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        leading: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child: Image.network(
+                                            controller.posts[index].user
+                                                    ?.photoUrl ??
+                                                '',
+                                            fit: BoxFit.cover,
+                                            width: 30,
+                                            height: 30,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return const Icon(Icons.error);
+                                            },
+                                          ),
+                                        ),
+                                        title: Text(
+                                            "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
+                                            style: getRegularTextStyle(
+                                                fontSize: 10)),
+                                      ),
+                                      PostWidget(
+                                        index: index,
+                                        post: controller.posts[index],
+                                      )
+                                    ],
+                                  ).paddingSymmetric(vertical: 8),
+                                )
+                              : PostWidget(
+                                  index: index,
+                                  post: controller.posts[index],
+                                ).paddingSymmetric(vertical: 8)),
                     );
-                  } else {
-                    return PostWidget(
-                      index: index,
-                      post: controller.posts[index],
-                    ).paddingSymmetric(vertical: 8);
-                  }
-                }),
+                  }),
+                ),
               );
             } else {
               return const Center(
@@ -166,7 +177,8 @@ class PostTitle extends StatelessWidget {
           ParsedType.PHONE,
         ],
         linkStyle: const TextStyle(color: Colors.blue),
-        style: const TextStyle(
+        style: getLightTextStyle(
+          fontSize: FontSize.medium,
           color: ColorsManger.grey,
         ),
       ),
@@ -220,7 +232,7 @@ class InteractionsWidget extends StatelessWidget {
                 ),
                 Text((post.comments?.length ?? 0).toString(),
                     style: getRegularTextStyle(
-                        fontSize: 12, color: ColorsManger.grey))
+                        fontSize: FontSize.medium, color: ColorsManger.grey))
               ],
             ),
           ),
@@ -254,7 +266,11 @@ class InteractionsWidget extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                const Text('Share'),
+                Text(
+                  'Share',
+                  style: getLightTextStyle(
+                      fontSize: FontSize.medium, color: ColorsManger.grey),
+                ),
               ],
             ),
           ),
@@ -281,7 +297,7 @@ class UserWidget extends StatelessWidget {
               arguments: {'userId': post.user?.uid});
         },
         child: CircleAvatar(
-          radius: 25,
+          radius: 18,
           backgroundImage: NetworkImage(
             post.user?.photoUrl ?? '',
           ),
@@ -293,14 +309,16 @@ class UserWidget extends StatelessWidget {
               arguments: {'userId': post.user?.uid});
         },
         child: Text('${post.user?.firstName} ${post.user?.lastName}',
-            style: getMediumTextStyle(color: ColorsManger.black, fontSize: 14)),
+            style: getMediumTextStyle(
+                color: ColorsManger.black, fontSize: FontSize.medium)),
       ),
       subtitle: Text(
           timeago.format(
             post.createdAt!,
             locale: 'en',
           ),
-          style: getMediumTextStyle(color: ColorsManger.grey, fontSize: 12)),
+          style: getMediumTextStyle(
+              color: ColorsManger.grey, fontSize: FontSize.small)),
       trailing: PopupMenuButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
@@ -308,12 +326,14 @@ class UserWidget extends StatelessWidget {
           PopupMenuItem(
               child: Text(
             'Unfollow ${post.user?.firstName} ${post.user?.lastName} posts',
-            style: getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
+            style: getMediumTextStyle(
+                fontSize: FontSize.medium, color: ColorsManger.grey),
           )),
           PopupMenuItem(
               child: Text(
             'Report post',
-            style: getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
+            style: getMediumTextStyle(
+                fontSize: FontSize.medium, color: ColorsManger.grey),
           )),
           PopupMenuItem(
               value: 3,
@@ -325,8 +345,8 @@ class UserWidget extends StatelessWidget {
               },
               child: Text(
                 'Copy link',
-                style:
-                    getMediumTextStyle(fontSize: 11, color: ColorsManger.grey),
+                style: getMediumTextStyle(
+                    fontSize: FontSize.medium, color: ColorsManger.grey),
               )),
           if (post.uid == UserService.myUser?.uid)
             PopupMenuItem(
@@ -337,7 +357,7 @@ class UserWidget extends StatelessWidget {
                 child: Text(
                   'Delete',
                   style: getMediumTextStyle(
-                      fontSize: 11, color: ColorsManger.grey),
+                      fontSize: FontSize.medium, color: ColorsManger.grey),
                 )),
         ],
         onSelected: (value) {
@@ -348,6 +368,7 @@ class UserWidget extends StatelessWidget {
         },
         icon: const Icon(
           Icons.more_vert,
+          size: 20,
           color: ColorsManger.primary,
         ),
       ),
@@ -399,7 +420,7 @@ class ImageWidget extends StatelessWidget {
                   Text(
                     'Error loading image',
                     style: getRegularTextStyle(
-                        fontSize: 12, color: ColorsManger.error),
+                        fontSize: 8, color: ColorsManger.error),
                   ).paddingOnly(bottom: 10)
                 ],
               ));
