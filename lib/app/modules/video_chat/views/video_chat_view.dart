@@ -79,7 +79,7 @@ class VideoChatView extends GetView<VideoChatController> {
       return AgoraVideoView(
         controller: VideoViewController(
           rtcEngine: controller.agoraEngine,
-          canvas: const VideoCanvas(uid: null),
+          canvas: const VideoCanvas(),
         ),
       );
     } else {

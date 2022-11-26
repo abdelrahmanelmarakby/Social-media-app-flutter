@@ -2,6 +2,7 @@ import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
@@ -46,44 +47,53 @@ class PostList extends GetWidget<HomeController> {
               snapshot.data?.docs.map((e) {
                 controller.posts.add(PostModel.fromMap(e.data()));
               }).toList();
-              return Column(
-                children: List.generate(controller.posts.length, (index) {
-                  if (controller.posts[index].sharedFrom != null) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.network(
-                                controller.posts[index].user?.photoUrl ?? '',
-                                fit: BoxFit.cover,
-                                width: 30,
-                                height: 30,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return const Icon(Icons.error);
-                                },
-                              ),
-                            ),
-                            title: Text(
-                                "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
-                                style: getRegularTextStyle(fontSize: 14)),
-                          ),
-                          PostWidget(
-                            index: index,
-                            post: controller.posts[index],
-                          )
-                        ],
-                      ).paddingSymmetric(vertical: 8),
+              return AnimationLimiter(
+                child: Column(
+                  children: List.generate(controller.posts.length, (index) {
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      child: ScaleAnimation(
+                          child: (controller.posts[index].sharedFrom != null)
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        leading: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child: Image.network(
+                                            controller.posts[index].user
+                                                    ?.photoUrl ??
+                                                '',
+                                            fit: BoxFit.cover,
+                                            width: 30,
+                                            height: 30,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return const Icon(Icons.error);
+                                            },
+                                          ),
+                                        ),
+                                        title: Text(
+                                            "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
+                                            style: getRegularTextStyle(
+                                                fontSize: 14)),
+                                      ),
+                                      PostWidget(
+                                        index: index,
+                                        post: controller.posts[index],
+                                      )
+                                    ],
+                                  ).paddingSymmetric(vertical: 8),
+                                )
+                              : PostWidget(
+                                  index: index,
+                                  post: controller.posts[index],
+                                ).paddingSymmetric(vertical: 8)),
                     );
-                  } else {
-                    return PostWidget(
-                      index: index,
-                      post: controller.posts[index],
-                    ).paddingSymmetric(vertical: 8);
-                  }
-                }),
+                  }),
+                ),
               );
             } else {
               return const Center(

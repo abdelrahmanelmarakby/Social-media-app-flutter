@@ -10,8 +10,10 @@ dependencies:
   agora_rtc_engine: any
   alt_sms_autofill: ^1.0.0
   animate_do: ^2.1.0
+  animations: ^2.0.7
   appinio_social_share: ^0.2.0
   bot_toast: ^4.0.3
+  flutter_staggered_animations: ^1.0.0
   bubble: ^1.2.1
   cached_network_image: ^3.2.2
   cloud_firestore: ^4.0.4
@@ -68,6 +70,7 @@ dependencies:
   url_launcher: ^6.1.6
   video_thumbnail: ^0.5.3
   video_viewer: ^1.2.7
+  encrypt: ^5.0.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.11.0
