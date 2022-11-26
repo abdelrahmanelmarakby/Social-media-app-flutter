@@ -211,20 +211,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
-  connectivity_plus:
-    dependency: "direct main"
-    description:
-      name: connectivity_plus
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.2"
-  connectivity_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: connectivity_plus_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.3"
   convert:
     dependency: transitive
     description:
@@ -260,20 +246,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  dbus:
-    dependency: transitive
-    description:
-      name: dbus
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.8"
-  diamond_dial_fab:
-    dependency: "direct main"
-    description:
-      name: diamond_dial_fab
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.3"
   dio:
     dependency: "direct main"
     description:
@@ -532,13 +504,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  font_awesome:
-    dependency: "direct main"
-    description:
-      name: font_awesome
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.10.1"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -756,13 +721,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1"
-  internet_connection_checker:
-    dependency: "direct main"
-    description:
-      name: internet_connection_checker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0+1"
   intl:
     dependency: "direct main"
     description:
@@ -861,13 +819,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  nm:
-    dependency: transitive
-    description:
-      name: nm
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.0"
   octo_image:
     dependency: transitive
     description:
@@ -1184,7 +1135,7 @@ packages:
     source: hosted
     version: "2.1.1"
   shimmer:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shimmer
       url: "https://pub.dartlang.org"
