@@ -68,6 +68,7 @@ dependencies:
   url_launcher: ^6.1.6
   video_thumbnail: ^0.5.3
   video_viewer: ^1.2.7
+  animations: ^2.0.7
 
 dev_dependencies:
   flutter_launcher_icons: ^0.11.0

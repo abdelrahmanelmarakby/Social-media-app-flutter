@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/resourses/color_manger.dart';
-import '../../../../core/resourses/styles_manger.dart';
 import '../controllers/video_chat_controller.dart';
 
 class VideoChatView extends GetView<VideoChatController> {
+  const VideoChatView({super.key});
+
   @override
   // Build UI
   @override
@@ -18,58 +19,68 @@ class VideoChatView extends GetView<VideoChatController> {
       scaffoldMessengerKey: controller.scaffoldMessengerKey,
       home: Scaffold(
           backgroundColor: ColorsManger.white,
-          appBar: AppBar(
-            title: Text(
-              'Get started with Video Calling',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 18),
-            ),
-            backgroundColor: ColorsManger.white,
-            elevation: 0,
-          ),
-          body: GetBuilder<VideoChatController>(
-            builder: (controller) => ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          body: SafeArea(
+              child: GetBuilder<VideoChatController>(
+            builder: (controller) => Stack(
               children: [
                 // Container for the local video
-                Container(
-                  height: 240,
-                  decoration: BoxDecoration(border: Border.all()),
-                  child: Center(child: _localPreview()),
+                Center(
+                  child: _remoteVideo(),
                 ),
-                const SizedBox(height: 10),
-                //Container for the Remote video
-                Container(
-                  height: 240,
-                  decoration: BoxDecoration(border: Border.all()),
-                  child: Center(child: _remoteVideo()),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: SizedBox(
+                    width: 100,
+                    height: 150,
+                    child: Center(
+                      child: controller.localUserJoined
+                          ? _localPreview()
+                          : const CircularProgressIndicator(),
+                    ),
+                  ),
                 ),
-                // Button Row
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: controller.isJoined
-                            ? null
-                            : () => {controller.join()},
-                        child: const Text("Join"),
-                      ),
+
+                Positioned(
+                  bottom: 20,
+                  child: SizedBox(
+                    width: Get.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FloatingActionButton(
+                          onPressed: controller.toggleLotcalAudioMuted,
+                          heroTag: 'micOff',
+                          child: controller.localAudioMute == false
+                              ? const Icon(Icons.mic)
+                              : const Icon(Icons.mic_off),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        FloatingActionButton(
+                          onPressed: controller.switchCamera,
+                          heroTag: 'cameraSwitch',
+                          child: const Icon(Icons.switch_camera),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        FloatingActionButton(
+                          onPressed: () {
+                            controller.leave();
+                          },
+                          backgroundColor: Colors.red,
+                          heroTag: 'endMeeting',
+                          child: const Icon(Icons.call_end),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: controller.isJoined
-                            ? () => {controller.leave()}
-                            : null,
-                        child: const Text("Leave"),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
                 // Button Row ends
               ],
             ),
-          )),
+          ))),
     );
   }
 

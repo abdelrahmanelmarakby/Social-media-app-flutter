@@ -89,6 +89,7 @@ class ChatScreenX extends StatelessWidget {
               color: ColorsManger.black,
             ),
           ),
+          onTap: () {},
         ),
         actions: [
           IconButton(
