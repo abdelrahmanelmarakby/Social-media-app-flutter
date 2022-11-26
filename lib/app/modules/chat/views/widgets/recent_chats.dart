@@ -2,6 +2,8 @@ import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
@@ -200,7 +202,7 @@ class _RecentChatsState extends State<RecentChats> {
                       ),
                       SizedBox(
                           width: context.width * .35,
-                          child: Text('${chatRoom.lastMsg}',
+                          child: Text('${chatRoom.lastMsg?.decrypt}',
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontSize: FontSize.small,

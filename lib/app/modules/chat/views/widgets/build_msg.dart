@@ -4,6 +4,7 @@ import 'package:bubble/bubble.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
+import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_viewer/video_viewer.dart';
@@ -26,11 +27,12 @@ class _MessageBuilderState extends State<MessageBuilder> {
 
   @override
   void initState() {
-    _controller = VideoPlayerController.network(widget.msg?.video ?? "",
-        videoPlayerOptions: VideoPlayerOptions(
-          mixWithOthers: false,
-          allowBackgroundPlayback: false,
-        ));
+    _controller =
+        VideoPlayerController.network(widget.msg?.video?.decrypt ?? "",
+            videoPlayerOptions: VideoPlayerOptions(
+              mixWithOthers: false,
+              allowBackgroundPlayback: false,
+            ));
 
     super.initState();
   }
@@ -99,7 +101,7 @@ class _MessageBuilderState extends State<MessageBuilder> {
               msg.text != null &&
               (msg.video == null || msg.video == 'null'))
             LinkPreviewText(
-              url: '${msg.text}',
+              url: '${msg.text?.decrypt}',
             )
           else
             const SizedBox(),
@@ -109,7 +111,7 @@ class _MessageBuilderState extends State<MessageBuilder> {
             InstaImageViewer(
               disposeLevel: DisposeLevel.high,
               child: Image.network(
-                msg.image ?? '',
+                msg.image?.decrypt ?? '',
                 //fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
@@ -182,6 +184,7 @@ class _LinkPreviewTextState extends State<LinkPreviewText> {
   @override
   Widget build(BuildContext context) {
     bool isLink = false;
+    widget.url = widget.url;
     widget.url.split(' ').forEach((element) {
       element = element.toLowerCase();
       if (element.contains('http') ||
