@@ -63,63 +63,6 @@ class AccountView extends GetView<AccountController> {
             ),
             onTap: () {
               Get.to(() => const EditProfileView());
-              // Get.bottomSheet(
-              //     backgroundColor: Colors.white,
-              //     elevation: 0,
-              //     shape: const RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.only(
-              //           topLeft: Radius.circular(32),
-              //           topRight: Radius.circular(32)),
-              //     ),
-              //     SingleChildScrollView(
-              //       child: Padding(
-              //         padding: const EdgeInsets.all(20),
-              //         child: Column(
-              //             mainAxisAlignment: MainAxisAlignment.start,
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               const SizedBox(
-              //                 height: 5,
-              //               ),
-              //               Text('Privacy',
-              //                   style: getMediumTextStyle(
-              //                     fontSize: 18,
-              //                     color: ColorsManger.black,
-              //                   )).paddingOnly(left: 130),
-              //               const SizedBox(
-              //                 height: 30,
-              //               ),
-              //               Text(
-              //                 ' Profile photo',
-              //                 style: getRegularTextStyle(fontSize: 16),
-              //               ),
-              //               const SizedBox(
-              //                 height: 30,
-              //               ),
-              //               Text(
-              //                 'Story',
-              //                 style: getRegularTextStyle(fontSize: 16),
-              //               ),
-              //               const SizedBox(
-              //                 height: 30,
-              //               ),
-              //               Text(
-              //                 'Read recepits',
-              //                 style: getRegularTextStyle(fontSize: 16),
-              //               ),
-              //               const SizedBox(
-              //                 height: 30,
-              //               ),
-              //               Text(
-              //                 'Online statue',
-              //                 style: getRegularTextStyle(fontSize: 16),
-              //               ),
-              //               const SizedBox(
-              //                 height: 40,
-              //               ),
-              //             ]),
-              //       ),
-              //     ));
             },
           ),
         )),

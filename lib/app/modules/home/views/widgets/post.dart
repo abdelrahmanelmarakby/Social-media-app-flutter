@@ -167,7 +167,7 @@ class PostTitle extends StatelessWidget {
         onPhoneClicked: (phone) =>
             launchUrl(Uri.parse(phone), mode: LaunchMode.externalApplication),
         truncate: true,
-        maxLines: 5,
+        maxLines: 3,
         viewLessText: "see less",
         supportedTypes: const [
           ParsedType.EMAIL,
@@ -179,7 +179,7 @@ class PostTitle extends StatelessWidget {
         linkStyle: const TextStyle(color: Colors.blue),
         style: getLightTextStyle(
           fontSize: FontSize.medium,
-          color: ColorsManger.grey,
+          color: ColorsManger.black,
         ),
       ),
     );

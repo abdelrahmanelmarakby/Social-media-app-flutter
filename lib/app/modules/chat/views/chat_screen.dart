@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/core/resourses/font_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/resourses/color_manger.dart';
-import '../../../../core/resourses/font_manger.dart';
 import '../../../../core/services/chat/private/private_chat.dart';
 import '../../../data/models/private_chat_message.dart';
 import '../../../routes/app_pages.dart';
@@ -63,33 +63,45 @@ class ChatScreenX extends StatelessWidget {
       backgroundColor: const Color(0xFFCAF0F8).withOpacity(.3),
       appBar: AppBar(
         backgroundColor: Colors.white,
+        centerTitle: false,
         elevation: 0.0,
         leading: IconButton(
           icon: const Icon(
             Iconsax.arrow_left_2,
             color: Colors.black,
-            size: 24,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: ListTile(
-          leading: CircleAvatar(
-            radius: 20,
-            backgroundImage: NetworkImage(
-              hisImage,
+        title: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.network(
+                hisImage,
+                height: 30,
+                width: 30,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Iconsax.user,
+                    color: Colors.black,
+                  );
+                },
+              ),
             ),
-          ),
-          title: Text(
-            hisName == "" ? "no name" : hisName,
-            style: getMediumTextStyle(
-              // fontSize: Dimensions.getDesirableWidth(5),
-              fontSize: FontSize.large,
-              color: ColorsManger.black,
+            const SizedBox(
+              width: 10,
             ),
-          ),
-          onTap: () {},
+            Text(
+              hisName,
+              style: getMediumTextStyle(
+                color: Colors.black,
+                fontSize: FontSize.medium,
+              ),
+            ),
+          ],
         ),
         actions: [
           IconButton(
@@ -98,7 +110,7 @@ class ChatScreenX extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              Get.to(() => VideoChatView(), arguments: {
+              Get.to(() => const VideoChatView(), arguments: {
                 "myId": myId,
                 "hisId": hisId,
                 "hisName": hisName,
