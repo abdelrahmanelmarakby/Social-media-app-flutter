@@ -16,11 +16,8 @@ class AccountView extends GetView<AccountController> {
     return Scaffold(
         body: Column(
       children: [
-        const SizedBox(
-          height: 40,
-        ),
         GestureDetector(
-          child: ListTile(
+          child: AppBar(
             leading: const Icon(
               Iconsax.arrow_left,
               color: ColorsManger.black,
@@ -31,74 +28,81 @@ class AccountView extends GetView<AccountController> {
                 color: ColorsManger.black,
               ),
             ),
+            centerTitle: false,
+            backgroundColor: Colors.white,
+            elevation: 0,
           ),
           onTap: () {
             Get.back();
           },
         ),
-        const SizedBox(
-          height: 50,
-        ),
+
         Expanded(
-            child: ListTile(
-          leading: CircleAvatar(
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: ColorsManger.light,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 40,
               ),
-              child: const Icon(
-                Iconsax.edit,
-                color: ColorsManger.primary,
-              ),
-            ),
+              Expanded(
+                  child: ListTile(
+                leading: ClipRRect(
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: ColorsManger.light,
+                    ),
+                    child: const Icon(
+                      Iconsax.edit,
+                      color: ColorsManger.primary,
+                    ),
+                  ),
+                ),
+                title: GestureDetector(
+                  child: Text(
+                    'Edit Profile',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 16),
+                  ),
+                  onTap: () {
+                    Get.to(() => const EditProfileView());
+                  },
+                ),
+              )),
+              Expanded(
+                  child: ListTile(
+                leading: ClipRRect(
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: ColorsManger.light,
+                    ),
+                    child: const Icon(
+                      Iconsax.trash,
+                      color: ColorsManger.primary,
+                    ),
+                  ),
+                ),
+                title: GestureDetector(
+                  child: Text(
+                    'Delete my account',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 16),
+                  ),
+                  onTap: () {
+                    Get.to(() => const DeleteAccountView());
+                  },
+                ),
+              )),
+            ],
           ),
-          title: GestureDetector(
-            child: Text(
-              'Edit Profile',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-            ),
-            onTap: () {
-              Get.to(() => const EditProfileView());
-            },
-          ),
-        )),
-        const SizedBox(
-          height: 10,
         ),
-        Expanded(
-            child: ListTile(
-          leading: CircleAvatar(
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: ColorsManger.light,
-              ),
-              child: const Icon(
-                Iconsax.trash,
-                color: ColorsManger.primary,
-              ),
-            ),
-          ),
-          title: GestureDetector(
-            child: Text(
-              'Delete my account',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-            ),
-            onTap: () {
-              Get.to(() => const DeleteAccountView());
-            },
-          ),
-        )),
-        const SizedBox(
-          height: 550,
-        ),
+        const Spacer(
+          flex: 3,
+        )
       ],
     ));
   }

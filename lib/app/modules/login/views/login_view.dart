@@ -13,31 +13,35 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: context.height * .20,
-            decoration:
-                const BoxDecoration(gradient: ColorsManger.backgroundGradient),
-            child: SafeArea(
-              child: Center(
-                child: Text(
-                  "Login",
-                  style: getBoldTextStyle(fontSize: 30, color: Colors.white),
+
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: context.height * .25,
+              decoration: const BoxDecoration(
+                  gradient: ColorsManger.backgroundGradient),
+              child: SafeArea(
+                child: Center(
+                  child: Text(
+                    "Login",
+                    style: getBoldTextStyle(fontSize: 30, color: Colors.white),
+                  ),
+
                 ),
               ),
             ),
-          ),
-          Expanded(
-              child: PageView(
-            controller: controller.pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: const [
-              MobileNumberLoginForm(),
-              OtpVerificationLoginForm()
-            ],
-          ))
-        ],
+            Expanded(
+                child: PageView(
+              controller: controller.pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                MobileNumberLoginForm(),
+                OtpVerificationLoginForm()
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }

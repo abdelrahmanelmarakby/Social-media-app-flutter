@@ -16,11 +16,8 @@ class TermsAndPolicy extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 40,
-            ),
             GestureDetector(
-              child: ListTile(
+              child: AppBar(
                 leading: const Icon(
                   Iconsax.arrow_left,
                   color: ColorsManger.black,
@@ -31,6 +28,9 @@ class TermsAndPolicy extends StatelessWidget {
                     color: ColorsManger.black,
                   ),
                 ),
+                centerTitle: false,
+                backgroundColor: Colors.white,
+                elevation: 0,
               ),
               onTap: () {
                 navigator!.pop();
