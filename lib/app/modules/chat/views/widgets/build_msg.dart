@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble/bubble.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart';
-import 'package:flutter_link_previewer/flutter_link_previewer.dart';
+import 'package:flutter_link_previewer/flutter_link_previewer.dart' hide Size;
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
@@ -24,7 +24,6 @@ class MessageBuilder extends StatefulWidget {
 
 class _MessageBuilderState extends State<MessageBuilder> {
   late VideoPlayerController _controller;
-
   @override
   void initState() {
     _controller =
@@ -86,85 +85,76 @@ class _MessageBuilderState extends State<MessageBuilder> {
     if (msg.image == null && msg.text != null && msg.video == null) {
       print('${msg.text} ${msg.video} ${msg.image}');
     }
-    return GestureDetector(
-      onLongPress: () {
-        /* Navigator.push(context, HeroDialogRoute(builder: (context) {
-          return MessageOptions(
-              msg: msg,
-              heroTAG: (msg.time?.millisecondsSinceEpoch ?? 0).toString());
-        }));*/
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if ((msg.image == null || msg.image == 'null') &&
-              msg.text != null &&
-              (msg.video == null || msg.video == 'null'))
-            LinkPreviewText(
-              url: '${msg.text?.decrypt}',
-            )
-          else
-            const SizedBox(),
-          if (msg.image != null &&
-              (msg.text == null || msg.text == '') &&
-              (msg.video == null || msg.video == ''))
-            InstaImageViewer(
-              disposeLevel: DisposeLevel.high,
-              child: Image.network(
-                msg.image?.decrypt ?? '',
-                //fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const SizedBox(
-                    height: 100,
-                    child: Center(
-                      child: CupertinoActivityIndicator(),
-                    ),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.error);
-                },
-              ),
-            )
-          else
-            const SizedBox(),
-          if (msg.video != null)
-            VideoViewer(
-              source: {
-                "": VideoSource(video: _controller),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if ((msg.image == null || msg.image == 'null') &&
+            msg.text != null &&
+            (msg.video == null || msg.video == 'null'))
+          LinkPreviewText(
+            url: '${msg.text?.decrypt}',
+          )
+        else
+          const SizedBox(),
+        if (msg.image != null &&
+            (msg.text == null || msg.text == '') &&
+            (msg.video == null || msg.video == ''))
+          InstaImageViewer(
+            disposeLevel: DisposeLevel.high,
+            child: Image.network(
+              msg.image?.decrypt ?? '',
+              //fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const SizedBox(
+                  height: 100,
+                  child: Center(
+                    child: CupertinoActivityIndicator(),
+                  ),
+                );
               },
-            )
-          else
-            const SizedBox(),
-          const SizedBox(
-            height: 1,
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              isMe == true
-                  ? const Icon(
-                      Icons.check,
-                      //    size: Dimensions.getDesirableWidth(4),
-                      color: Colors.grey,
-                    )
-                  : const SizedBox(),
-              const SizedBox(
-                width: 2,
-              ),
-              Text(
-                '$hour:${msg.time?.minute} $amPm',
-                style: const TextStyle(
-                    //   fontSize: Dimensions.getDesirableWidth(3),
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error);
+              },
+            ),
+          )
+        else
+          const SizedBox(),
+        if (msg.video != null)
+          VideoViewer(
+            source: {
+              "": VideoSource(video: _controller),
+            },
+          )
+        else
+          const SizedBox(),
+        const SizedBox(
+          height: 1,
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            isMe == true
+                ? const Icon(
+                    Icons.check,
+                    //    size: Dimensions.getDesirableWidth(4),
                     color: Colors.grey,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-        ],
-      ),
+                  )
+                : const SizedBox(),
+            const SizedBox(
+              width: 2,
+            ),
+            Text(
+              '$hour:${msg.time?.minute} $amPm',
+              style: const TextStyle(
+                  //   fontSize: Dimensions.getDesirableWidth(3),
+                  color: Colors.grey,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
