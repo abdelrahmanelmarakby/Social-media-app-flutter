@@ -15,16 +15,18 @@ class GroupChats extends GetView<GroupChatController> {
       appBar: AppBar(
         title: const Text(
           'Group Chats',
-          style: TextStyle(color: ColorsManger.white),
+          style: TextStyle(color: ColorsManger.black),
         ),
-        centerTitle: true,
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: ColorsManger.white,
+            color: ColorsManger.black,
           ),
         ),
+        backgroundColor: ColorsManger.white,
+        elevation: 0,
+        centerTitle: false,
       ),
       backgroundColor: ColorsManger.light,
       body: StreamBuilder<List<GroupChatModel>>(

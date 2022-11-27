@@ -246,9 +246,7 @@ class StoryFooter extends StatelessWidget {
                 color: ColorsManger.white,
               ),
             ),
-            onFieldSubmitted: (value) {
-              //TODO: Post MSG to story comments
-            },
+            onFieldSubmitted: (value) {},
           ).paddingAll(8),
         ],
       ),
