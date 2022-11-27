@@ -32,6 +32,9 @@ class ProfileView extends GetView<ProfileController> {
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 10,
+          ),
           Expanded(
               flex: 1,
               child: GestureDetector(
