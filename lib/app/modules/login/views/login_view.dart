@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/modules/login/views/login_otp_validation.dart';
-import 'package:future_chat/app/modules/profile/views/profile_view.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../controllers/login_controller.dart';
 import 'login_phone_number_form.dart';
@@ -17,13 +15,8 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       body: Column(
         children: [
-          IconButton(
-              onPressed: () {
-                () => Get.to(const ProfileView());
-              },
-              icon: const Icon(Iconsax.more)),
           Container(
-            height: context.height * .25,
+            height: context.height * .20,
             decoration:
                 const BoxDecoration(gradient: ColorsManger.backgroundGradient),
             child: SafeArea(

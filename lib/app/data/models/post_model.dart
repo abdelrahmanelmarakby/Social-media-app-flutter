@@ -391,14 +391,14 @@ class Reaction {
   }
 }
 
-class Story {
+class StoryModel {
   String? id;
   String? uid;
   SocialMediaUser? user;
   String? storyImageUrl;
   String? storyText;
   DateTime? createdAt;
-  Story({
+  StoryModel({
     this.id,
     this.uid,
     this.user,
@@ -407,7 +407,7 @@ class Story {
     this.createdAt,
   });
 
-  Story copyWith({
+  StoryModel copyWith({
     String? id,
     String? uid,
     SocialMediaUser? user,
@@ -415,7 +415,7 @@ class Story {
     String? storyText,
     DateTime? createdAt,
   }) {
-    return Story(
+    return StoryModel(
       id: id ?? this.id,
       uid: uid ?? this.uid,
       user: user ?? this.user,
@@ -448,8 +448,8 @@ class Story {
     return result;
   }
 
-  factory Story.fromMap(Map<String, dynamic> map) {
-    return Story(
+  factory StoryModel.fromMap(Map<String, dynamic> map) {
+    return StoryModel(
       id: map['id'],
       uid: map['uid'],
       user: map['user'] != null ? SocialMediaUser.fromMap(map['user']) : null,
@@ -463,7 +463,8 @@ class Story {
 
   String toJson() => json.encode(toMap());
 
-  factory Story.fromJson(String source) => Story.fromMap(json.decode(source));
+  factory StoryModel.fromJson(String source) =>
+      StoryModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -474,7 +475,7 @@ class Story {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Story &&
+    return other is StoryModel &&
         other.id == id &&
         other.uid == uid &&
         other.user == user &&

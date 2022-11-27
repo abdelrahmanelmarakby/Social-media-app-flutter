@@ -7,7 +7,7 @@ import '../models/post_model.dart';
 class StoriesServices {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  static addStory(Story story, String uid) {
+  static addStory(StoryModel story, String uid) {
     DocumentReference documentReference =
         _firestore.collection("Stories").doc();
     FirebaseFirestore.instance.runTransaction((transaction) async {
@@ -23,7 +23,7 @@ class StoriesServices {
     });
   }
 
-  addStorytoUser({required String uid, required Story story}) async {
+  addStorytoUser({required String uid, required StoryModel story}) async {
     DocumentReference documentReference =
         _firestore.collection("Stories").doc(uid);
     FirebaseFirestore.instance.runTransaction((transaction) async {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/modules/chat/views/chat_screen.dart';
+import 'package:future_chat/core/services/encryption_service.dart';
 
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -226,7 +227,7 @@ class OtherProfileView extends GetView<OtherProfileController> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                   child: Image.network(
-                                                    images[index],
+                                                    images[index].decrypt,
                                                     height: 70,
                                                     width: 70,
                                                     fit: BoxFit.cover,
