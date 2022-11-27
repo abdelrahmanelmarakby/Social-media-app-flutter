@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
+import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import 'package:like_button/like_button.dart';
+
+import '../../../../../core/resourses/font_manger.dart';
 
 class ReactionButton extends StatelessWidget {
   const ReactionButton(
@@ -48,12 +51,12 @@ class ReactionButton extends StatelessWidget {
         if (likeCount == 0) {
           result = Text(
             "like",
-            style: TextStyle(color: color),
+            style: getLightTextStyle(color: color, fontSize: FontSize.medium),
           );
         } else {
           result = Text(
             text,
-            style: TextStyle(color: color),
+            style: getLightTextStyle(color: color, fontSize: FontSize.medium),
           );
         }
         return result;

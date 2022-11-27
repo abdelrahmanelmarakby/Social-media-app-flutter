@@ -9,7 +9,7 @@ class FontConstants {
 }
 
 class FontWeights {
-  static const FontWeight light = FontWeight.w300;
+  static const FontWeight light = FontWeight.w400;
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight medium = FontWeight.w500;
   static const FontWeight semiBold = FontWeight.w600;
@@ -17,10 +17,10 @@ class FontWeights {
 }
 
 class FontSize {
-  static const double xSmall = 8.0;
-  static const double small = 12.0;
-  static const double medium = 14.0;
-  static const double large = 16.0;
-  static const double xlarge = 18.0;
-  static const double xXlarge = 20.0;
+  static const double xSmall = 6.0;
+  static const double small = 8.0;
+  static const double medium = 12.0;
+  static const double large = 12.0;
+  static const double xlarge = 14.0;
+  static const double xXlarge = 26.0;
 }

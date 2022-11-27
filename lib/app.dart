@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:future_chat/core/services/dynamic_links.dart';
+import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:get/get.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -36,6 +37,8 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    const string = "THis is the first encrypted log";
+    Get.log("${string.encrypt} ${string.encrypt.decrypt}");
     _initURIHandler();
     _incomingLinkHandler();
   }
@@ -147,10 +150,8 @@ class MyAppState extends State<MyApp> {
           ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
             return CustomError(errorDetails: errorDetails);
           };
-
           child = botToastBuilder(context, child!);
-          return ResponsiveWrapper.builder(
-              ClampingScrollWrapper.builder(context, child),
+          return ResponsiveWrapper.builder(child,
               maxWidth: 1200,
               minWidth: 480,
               defaultScale: true,

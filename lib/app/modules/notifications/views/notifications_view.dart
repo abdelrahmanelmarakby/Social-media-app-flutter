@@ -32,8 +32,7 @@ class NotificationsView extends GetView<NotificationsController> {
             color: ColorsManger.light,
             child: Padding(
               padding: const EdgeInsets.only(top: 40),
-              child: Expanded(
-                  child: ListView.builder(
+              child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return Container(
@@ -99,7 +98,7 @@ class NotificationsView extends GetView<NotificationsController> {
                     ),
                   ).paddingOnly(left: 24, right: 24, bottom: 20);
                 },
-              )),
+              ),
             ),
           ),
         ),

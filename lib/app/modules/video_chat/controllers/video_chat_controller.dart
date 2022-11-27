@@ -11,6 +11,8 @@ class VideoChatController extends GetxController {
     setupVideoSDKEngine();
   }
 
+  var arguments = Get.arguments;
+
   @override
   void onClose() async {
     await agoraEngine.leaveChannel();
@@ -88,6 +90,7 @@ class VideoChatController extends GetxController {
       options: options,
       uid: 0,
     );
+    update();
   }
 
   Future switchCamera() async {
