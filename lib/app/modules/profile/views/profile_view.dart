@@ -36,27 +36,28 @@ class ProfileView extends GetView<ProfileController> {
               flex: 1,
               child: GestureDetector(
                 child: ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-
-
-                    child: Image.network(
-                      UserService.myUser?.photoUrl ?? "",
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(
-                          Iconsax.user,
-                          color: ColorsManger.black,
-                        );
-                      },
+                  leading: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        UserService.myUser?.photoUrl ?? "",
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Iconsax.user,
+                            color: ColorsManger.black,
+                          );
+                        },
+                      ),
                     ),
-
                   ),
                   title: Text(
                     '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
@@ -72,9 +73,8 @@ class ProfileView extends GetView<ProfileController> {
                 Expanded(
                     child: GestureDetector(
                   child: ListTile(
-
                     leading: ClipRRect(
-         child: Container(
+                      child: Container(
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
@@ -105,9 +105,7 @@ class ProfileView extends GetView<ProfileController> {
                 Expanded(
                     child: GestureDetector(
                   child: ListTile(
-
                     leading: ClipRRect(
-
                       child: Container(
                         height: 40,
                         width: 40,
@@ -140,7 +138,6 @@ class ProfileView extends GetView<ProfileController> {
                     child: GestureDetector(
                   child: ListTile(
                     leading: ClipRRect(
-
                       child: Container(
                         height: 40,
                         width: 40,
@@ -198,9 +195,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
           ),
           const Spacer(
-
             flex: 2,
-
           )
         ],
       ),

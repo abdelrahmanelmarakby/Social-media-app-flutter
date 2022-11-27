@@ -15,43 +15,42 @@ class BottomNavBarView extends GetView<BottomNavBarController> {
         extendBody: true,
         body: controller.CurrentScreen,
         bottomNavigationBar: _bottomNavigationBar(),
+        resizeToAvoidBottomInset: true,
       ),
     );
   }
 
   _bottomNavigationBar() {
     return GetBuilder<BottomNavBarController>(
-      builder: (controller) => SafeArea(
-        child: PandaBar(
-          backgroundColor: ColorsManger.grey1,
-          fabIcon: IconButton(
-            icon: const Icon(Iconsax.add),
-            onPressed: () {
-              controller.onSelected(2);
-            },
-          ),
-          fabColors: const [
-            ColorsManger.primary,
-            Color.fromARGB(255, 31, 177, 255)
-          ],
-          buttonSelectedColor: ColorsManger.primary,
-          buttonData: [
-            PandaBarButtonData(
-              id: 0,
-              icon: Iconsax.home,
-              title: 'Home',
-            ),
-            PandaBarButtonData(id: 1, icon: Iconsax.messages, title: 'Chat'),
-            PandaBarButtonData(
-              id: 3,
-              icon: Iconsax.notification,
-              title: 'Notification',
-            ),
-            PandaBarButtonData(id: 4, icon: Iconsax.user, title: 'Profile'),
-          ],
-          onChange: (index) => controller.onSelected(index),
-          onFabButtonPressed: () {},
+      builder: (controller) => PandaBar(
+        backgroundColor: ColorsManger.grey1,
+        fabIcon: IconButton(
+          icon: const Icon(Iconsax.add),
+          onPressed: () {
+            controller.onSelected(2);
+          },
         ),
+        fabColors: const [
+          ColorsManger.primary,
+          Color.fromARGB(255, 31, 177, 255)
+        ],
+        buttonSelectedColor: ColorsManger.primary,
+        buttonData: [
+          PandaBarButtonData(
+            id: 0,
+            icon: Iconsax.home,
+            title: 'Home',
+          ),
+          PandaBarButtonData(id: 1, icon: Iconsax.messages, title: 'Chat'),
+          PandaBarButtonData(
+            id: 3,
+            icon: Iconsax.notification,
+            title: 'Notification',
+          ),
+          PandaBarButtonData(id: 4, icon: Iconsax.user, title: 'Profile'),
+        ],
+        onChange: (index) => controller.onSelected(index),
+        onFabButtonPressed: () {},
       ),
     );
   }

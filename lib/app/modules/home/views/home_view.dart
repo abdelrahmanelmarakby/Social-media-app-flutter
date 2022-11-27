@@ -15,7 +15,9 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       appBar: const HomeAppBar(),
       body: RefreshIndicator(
-        onRefresh: () => Get.forceAppUpdate(),
+        onRefresh: () {
+          return Get.forceAppUpdate();
+        },
         color: ColorsManger.primary,
         child: ListView(
           children: [

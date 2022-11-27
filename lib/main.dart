@@ -30,7 +30,7 @@ Future<void> main() async {
   //============================================================================
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.manual,
+    SystemUiMode.edgeToEdge,
     overlays: [],
   );
   //============================================================================

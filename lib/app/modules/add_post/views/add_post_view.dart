@@ -1,7 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/data/models/notification_model.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
+import 'package:future_chat/app/data/remote_firebase_services/notification_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
@@ -193,6 +195,21 @@ class AddPostAppBar extends GetWidget<AddPostController> {
                               imageUrl: controller.imageUrl.value,
                               uid: UserService.myUser?.uid ?? ""),
                           UserService.myUser?.uid ?? "")
+                      .then((value) => NotificationService.sendNotification(
+                            NotificationModel(
+                                title:
+                                    "New post from ${UserService.myUser?.firstName ?? ""} ${UserService.myUser?.lastName ?? ""}",
+                                body: controller
+                                            .postEditingController.text.length >
+                                        20
+                                    ? "${controller.postEditingController.text.substring(0, 20)}..."
+                                    : controller.postEditingController.text,
+                                type: "post",
+                                fromUser: UserService.myUser,
+                                toUsers: UserService.myUser?.followers,
+                                imageUrl: controller.imageUrl.value),
+                          ))
+                      .then((value) => Get.offAllNamed(Routes.HOME))
                       .catchError((e) => Get.snackbar('Error', e.toString()));
 
                   await Get.offNamedUntil(

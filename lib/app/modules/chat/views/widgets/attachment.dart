@@ -392,9 +392,8 @@ class Attachment {
     );
   }
 
-  uploadAudiotoStorage(BuildContext context, path) async {
+  uploadAudiotoStorage(BuildContext context, String path) async {
     try {
-      File file = File(path);
       final DateTime now = DateTime.now();
       final int millSeconds = now.millisecondsSinceEpoch;
       final String month = now.month.toString();
@@ -408,15 +407,19 @@ class Attachment {
           .child("audios")
           .child(today)
           .child(storageId);
-      UploadTask uploadTask = ref.putFile(File(file.path));
-      int size = File(file.path).lengthSync();
+      UploadTask uploadTask = ref.putFile(
+        File(path),
+      );
+      int size = File(path).lengthSync();
       downloadDialog(context, uploadTask, size);
 
       var storageTaskSnapshot = await uploadTask;
       var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
       final String url = downloadUrl.toString();
 
-      postMsg(audio: url, fluff: file.path);
+      postMsg(
+        audio: url,
+      );
       Navigator.pop(context);
       print(url);
     } catch (error) {
@@ -435,6 +438,7 @@ class Attachment {
         image: image?.encrypt,
         text: fluff?.encrypt,
         video: video?.encrypt,
+        audio: audio?.encrypt,
         time: Timestamp.now().toDate());
 
     String userA, userB, aName, bName, aImage, bImage;
