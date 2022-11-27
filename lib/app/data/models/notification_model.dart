@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:future_chat/app/data/models/user_model.dart';
 
-class Notification {
+class NotificationModel {
   final String? id;
   final String? title;
   final String? body;
@@ -12,21 +12,21 @@ class Notification {
   final String? data;
   final SocialMediaUser? fromUser;
   final List<String>? toUsers;
-  final String? createdAt;
+  final DateTime? createdAt;
   final String? imageUrl;
-  Notification({
-    required this.id,
-    required this.title,
-    required this.body,
-    required this.type,
-    required this.data,
+  NotificationModel({
+    this.id,
+    this.title,
+    this.body,
+    this.type,
+    this.data,
     this.fromUser,
     this.toUsers,
-    required this.createdAt,
-    required this.imageUrl,
+    this.createdAt,
+    this.imageUrl,
   });
 
-  Notification copyWith({
+  NotificationModel copyWith({
     String? id,
     String? title,
     String? body,
@@ -34,10 +34,10 @@ class Notification {
     String? data,
     SocialMediaUser? fromUser,
     List<String>? toUsers,
-    String? createdAt,
+    DateTime? createdAt,
     String? imageUrl,
   }) {
-    return Notification(
+    return NotificationModel(
       id: id ?? this.id,
       title: title ?? this.title,
       body: body ?? this.body,
@@ -52,40 +52,21 @@ class Notification {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-
-    if (id != null) {
-      result.addAll({'id': id});
-    }
-    if (title != null) {
-      result.addAll({'title': title});
-    }
-    if (body != null) {
-      result.addAll({'body': body});
-    }
-    if (type != null) {
-      result.addAll({'type': type});
-    }
-    if (data != null) {
-      result.addAll({'data': data});
-    }
-    if (fromUser != null) {
-      result.addAll({'fromUser': fromUser!.toMap()});
-    }
-    if (toUsers != null) {
-      result.addAll({'toUsers': toUsers});
-    }
-    if (createdAt != null) {
-      result.addAll({'createdAt': createdAt});
-    }
-    if (imageUrl != null) {
-      result.addAll({'imageUrl': imageUrl});
-    }
+    result.addAll({'id': id});
+    result.addAll({'title': title});
+    result.addAll({'body': body});
+    result.addAll({'type': type});
+    result.addAll({'data': data});
+    result.addAll({'fromUser': fromUser!.toMap()});
+    result.addAll({'toUsers': toUsers});
+    result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
+    result.addAll({'imageUrl': imageUrl});
 
     return result;
   }
 
-  factory Notification.fromMap(Map<String, dynamic> map) {
-    return Notification(
+  factory NotificationModel.fromMap(Map<String, dynamic> map) {
+    return NotificationModel(
       id: map['id'],
       title: map['title'],
       body: map['body'],
@@ -95,26 +76,28 @@ class Notification {
           ? SocialMediaUser.fromMap(map['fromUser'])
           : null,
       toUsers: List<String>.from(map['toUsers']),
-      createdAt: map['createdAt'],
+      createdAt: map['createdAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
+          : null,
       imageUrl: map['imageUrl'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Notification.fromJson(String source) =>
-      Notification.fromMap(json.decode(source));
+  factory NotificationModel.fromJson(String source) =>
+      NotificationModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Notification(id: $id, title: $title, body: $body, type: $type, data: $data, fromUser: $fromUser, toUsers: $toUsers, createdAt: $createdAt, imageUrl: $imageUrl)';
+    return 'NotificationModel(id: $id, title: $title, body: $body, type: $type, data: $data, fromUser: $fromUser, toUsers: $toUsers, createdAt: $createdAt, imageUrl: $imageUrl)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Notification &&
+    return other is NotificationModel &&
         other.id == id &&
         other.title == title &&
         other.body == body &&

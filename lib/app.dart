@@ -39,8 +39,8 @@ class MyAppState extends State<MyApp> {
     super.initState();
     const string = "THis is the first encrypted log";
     Get.log("${string.encrypt} ${string.encrypt.decrypt}");
-    _initURIHandler();
-    _incomingLinkHandler();
+    //  _initURIHandler();
+    //  _incomingLinkHandler();
   }
 
   Future<void> _initURIHandler() async {
@@ -117,7 +117,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        navigatorObservers: [BotToastNavigatorObserver()],
+        // navigatorObservers: [BotToastNavigatorObserver()],
         title: "app name".tr,
         // initialRoute:token==null?AppPages.INITIAL:Routes.HOME,
         //initialRoute: AppPages.INITIAL,
@@ -147,10 +147,11 @@ class MyAppState extends State<MyApp> {
         //  Get.log("GET LOG CALLBACK : $text", isError: isError);
         //},
         builder: (context, child) {
+          //  child = botToastBuilder(context, child);
           ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
             return CustomError(errorDetails: errorDetails);
           };
-          child = botToastBuilder(context, child!);
+          child = botToastBuilder(context, child);
           return ResponsiveWrapper.builder(child,
               maxWidth: 1200,
               minWidth: 480,
