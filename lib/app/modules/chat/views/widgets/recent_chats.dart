@@ -240,7 +240,7 @@ class _RecentChatsState extends State<RecentChats> {
                         timeago.format(
                             DateTime.now().subtract(DateTime.now()
                                 .difference(chatRoom.lastChat!.toUtc())),
-                            locale: 'ar_short'),
+                            locale: 'ar'),
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontSize: FontSize.small,

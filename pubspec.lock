@@ -78,6 +78,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  audio_wave:
+    dependency: "direct main"
+    description:
+      name: audio_wave
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
+  audio_waveforms:
+    dependency: "direct main"
+    description:
+      name: audio_waveforms
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5+1"
   boolean_selector:
     dependency: transitive
     description:
