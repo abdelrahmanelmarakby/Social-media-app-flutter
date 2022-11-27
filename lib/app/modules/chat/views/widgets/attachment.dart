@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/modules/chat/views/widgets/color_sonar.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:geolocator/geolocator.dart';
@@ -89,6 +91,11 @@ class Attachment {
               fluff.isNotEmpty ? postMsg(fluff: fluff) : null;
             },
           ),
+          AudioRecorderWidget(
+            onRecordComplete: (path) {
+              uploadAudiotoStorage(context, path);
+            },
+          )
         ],
       ),
     );
@@ -385,10 +392,43 @@ class Attachment {
     );
   }
 
+  uploadAudiotoStorage(BuildContext context, path) async {
+    try {
+      File file = File(path);
+      final DateTime now = DateTime.now();
+      final int millSeconds = now.millisecondsSinceEpoch;
+      final String month = now.month.toString();
+      final String date = now.day.toString();
+      final String storageId = ('${millSeconds.toString()}+id:$myId+');
+      final String today = ('$month-$date');
+      print(storageId);
+
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child("audios")
+          .child(today)
+          .child(storageId);
+      UploadTask uploadTask = ref.putFile(File(file.path));
+      int size = File(file.path).lengthSync();
+      downloadDialog(context, uploadTask, size);
+
+      var storageTaskSnapshot = await uploadTask;
+      var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+      final String url = downloadUrl.toString();
+
+      postMsg(audio: url, fluff: file.path);
+      Navigator.pop(context);
+      print(url);
+    } catch (error) {
+      print(error);
+    }
+  }
+
   void postMsg({
     String? fluff,
     String? image,
     String? video,
+    String? audio,
   }) async {
     PrivateMessage newFluff = PrivateMessage(
         sender: myId,
@@ -486,5 +526,65 @@ class _DownloadDialogContentState extends State<DownloadDialogContent> {
             ],
           ),
         ));
+  }
+}
+
+class AudioRecorderWidget extends StatefulWidget {
+  const AudioRecorderWidget({super.key, required this.onRecordComplete});
+
+  final void Function(String path) onRecordComplete;
+
+  @override
+  State<AudioRecorderWidget> createState() => _AudioRecorderWidgetState();
+}
+
+class _AudioRecorderWidgetState extends State<AudioRecorderWidget> {
+  late final RecorderController recorderController;
+  bool isRecording = false;
+  String audioPath = '';
+
+  @override
+  void initState() {
+    super.initState();
+    recorderController = RecorderController();
+  }
+
+  @override
+  void dispose() {
+    recorderController.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onLongPress: () {
+          recorderController.record();
+          setState(() {
+            isRecording = true;
+          });
+        },
+        onLongPressUp: () async {
+          audioPath = await recorderController.stop() ?? "";
+          Get.log('audioPath : $audioPath');
+          widget.onRecordComplete(audioPath);
+          setState(() {
+            isRecording = false;
+          });
+          //todo : send audio
+        },
+        child: !isRecording
+            ? const Icon(
+                Iconsax.microphone,
+                color: ColorsManger.primary,
+              )
+            : const ColorSonar(
+                waveMotion: WaveMotion.smooth,
+                child: Icon(
+                  Iconsax.microphone,
+                  color: ColorsManger.primary,
+                ),
+              ));
   }
 }

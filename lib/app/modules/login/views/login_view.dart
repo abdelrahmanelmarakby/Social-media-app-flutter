@@ -13,20 +13,18 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Column(
         children: [
           Container(
-            height: context.height * .25,
-            decoration: const BoxDecoration(
-                gradient: ColorsManger.backgroundGradient),
+            height: context.height * .15,
+            decoration:
+                const BoxDecoration(gradient: ColorsManger.backgroundGradient),
             child: SafeArea(
               child: Center(
                 child: Text(
                   "Login",
                   style: getBoldTextStyle(fontSize: 30, color: Colors.white),
                 ),
-
               ),
             ),
           ),

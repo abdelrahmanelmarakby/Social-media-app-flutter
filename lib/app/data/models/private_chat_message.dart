@@ -7,6 +7,7 @@ class PrivateMessage {
   String? text;
   String? image;
   String? video;
+  String? audio;
 
   PrivateMessage({
     this.sender,
@@ -14,6 +15,7 @@ class PrivateMessage {
     this.text,
     this.image,
     this.video,
+    this.audio,
   });
 
   List<PrivateMessage> fromQuery(QuerySnapshot snapshot) {
@@ -24,6 +26,7 @@ class PrivateMessage {
         text: doc.get('text'),
         image: doc.get('image'),
         video: doc.get('video'),
+        audio: doc.get('audio'),
       );
     }).toList();
   }
@@ -33,7 +36,8 @@ class PrivateMessage {
         time = json['time'].toDate(),
         text = json['text'],
         image = json['image'],
-        video = json['video'];
+        video = json['video'],
+        audio = json['audio'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -42,6 +46,7 @@ class PrivateMessage {
       'text': text,
       'image': image,
       'video': video,
+      'audio': audio,
     };
   }
 }
