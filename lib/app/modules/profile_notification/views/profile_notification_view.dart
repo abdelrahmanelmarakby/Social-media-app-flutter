@@ -15,11 +15,8 @@ class ProfileNotificationView extends GetView<ProfileNotificationController> {
       body: Center(
           child: Column(
         children: [
-          const SizedBox(
-            height: 40,
-          ),
           GestureDetector(
-            child: ListTile(
+            child: AppBar(
               leading: const Icon(
                 Iconsax.arrow_left,
                 color: ColorsManger.black,
@@ -30,6 +27,9 @@ class ProfileNotificationView extends GetView<ProfileNotificationController> {
                   color: ColorsManger.black,
                 ),
               ),
+              centerTitle: false,
+              backgroundColor: Colors.white,
+              elevation: 0,
             ),
             onTap: () {
               Get.back();

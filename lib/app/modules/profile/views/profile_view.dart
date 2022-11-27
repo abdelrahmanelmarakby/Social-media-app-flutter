@@ -3,7 +3,6 @@ import 'package:future_chat/app/data/remote_firebase_services/user_services.dart
 import 'package:future_chat/app/modules/profile_notification/views/profile_notification_view.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
-
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -39,6 +38,8 @@ class ProfileView extends GetView<ProfileController> {
                 child: ListTile(
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
+
+
                     child: Image.network(
                       UserService.myUser?.photoUrl ?? "",
                       fit: BoxFit.cover,
@@ -55,6 +56,7 @@ class ProfileView extends GetView<ProfileController> {
                         );
                       },
                     ),
+
                   ),
                   title: Text(
                     '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
@@ -70,8 +72,9 @@ class ProfileView extends GetView<ProfileController> {
                 Expanded(
                     child: GestureDetector(
                   child: ListTile(
-                    leading: CircleAvatar(
-                      child: Container(
+
+                    leading: ClipRRect(
+         child: Container(
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
@@ -102,7 +105,9 @@ class ProfileView extends GetView<ProfileController> {
                 Expanded(
                     child: GestureDetector(
                   child: ListTile(
-                    leading: CircleAvatar(
+
+                    leading: ClipRRect(
+
                       child: Container(
                         height: 40,
                         width: 40,
@@ -134,7 +139,8 @@ class ProfileView extends GetView<ProfileController> {
                 Expanded(
                     child: GestureDetector(
                   child: ListTile(
-                    leading: CircleAvatar(
+                    leading: ClipRRect(
+
                       child: Container(
                         height: 40,
                         width: 40,
@@ -166,7 +172,7 @@ class ProfileView extends GetView<ProfileController> {
                 Expanded(
                     child: GestureDetector(
                   child: ListTile(
-                    leading: CircleAvatar(
+                    leading: ClipRRect(
                       child: Container(
                         height: 40,
                         width: 40,
@@ -192,7 +198,9 @@ class ProfileView extends GetView<ProfileController> {
             ),
           ),
           const Spacer(
-            flex: 4,
+
+            flex: 2,
+
           )
         ],
       ),
