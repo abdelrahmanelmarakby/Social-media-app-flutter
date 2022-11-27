@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/modules/signup/views/widgets/step_header.dart';
+
 import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
 import 'widgets/complete_profile.dart';

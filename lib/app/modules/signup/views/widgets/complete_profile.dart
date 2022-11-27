@@ -22,8 +22,8 @@ class CompleteProfileForm extends GetWidget<SignupController> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 75,
-                  width: 75,
+                  height: 60,
+                  width: 60,
                   child: Obx(
                     () => ClipRRect(
                         borderRadius:
@@ -81,7 +81,7 @@ class CompleteProfileForm extends GetWidget<SignupController> {
                         decoration: const InputDecoration(
                           hintText: 'First Name',
                           border: OutlineInputBorder(),
-                          fillColor:  ColorsManger.grey1,
+                          fillColor: ColorsManger.grey1,
                           filled: true,
                         ),
                       ),
@@ -126,7 +126,7 @@ class CompleteProfileForm extends GetWidget<SignupController> {
           Container(
             width: 342,
             height: 50,
-            decoration:  BoxDecoration(
+            decoration: BoxDecoration(
               gradient: ColorsManger.buttonGradient,
               borderRadius: BorderRadius.circular(50),
             ),
@@ -134,10 +134,11 @@ class CompleteProfileForm extends GetWidget<SignupController> {
               onPressed: () {
                 controller.nextPage();
               },
-              child:  Text("Next",
-                style: getBoldTextStyle(fontSize: 18,color: ColorsManger.white)),
-              ),
+              child: Text("Next",
+                  style: getBoldTextStyle(
+                      fontSize: 18, color: ColorsManger.white)),
             ),
+          ),
           const Spacer(
             flex: 3,
           ),

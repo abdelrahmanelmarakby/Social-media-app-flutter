@@ -86,7 +86,7 @@ class AddStoryView extends GetView<AddStoryController> {
                                     IconButton(
                                         onPressed: () {
                                           StoriesServices.addStory(
-                                              Story(
+                                              StoryModel(
                                                 storyImageUrl:
                                                     controller.imageUrl.value,
                                                 storyText: controller

@@ -47,7 +47,7 @@ class UserService {
   }
 
   ///add Story to User Profile
-  void addStoryToUser({required String uid, required Story story}) async {
+  void addStoryToUser({required String uid, required StoryModel story}) async {
     DocumentReference documentReference =
         firebaseFirestore.collection("Users").doc(uid);
     FirebaseFirestore.instance.runTransaction((transaction) async {

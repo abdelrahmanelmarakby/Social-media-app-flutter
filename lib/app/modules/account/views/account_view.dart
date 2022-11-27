@@ -36,6 +36,7 @@ class AccountView extends GetView<AccountController> {
             Get.back();
           },
         ),
+
         Expanded(
           child: Column(
             children: [

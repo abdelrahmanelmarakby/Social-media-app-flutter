@@ -56,7 +56,7 @@ class Attachment {
                 fluff.isNotEmpty ? postMsg(fluff: fluff) : null;
               },
               maxLines: 6,
-              minLines: 2,
+              minLines: 1,
               controller: _controller,
               textCapitalization: TextCapitalization.sentences,
               onChanged: (value) {

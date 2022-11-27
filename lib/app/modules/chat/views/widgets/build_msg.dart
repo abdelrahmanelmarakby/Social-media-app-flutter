@@ -219,7 +219,7 @@ class _LinkPreviewTextState extends State<LinkPreviewText> {
           fontSize: 12,
         ),
         linkStyle: getRegularTextStyle(
-          color: ColorsManger.grey1,
+          color: Colors.blue,
           fontSize: 12,
         ),
         openOnPreviewImageTap: true,
@@ -231,7 +231,7 @@ class _LinkPreviewTextState extends State<LinkPreviewText> {
         text: TextSpan(
           text: widget.url,
           style: getRegularTextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 12,
           ),
 

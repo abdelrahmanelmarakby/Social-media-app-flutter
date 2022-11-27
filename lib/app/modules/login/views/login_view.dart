@@ -13,6 +13,7 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -26,6 +27,7 @@ class LoginView extends GetView<LoginController> {
                     "Login",
                     style: getBoldTextStyle(fontSize: 30, color: Colors.white),
                   ),
+
                 ),
               ),
             ),

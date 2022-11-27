@@ -13,7 +13,7 @@ class StepHeader extends GetWidget<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.height * .24,
+      height: context.height * .20,
       decoration: const BoxDecoration(
         gradient: ColorsManger.backgroundGradient,
       ),
@@ -26,7 +26,7 @@ class StepHeader extends GetWidget<SignupController> {
               children: [
                 StepIndicator(
                   step: 1,
-                  title: 'Complete Profile',
+                  title: 'Profile',
                   isActive: controller.currentPage == 1,
                   isCompleted: controller.currentPage < 1,
                 ),
@@ -38,7 +38,7 @@ class StepHeader extends GetWidget<SignupController> {
                 ),
                 StepIndicator(
                   step: 3,
-                  title: 'OTP Verification',
+                  title: 'Verification',
                   isActive: controller.currentPage == 3,
                   isCompleted: controller.currentPage < 3,
                 ),
@@ -72,8 +72,8 @@ class StepIndicator extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: context.height * .12,
-            width: context.width * .12,
+            height: context.height * .10,
+            width: context.width * .10,
             decoration: const BoxDecoration(
                 color: ColorsManger.white, shape: BoxShape.circle),
             child: Container(
