@@ -3,8 +3,6 @@ import 'package:future_chat/app/data/remote_firebase_services/user_services.dart
 import 'package:future_chat/app/modules/profile_notification/views/profile_notification_view.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
-import 'package:future_chat/app/modules/edit_profile/views/edit_profile_view.dart';
-
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -38,161 +36,150 @@ class ProfileView extends GetView<ProfileController> {
             height: 40,
           ),
           Expanded(
+              flex: 1,
               child: GestureDetector(
-            child: ListTile(
-              leading: Container(
-                height: 90,
-                width: 90,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(50)),
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage:
-                      NetworkImage(UserService.myUser?.photoUrl ?? ''),
+                child: ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.network(UserService.myUser?.photoUrl ?? ''),
+                  ),
+                  title: Text(
+                    '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 18),
+                  ),
                 ),
-              ),
-              title: Text(
-                '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
-                style:
-                    getMediumTextStyle(color: ColorsManger.black, fontSize: 18),
-              ),
-            ),
-          )),
-          const SizedBox(
-            height: 40,
-          ),
+              )),
           Expanded(
-              child: GestureDetector(
-            child: ListTile(
-              leading: CircleAvatar(
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: ColorsManger.light,
+            flex: 4,
+            child: Column(
+              children: [
+                Expanded(
+                    child: GestureDetector(
+                  child: ListTile(
+                    leading: ClipRRect(
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: ColorsManger.light,
+                        ),
+                        child: const Icon(
+                          Iconsax.key,
+                          color: ColorsManger.primary,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Account',
+                      style: getMediumTextStyle(
+                          color: ColorsManger.black, fontSize: 16),
+                    ),
+                    subtitle: Text(
+                      'Edit Profile, Delete Account',
+                      style: getMediumTextStyle(
+                          color: ColorsManger.grey, fontSize: 12),
+                    ),
                   ),
-                  child: const Icon(
-                    Iconsax.key,
-                    color: ColorsManger.primary,
+                  onTap: () {
+                    Get.to(() => const AccountView());
+                  },
+                )),
+                Expanded(
+                    child: GestureDetector(
+                  child: ListTile(
+                    leading: ClipRRect(
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: ColorsManger.light,
+                        ),
+                        child: const Icon(
+                          Iconsax.notification,
+                          color: ColorsManger.primary,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Notifications',
+                      style: getMediumTextStyle(
+                          color: ColorsManger.black, fontSize: 16),
+                    ),
+                    subtitle: Text(
+                      'messages, group and others',
+                      style: getMediumTextStyle(
+                          color: ColorsManger.grey, fontSize: 12),
+                    ),
                   ),
-                ),
-              ),
-              title: Text(
-                'Account',
-                style:
-                    getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-              ),
-              subtitle: Text(
-                'Edit Profile, Delete Account',
-                style:
-                    getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
-              ),
+                  onTap: () {
+                    Get.to(() => const ProfileNotificationView());
+                  },
+                )),
+                Expanded(
+                    child: GestureDetector(
+                  child: ListTile(
+                    leading: ClipRRect(
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: ColorsManger.light,
+                        ),
+                        child: const Icon(
+                          Iconsax.warning_2,
+                          color: ColorsManger.primary,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Help',
+                      style: getMediumTextStyle(
+                          color: ColorsManger.black, fontSize: 16),
+                    ),
+                    subtitle: Text(
+                      'Help center, contact us, privacy policy',
+                      style: getMediumTextStyle(
+                          color: ColorsManger.grey, fontSize: 12),
+                    ),
+                  ),
+                  onTap: () {
+                    Get.to(() => const HelpView());
+                  },
+                )),
+                Expanded(
+                    child: GestureDetector(
+                  child: ListTile(
+                    leading: ClipRRect(
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: ColorsManger.light,
+                        ),
+                        child: const Icon(
+                          Iconsax.profile_2user,
+                          color: ColorsManger.primary,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Invite a Friend',
+                      style: getMediumTextStyle(
+                          color: ColorsManger.black, fontSize: 16),
+                    ),
+                  ),
+                  onTap: () {},
+                )),
+              ],
             ),
-            onTap: () {
-              Get.to(() => const AccountView());
-            },
-          )),
-          const SizedBox(
-            height: 10,
           ),
-          Expanded(
-              child: GestureDetector(
-            child: ListTile(
-              leading: CircleAvatar(
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: ColorsManger.light,
-                  ),
-                  child: const Icon(
-                    Iconsax.notification,
-                    color: ColorsManger.primary,
-                  ),
-                ),
-              ),
-              title: Text(
-                'Notifications',
-                style:
-                    getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-              ),
-              subtitle: Text(
-                'messages, group and others',
-                style:
-                    getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
-              ),
-            ),
-            onTap: () {
-              Get.to(() => const ProfileNotificationView());
-            },
-          )),
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-              child: GestureDetector(
-            child: ListTile(
-              leading: CircleAvatar(
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: ColorsManger.light,
-                  ),
-                  child: const Icon(
-                    Iconsax.warning_2,
-                    color: ColorsManger.primary,
-                  ),
-                ),
-              ),
-              title: Text(
-                'Help',
-                style:
-                    getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-              ),
-              subtitle: Text(
-                'Help center, contact us, privacy policy',
-                style:
-                    getMediumTextStyle(color: ColorsManger.grey, fontSize: 12),
-              ),
-            ),
-            onTap: () {
-              Get.to(() => const HelpView());
-            },
-          )),
-          const SizedBox(
-            height: 15,
-          ),
-          Expanded(
-              child: GestureDetector(
-            child: ListTile(
-              leading: CircleAvatar(
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: ColorsManger.light,
-                  ),
-                  child: const Icon(
-                    Iconsax.profile_2user,
-                    color: ColorsManger.primary,
-                  ),
-                ),
-              ),
-              title: Text(
-                'Invite a Friend',
-                style:
-                    getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-              ),
-            ),
-            onTap: () {},
-          )),
-          const SizedBox(
-            height: 210,
+          const Spacer(
+            flex: 2,
           )
         ],
       ),

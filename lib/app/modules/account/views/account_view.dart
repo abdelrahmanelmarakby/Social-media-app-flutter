@@ -16,11 +16,8 @@ class AccountView extends GetView<AccountController> {
     return Scaffold(
         body: Column(
       children: [
-        const SizedBox(
-          height: 40,
-        ),
         GestureDetector(
-          child: ListTile(
+          child: AppBar(
             leading: const Icon(
               Iconsax.arrow_left,
               color: ColorsManger.black,
@@ -31,131 +28,80 @@ class AccountView extends GetView<AccountController> {
                 color: ColorsManger.black,
               ),
             ),
+            centerTitle: false,
+            backgroundColor: Colors.white,
+            elevation: 0,
           ),
           onTap: () {
             Get.back();
           },
         ),
-        const SizedBox(
-          height: 50,
-        ),
         Expanded(
-            child: ListTile(
-          leading: CircleAvatar(
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: ColorsManger.light,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 40,
               ),
-              child: const Icon(
-                Iconsax.edit,
-                color: ColorsManger.primary,
-              ),
-            ),
+              Expanded(
+                  child: ListTile(
+                leading: ClipRRect(
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: ColorsManger.light,
+                    ),
+                    child: const Icon(
+                      Iconsax.edit,
+                      color: ColorsManger.primary,
+                    ),
+                  ),
+                ),
+                title: GestureDetector(
+                  child: Text(
+                    'Edit Profile',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 16),
+                  ),
+                  onTap: () {
+                    Get.to(() => const EditProfileView());
+                  },
+                ),
+              )),
+              Expanded(
+                  child: ListTile(
+                leading: ClipRRect(
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: ColorsManger.light,
+                    ),
+                    child: const Icon(
+                      Iconsax.trash,
+                      color: ColorsManger.primary,
+                    ),
+                  ),
+                ),
+                title: GestureDetector(
+                  child: Text(
+                    'Delete my account',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 16),
+                  ),
+                  onTap: () {
+                    Get.to(() => const DeleteAccountView());
+                  },
+                ),
+              )),
+            ],
           ),
-          title: GestureDetector(
-            child: Text(
-              'Edit Profile',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-            ),
-            onTap: () {
-              Get.to(() => const EditProfileView());
-              // Get.bottomSheet(
-              //     backgroundColor: Colors.white,
-              //     elevation: 0,
-              //     shape: const RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.only(
-              //           topLeft: Radius.circular(32),
-              //           topRight: Radius.circular(32)),
-              //     ),
-              //     SingleChildScrollView(
-              //       child: Padding(
-              //         padding: const EdgeInsets.all(20),
-              //         child: Column(
-              //             mainAxisAlignment: MainAxisAlignment.start,
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               const SizedBox(
-              //                 height: 5,
-              //               ),
-              //               Text('Privacy',
-              //                   style: getMediumTextStyle(
-              //                     fontSize: 18,
-              //                     color: ColorsManger.black,
-              //                   )).paddingOnly(left: 130),
-              //               const SizedBox(
-              //                 height: 30,
-              //               ),
-              //               Text(
-              //                 ' Profile photo',
-              //                 style: getRegularTextStyle(fontSize: 16),
-              //               ),
-              //               const SizedBox(
-              //                 height: 30,
-              //               ),
-              //               Text(
-              //                 'Story',
-              //                 style: getRegularTextStyle(fontSize: 16),
-              //               ),
-              //               const SizedBox(
-              //                 height: 30,
-              //               ),
-              //               Text(
-              //                 'Read recepits',
-              //                 style: getRegularTextStyle(fontSize: 16),
-              //               ),
-              //               const SizedBox(
-              //                 height: 30,
-              //               ),
-              //               Text(
-              //                 'Online statue',
-              //                 style: getRegularTextStyle(fontSize: 16),
-              //               ),
-              //               const SizedBox(
-              //                 height: 40,
-              //               ),
-              //             ]),
-              //       ),
-              //     ));
-            },
-          ),
-        )),
-        const SizedBox(
-          height: 10,
         ),
-        Expanded(
-            child: ListTile(
-          leading: CircleAvatar(
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: ColorsManger.light,
-              ),
-              child: const Icon(
-                Iconsax.trash,
-                color: ColorsManger.primary,
-              ),
-            ),
-          ),
-          title: GestureDetector(
-            child: Text(
-              'Delete my account',
-              style:
-                  getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-            ),
-            onTap: () {
-              Get.to(() => const DeleteAccountView());
-            },
-          ),
-        )),
-        const SizedBox(
-          height: 550,
-        ),
+        const Spacer(
+          flex: 3,
+        )
       ],
     ));
   }

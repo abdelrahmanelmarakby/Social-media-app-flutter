@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/modules/login/views/login_otp_validation.dart';
-import 'package:future_chat/app/modules/profile/views/profile_view.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../controllers/login_controller.dart';
 import 'login_phone_number_form.dart';
@@ -15,36 +13,33 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          IconButton(
-              onPressed: () {
-                () => Get.to(const ProfileView());
-              },
-              icon: const Icon(Iconsax.more)),
-          Container(
-            height: context.height * .25,
-            decoration:
-                const BoxDecoration(gradient: ColorsManger.backgroundGradient),
-            child: SafeArea(
-              child: Center(
-                child: Text(
-                  "Login",
-                  style: getBoldTextStyle(fontSize: 30, color: Colors.white),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: context.height * .25,
+              decoration: const BoxDecoration(
+                  gradient: ColorsManger.backgroundGradient),
+              child: SafeArea(
+                child: Center(
+                  child: Text(
+                    "Login",
+                    style: getBoldTextStyle(fontSize: 30, color: Colors.white),
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-              child: PageView(
-            controller: controller.pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: const [
-              MobileNumberLoginForm(),
-              OtpVerificationLoginForm()
-            ],
-          ))
-        ],
+            Expanded(
+                child: PageView(
+              controller: controller.pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                MobileNumberLoginForm(),
+                OtpVerificationLoginForm()
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }

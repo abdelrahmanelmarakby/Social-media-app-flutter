@@ -16,11 +16,8 @@ class HelpView extends GetView<HelpController> {
     return Scaffold(
         body: Column(
       children: [
-        const SizedBox(
-          height: 40,
-        ),
         GestureDetector(
-          child: ListTile(
+          child: AppBar(
             leading: const Icon(
               Iconsax.arrow_left,
               color: ColorsManger.black,
@@ -31,68 +28,80 @@ class HelpView extends GetView<HelpController> {
                 color: ColorsManger.black,
               ),
             ),
+            centerTitle: false,
+            backgroundColor: Colors.white,
+            elevation: 0,
           ),
           onTap: () {
             Get.back();
           },
         ),
-        const SizedBox(
-          height: 40,
-        ),
         Expanded(
-            child: ListTile(
-          leading: CircleAvatar(
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: ColorsManger.light,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 40,
               ),
-              child: const Icon(
-                Iconsax.warning_2,
-                color: ColorsManger.primary,
-              ),
-            ),
+              Expanded(
+                  child: GestureDetector(
+                child: ListTile(
+                  leading: ClipRRect(
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: ColorsManger.light,
+                      ),
+                      child: const Icon(
+                        Iconsax.warning_2,
+                        color: ColorsManger.primary,
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    'Contact Us',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 16),
+                  ),
+                ),
+                onTap: () {
+                  Get.to(() => const ContactUsView());
+                },
+              )),
+              Expanded(
+                  child: GestureDetector(
+                child: ListTile(
+                  leading: ClipRRect(
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: ColorsManger.light,
+                      ),
+                      child: const Icon(
+                        Iconsax.warning_2,
+                        color: ColorsManger.primary,
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    'Terms and Privacy Police',
+                    style: getMediumTextStyle(
+                        color: ColorsManger.black, fontSize: 16),
+                  ),
+                ),
+                onTap: () {
+                  Get.to(() => const TermsAndPolicy());
+                },
+              )),
+            ],
           ),
-          title: Text(
-            'Contact Us',
-            style: getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-          ),
-          onTap: () {
-            Get.to(() => const ContactUsView());
-          },
-        )),
-        const SizedBox(
-          height: 10,
         ),
-        Expanded(
-            child: ListTile(
-          leading: CircleAvatar(
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: ColorsManger.light,
-              ),
-              child: const Icon(
-                Iconsax.warning_2,
-                color: ColorsManger.primary,
-              ),
-            ),
-          ),
-          title: Text(
-            'Terms and Privacy Police',
-            style: getMediumTextStyle(color: ColorsManger.black, fontSize: 16),
-          ),
-          onTap: () {
-            Get.to(() => const TermsAndPolicy());
-          },
-        )),
-        const SizedBox(
-          height: 550,
-        ),
+        const Spacer(
+          flex: 3,
+        )
       ],
     ));
   }
