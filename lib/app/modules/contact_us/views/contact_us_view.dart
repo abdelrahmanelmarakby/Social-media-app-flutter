@@ -78,7 +78,7 @@ class ContactUsView extends GetView<ContactUsController> {
                     decoration: InputDecoration(
                       counterStyle: getLightTextStyle(),
                       filled: true,
-                      fillColor: ColorsManger.light,
+                      fillColor: ColorsManger.white,
                       hintText: 'what’s on your mind? ',
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,

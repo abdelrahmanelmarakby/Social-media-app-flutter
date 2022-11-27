@@ -32,14 +32,15 @@ class ProfileView extends GetView<ProfileController> {
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 10,
+          ),
           Expanded(
               flex: 1,
               child: GestureDetector(
                 child: ListTile(
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-
-
                     child: Image.network(
                       UserService.myUser?.photoUrl ?? "",
                       fit: BoxFit.cover,
@@ -56,7 +57,6 @@ class ProfileView extends GetView<ProfileController> {
                         );
                       },
                     ),
-
                   ),
                   title: Text(
                     '${UserService.myUser?.firstName} ${UserService.myUser?.lastName}',
@@ -72,9 +72,8 @@ class ProfileView extends GetView<ProfileController> {
                 Expanded(
                     child: GestureDetector(
                   child: ListTile(
-
                     leading: ClipRRect(
-         child: Container(
+                      child: Container(
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
@@ -105,9 +104,7 @@ class ProfileView extends GetView<ProfileController> {
                 Expanded(
                     child: GestureDetector(
                   child: ListTile(
-
                     leading: ClipRRect(
-
                       child: Container(
                         height: 40,
                         width: 40,
@@ -140,7 +137,6 @@ class ProfileView extends GetView<ProfileController> {
                     child: GestureDetector(
                   child: ListTile(
                     leading: ClipRRect(
-
                       child: Container(
                         height: 40,
                         width: 40,
@@ -198,9 +194,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
           ),
           const Spacer(
-
-            flex: 2,
-
+            flex: 3,
           )
         ],
       ),
