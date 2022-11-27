@@ -32,6 +32,7 @@ class StoriesServices {
         story.copyWith(id: documentReference.id).toMap(),
       );
     });
+    // ignore: avoid_print
     print("A story => ${story.toString()} added to user : $uid");
   }
 

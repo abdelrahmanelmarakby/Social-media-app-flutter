@@ -193,6 +193,7 @@ class AddPostAppBar extends GetWidget<AddPostController> {
                               imageUrl: controller.imageUrl.value,
                               uid: UserService.myUser?.uid ?? ""),
                           UserService.myUser?.uid ?? "")
+                      // ignore: invalid_return_type_for_catch_error
                       .catchError((e) => Get.snackbar('Error', e.toString()));
 
                   await Get.offNamedUntil(

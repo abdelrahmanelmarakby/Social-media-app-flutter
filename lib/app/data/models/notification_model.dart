@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart';
 
 import 'package:future_chat/app/data/models/user_model.dart';
 

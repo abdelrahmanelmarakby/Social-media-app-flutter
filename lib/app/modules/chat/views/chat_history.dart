@@ -8,7 +8,7 @@ import 'widgets/recent_chats.dart';
 class ChatHistory extends StatelessWidget {
   final String myId;
 
-  const ChatHistory({required this.myId});
+  const ChatHistory({super.key, required this.myId});
 
   @override
   Widget build(BuildContext context) {

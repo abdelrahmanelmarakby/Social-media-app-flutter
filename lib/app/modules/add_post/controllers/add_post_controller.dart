@@ -32,6 +32,7 @@ class AddPostController extends GetxController {
       return image.value = File(value!.selectedFiles.first.selectedFile.path);
     });
 
+    // ignore: avoid_print
     print(pickedFile.path);
   }
 

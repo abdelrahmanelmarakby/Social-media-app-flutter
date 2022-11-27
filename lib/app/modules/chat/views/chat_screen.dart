@@ -13,6 +13,7 @@ import '../../video_chat/views/video_chat_view.dart';
 import 'widgets/attachment.dart';
 import 'widgets/build_msg.dart';
 
+// ignore: must_be_immutable
 class ChatScreen extends StatelessWidget {
   String myId, hisId, hisName, hisImage, myName, myImage;
 

@@ -101,11 +101,13 @@ class PostService {
   static Future deletePostToUser({required String postId}) async {
     await _firestore.collection("Posts").doc(postId).delete();
 
+    // ignore: avoid_print
     print("Deleted");
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAllUserPosts(
       List<String> uids) async {
+    // ignore: avoid_print
     print("uids $uids");
 
     final data = await _firestore
