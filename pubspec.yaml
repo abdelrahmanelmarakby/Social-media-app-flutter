@@ -7,7 +7,7 @@ environment:
 
 dependencies:
   advstory: ^0.2.1
-  agora_rtc_engine: any
+  #agora_rtc_engine: ^4.0.4
   alt_sms_autofill: ^1.0.0
   animate_do: ^2.1.0
   animations: ^2.0.7
@@ -58,8 +58,8 @@ dependencies:
   provider: ^6.0.4
   responsive_framework: ^0.2.0
   rich_text_view: ^1.1.0
-  sentry: ^6.14.0
-  sentry_flutter: ^6.14.0
+  #sentry: ^6.14.0
+  #sentry_flutter: ^6.14.0
   share_plus: ^6.3.0
   shared_preferences: ^2.0.15
   story_view: ^0.14.0
