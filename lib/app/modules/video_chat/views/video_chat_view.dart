@@ -39,7 +39,6 @@ class VideoChatView extends GetView<VideoChatController> {
                     ),
                   ),
                 ),
-
                 Positioned(
                   bottom: 20,
                   child: SizedBox(

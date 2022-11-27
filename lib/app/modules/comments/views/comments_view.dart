@@ -136,9 +136,9 @@ class CommentsView extends GetView<CommentsController> {
                     color: ColorsManger.white,
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(UserService.myUser?.photoUrl ?? ""),
+                        ClipRRect(
+                          child:
+                              Image.network(UserService.myUser?.photoUrl ?? ""),
                         ),
                         Expanded(
                           child: TextFormField(
