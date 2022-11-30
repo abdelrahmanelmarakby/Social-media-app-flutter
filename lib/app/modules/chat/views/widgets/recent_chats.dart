@@ -43,7 +43,7 @@ class _RecentChatsState extends State<RecentChats> {
           'Chats',
           style: TextStyle(
             fontSize: FontSize.xlarge,
-            color: ColorsManger.primary,
+            color: ColorsManger.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -147,7 +147,6 @@ class _RecentChatsState extends State<RecentChats> {
                   offset: const Offset(5, 5),
                 )
               ],
-              //TODO: ADD read and unread Colors
               color: chatRoom.lastSender != widget.myId
                   ? const Color.fromARGB(255, 219, 225, 252)
                   : const Color.fromARGB(255, 255, 255, 255),

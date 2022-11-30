@@ -66,15 +66,6 @@ class ChatScreenX extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: false,
         elevation: 0.0,
-        leading: IconButton(
-          icon: const Icon(
-            Iconsax.arrow_left_2,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: Row(
           children: [
             ClipRRect(

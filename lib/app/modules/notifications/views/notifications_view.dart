@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../core/resourses/color_manger.dart';
+import '../../../../core/resourses/font_manger.dart';
 import '../../../../core/resourses/styles_manger.dart';
 import '../controllers/notifications_controller.dart';
 
@@ -13,13 +14,13 @@ class NotificationsView extends GetView<NotificationsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-          Iconsax.arrow_left,
-          color: ColorsManger.black,
-        ),
-        title: Text('Notification',
-            style: getBoldTextStyle(color: ColorsManger.black)),
-        centerTitle: false,
+        title: const Text('Notification',
+            style: TextStyle(
+              fontSize: FontSize.xlarge,
+              color: ColorsManger.black,
+              fontWeight: FontWeight.bold,
+            )),
+        centerTitle: true,
         backgroundColor: ColorsManger.white,
         elevation: 0,
       ),

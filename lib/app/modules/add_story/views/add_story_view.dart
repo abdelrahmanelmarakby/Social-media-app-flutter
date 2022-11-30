@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/data/models/notification_model.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/stories_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
@@ -8,6 +9,7 @@ import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../data/remote_firebase_services/notification_services.dart';
 import '../controllers/add_story_controller.dart';
 
 class AddStoryView extends GetView<AddStoryController> {
@@ -84,16 +86,37 @@ class AddStoryView extends GetView<AddStoryController> {
                                       ),
                                     ),
                                     IconButton(
-                                        onPressed: () {
-                                          StoriesServices.addStory(
-                                              StoryModel(
-                                                storyImageUrl:
-                                                    controller.imageUrl.value,
-                                                storyText: controller
-                                                    .postEditingController.text,
-                                                user: UserService.myUser,
-                                              ),
-                                              UserService.myUser?.uid ?? "");
+                                        onPressed: () async {
+                                          await StoriesServices.addStory(
+                                                  StoryModel(
+                                                    storyImageUrl: controller
+                                                        .imageUrl.value,
+                                                    storyText: controller
+                                                        .postEditingController
+                                                        .text,
+                                                    user: UserService.myUser,
+                                                  ),
+                                                  UserService.myUser?.uid ?? "")
+                                              .then((value) => NotificationService
+                                                  .sendNotification(NotificationModel(
+                                                      title:
+                                                          "New story by${UserService.myUser?.firstName ?? ""} ${UserService.myUser?.lastName ?? ""}",
+                                                      body: controller
+                                                                  .postEditingController
+                                                                  .text
+                                                                  .length >
+                                                              20
+                                                          ? "${controller.postEditingController.text.substring(0, 20)}..."
+                                                          : controller
+                                                              .postEditingController
+                                                              .text,
+                                                      type: "story",
+                                                      fromUser:
+                                                          UserService.myUser,
+                                                      toUsers: UserService
+                                                          .myUser?.followers,
+                                                      imageUrl: controller
+                                                          .imageUrl.value)));
                                           Get.back();
                                           Get.forceAppUpdate();
                                         },

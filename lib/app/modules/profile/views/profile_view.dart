@@ -6,6 +6,7 @@ import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../core/resourses/font_manger.dart';
 import '../../account/views/account_view.dart';
 import '../../help/views/help_view.dart';
 import '../controllers/profile_controller.dart';
@@ -16,17 +17,15 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-          Iconsax.arrow_left,
-          color: ColorsManger.black,
-        ),
-        title: Text(
+        title: const Text(
           "Profile",
-          style: getBoldTextStyle(
+          style: TextStyle(
+            fontSize: FontSize.xlarge,
             color: ColorsManger.black,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: false,
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
       ),
