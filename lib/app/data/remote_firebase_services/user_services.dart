@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 
@@ -69,5 +70,10 @@ class UserService {
       users.add(await getProfile(id));
     }
     return users;
+  }
+
+  Future deleteUser(String uid) async {
+    await firebaseFirestore.collection("Users").doc(uid).delete();
+    await FirebaseAuth.instance.currentUser!.delete();
   }
 }
