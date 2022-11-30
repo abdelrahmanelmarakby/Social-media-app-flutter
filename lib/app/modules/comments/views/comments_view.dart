@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/notification_model.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
+import 'package:future_chat/app/data/remote_firebase_services/notification_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
@@ -25,11 +26,10 @@ class CommentsView extends GetView<CommentsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: FutureBuilder<List<Comment>>(
-          future: PostService().getComments(post.id ?? ""),
+        child: StreamBuilder<List<Comment>>(
+          stream: PostService().getComments(post.id ?? ""),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<Comment> comments = snapshot.data as List<Comment>;
               return Column(
                 //mainAxisSize: MainAxisSize.min,
 
@@ -53,7 +53,7 @@ class CommentsView extends GetView<CommentsController> {
                   Expanded(
                       flex: 1,
                       child: ListView.builder(
-                          itemCount: post.comments?.length ?? 0,
+                          itemCount: snapshot.data?.length ?? 0,
                           keyboardDismissBehavior:
                               ScrollViewKeyboardDismissBehavior.onDrag,
                           itemBuilder: (context, index) {
@@ -74,10 +74,12 @@ class CommentsView extends GetView<CommentsController> {
                                   SizedBox(
                                     child: Column(
                                       children: [
-                                        if (comments[index].commentImageUrl !=
+                                        if (snapshot
+                                                .data?[index].commentImageUrl !=
                                             null)
                                           Image.network(
-                                            comments[index].commentImageUrl ??
+                                            snapshot.data?[index]
+                                                    .commentImageUrl ??
                                                 "",
                                             fit: BoxFit.cover,
                                             errorBuilder:
@@ -88,17 +90,15 @@ class CommentsView extends GetView<CommentsController> {
                                         ListTile(
                                           leading: CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                comments[index]
-                                                        .user
+                                                snapshot.data?[index].user
                                                         ?.photoUrl ??
                                                     ""),
                                           ),
-                                          title: Text(comments[index]
-                                                  .user
+                                          title: Text(snapshot.data?[index].user
                                                   ?.firstName ??
-                                              " ${comments[index].user?.lastName}"),
+                                              " ${snapshot.data?[index].user?.lastName}"),
                                           subtitle: Text(
-                                              "${comments[index].comment}"),
+                                              "${snapshot.data?[index].comment}"),
                                         ),
                                       ],
                                     ),
@@ -109,7 +109,8 @@ class CommentsView extends GetView<CommentsController> {
                                       children: [
                                         Text(
                                           timeago.format(
-                                              comments[index].createdAt!),
+                                              snapshot.data?[index].createdAt ??
+                                                  DateTime.now()),
                                           style: getLightTextStyle(
                                               fontSize: 12,
                                               color: ColorsManger.grey),
@@ -187,18 +188,30 @@ class CommentsView extends GetView<CommentsController> {
                               border: InputBorder.none,
                               suffixIcon: GestureDetector(
                                 onTap: () async {
-                                  await PostService.addCommentToPost(
-                                      post.id ?? "",
-                                      Comment(
-                                        comment: _commentController.text,
-                                        user: UserService.myUser,
-                                        createdAt: DateTime.now(),
-                                      )).then((value) => Get.forceAppUpdate());
+                                  if (_commentController.text.isNotEmpty) {
+                                    PostService.addCommentToPost(
+                                            post.id ?? "",
+                                            Comment(
+                                                comment:
+                                                    _commentController.text,
+                                                user: UserService.myUser,
+                                                createdAt: DateTime.now()))
+                                        .then((value) {
+                                      NotificationService.sendNotification(
+                                          NotificationModel(
+                                              title:
+                                                  "New Comment by ${UserService.myUser?.firstName} ${UserService.myUser?.lastName}",
+                                              body:
+                                                  "New Comment on your post by ${UserService.myUser?.firstName}",
+                                              fromUser: UserService.myUser,
+                                              toUsers: [post.user?.uid ?? ""],
+                                              type: "comment",
+                                              createdAt: DateTime.now()));
 
-                                  _commentController.clear();
-                                  await PostService()
-                                      .getComments(post.id ?? "");
-                                  await Get.forceAppUpdate();
+                                      return Get.forceAppUpdate();
+                                    });
+                                    _commentController.clear();
+                                  }
                                 },
                                 child: const Icon(Iconsax.send1),
                               ),

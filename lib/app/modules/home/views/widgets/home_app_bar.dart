@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/styles_manger.dart';
-import '../../../../routes/app_pages.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({
@@ -16,16 +13,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: [
-        GestureDetector(
-          onTap: () => Get.toNamed(Routes.SEARCH),
-          child: const Icon(
-            CupertinoIcons.search,
-            color: ColorsManger.primary,
-            size: 30,
-          ).paddingSymmetric(horizontal: 12),
-        ),
-      ],
       title: Directionality(
         textDirection: TextDirection.ltr,
         child: Row(

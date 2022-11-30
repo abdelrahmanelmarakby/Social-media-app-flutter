@@ -1,115 +1,90 @@
+import 'package:agora_rtc_engine/rtc_engine.dart';
+import 'package:future_chat/core/global/const.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class VideoChatController extends GetxController {
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     setupVideoSDKEngine();
-//   }
+  //TimeSlot orderedTimeslot = Get.arguments[0]['timeSlot'];
+  //String token = Get.arguments['token'] ?? "";
+  //String room = Get.arguments['room'];
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
+  bool videoCallEstablished = false;
+  int? remoteUid;
+  late RtcEngine engine;
+  bool localAudioMute = false;
+  bool localUserJoined = false;
+  @override
+  void onInit() {
+    super.onInit();
+    initAgora();
+  }
 
-//   var arguments = Get.arguments;
+  Future<void> initAgora() async {
+    // retrieve permissions
+    await [Permission.microphone, Permission.camera].request();
 
-//   @override
-//   void onClose() async {
-//     await agoraEngine.leaveChannel();
-//     super.onClose();
-//   }
+    //create the engine
+    engine = await RtcEngine.create(agoraID);
+    await engine.enableVideo();
+    engine.setEventHandler(
+      RtcEngineEventHandler(
+        joinChannelSuccess: (String channel, int uid, int elapsed) {
+          print("local user $uid joined");
+          localUserJoined = true;
+          update();
+        },
+        userJoined: (int uid, int elapsed) {
+          print("remote user $uid joined");
+          remoteUid = uid;
+          update();
+        },
+        userOffline: (int uid, UserOfflineReason reason) {
+          print("remote user $uid left channel");
+          remoteUid = null;
+          endMeeting();
+          update();
+        },
+      ),
+    );
 
-//   int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
-//   bool videoCallEstablished = false;
-//   int? remoteUid; // uid of the remote user
-//   bool isJoined = false; // Indicates if the local user has joined the channel
-//   late RtcEngine agoraEngine; // Agora engine instance
-//   bool localAudioMute = false;
-//   bool localUserJoined = false;
+    await engine.joinChannel(null, "room", null, 0);
+  }
 
-//   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-//       GlobalKey<ScaffoldMessengerState>(); // Global key to access the scaffold
-//   Future<void> setupVideoSDKEngine() async {
-//     // retrieve or request camera and microphone permissions
-//     await [Permission.microphone, Permission.camera].request();
+  @override
+  void onReady() {
+    super.onReady();
+    update();
+  }
 
-//     //create an instance of the Agora engine
-//     agoraEngine = createAgoraRtcEngine();
-//     await agoraEngine.initialize(const RtcEngineContext(appId: agoraID));
+  @override
+  void onClose() {}
 
-//     await agoraEngine.enableVideo();
+  void hangUp() async {
+    Get.back();
+  }
 
-//     // Register the event handler
-//     agoraEngine.registerEventHandler(
-//       RtcEngineEventHandler(
-//         onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
-//           showMessage(
-//               "Local user uid:${connection.localUid} joined the channel");
+  Future endMeeting() async {
+    //  await VideoCallService().removeRoom(orderedTimeslot.timeSlotId!);
+    await engine.leaveChannel();
+    await engine.destroy();
+    Get.back();
+  }
 
-//           isJoined = true;
-//           update();
-//         },
-//         onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
-//           showMessage("Remote user uid:$remoteUid joined the channel");
+  Future switchCamera() async {
+    try {
+      await engine.switchCamera();
+    } catch (e) {
+      //Fluttertoast.showToast(msg: e.toString());
+    }
+  }
 
-//           remoteUid = remoteUid;
-//           update();
-//         },
-//         onUserOffline: (RtcConnection connection, int? remoteUid,
-//             UserOfflineReasonType reason) {
-//           showMessage("Remote user uid:$remoteUid left the channel");
-
-//           remoteUid = null;
-//           leave();
-//           update();
-//         },
-//       ),
-//     );
-//   }
-
-//   void leave() {
-//     isJoined = false;
-//     remoteUid = null;
-//     update();
-//     agoraEngine.leaveChannel();
-//     Get.back();
-//   }
-
-//   void join() async {
-//     await agoraEngine.startPreview();
-
-//     // Set channel options including the client role and channel profile
-//     ChannelMediaOptions options = const ChannelMediaOptions(
-//       clientRoleType: ClientRoleType.clientRoleBroadcaster,
-//       channelProfile: ChannelProfileType.channelProfileCommunication,
-//     );
-
-//     await agoraEngine.joinChannel(
-//       token: "",
-//       channelId: "id:201094959669+id:201019706842+",
-//       options: options,
-//       uid: 0,
-//     );
-//     update();
-//   }
-
-//   Future switchCamera() async {
-//     try {
-//       await agoraEngine.switchCamera();
-//     } catch (e) {
-//       showMessage(e.toString());
-//     }
-//   }
-
-//   Future toggleLotcalAudioMuted() async {
-//     try {
-//       localAudioMute = !localAudioMute;
-//       await agoraEngine.muteLocalAudioStream(localAudioMute);
-//       update();
-//     } catch (e) {
-//       showMessage(e.toString());
-//     }
-//   }
-
-//   showMessage(String message) {
-//     scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
-//       content: Text(message),
-//     ));
-//   }
+  Future toggleLotcalAudioMuted() async {
+    try {
+      localAudioMute = !localAudioMute;
+      await engine.muteLocalAudioStream(localAudioMute);
+      update();
+    } catch (e) {
+      // Fluttertoast.showToast(msg: e.toString());
+    }
+  }
 }

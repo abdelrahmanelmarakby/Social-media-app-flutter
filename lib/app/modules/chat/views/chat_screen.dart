@@ -102,14 +102,10 @@ class ChatScreenX extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              Get.to(() => const VideoChatView(), arguments: {
-                "myId": myId,
-                "hisId": hisId,
-                "hisName": hisName,
-                "hisImage": hisImage,
-                "myName": myName,
-                "myImage": myImage,
-              });
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const VideoChatView()));
             },
           ),
           IconButton(

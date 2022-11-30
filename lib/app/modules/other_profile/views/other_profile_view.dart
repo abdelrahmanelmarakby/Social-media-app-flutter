@@ -206,38 +206,46 @@ class OtherProfileView extends GetView<OtherProfileController> {
                             if (snapshot.hasData) {
                               List<String> images =
                                   snapshot.data as List<String>;
-                              return Expanded(
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: images.length,
-                                    itemBuilder: (context, index) {
-                                      return SizedBox(
-                                        height: 95,
-                                        width: 95,
-                                        child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 5, left: 5),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: Image.network(
-                                                    images[index].decrypt,
-                                                    height: 70,
-                                                    width: 70,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
-                                      );
-                                    }),
-                              );
+                              return images.isNotEmpty
+                                  ? Expanded(
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: images.length,
+                                          itemBuilder: (context, index) {
+                                            return SizedBox(
+                                              height: 95,
+                                              width: 95,
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5, left: 5),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child: Image.network(
+                                                          images[index].decrypt,
+                                                          height: 70,
+                                                          width: 70,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )),
+                                            );
+                                          }),
+                                    )
+                                  : const SizedBox(
+                                      height: 8,
+                                    );
                             } else {
                               return const SizedBox();
                             }

@@ -80,6 +80,10 @@ class PostList extends GetWidget<HomeController> {
                                             "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
                                             style: getRegularTextStyle(
                                                 fontSize: 10)),
+                                        subtitle: Text(
+                                            " ${controller.posts[index].sharedComment ?? ''}",
+                                            style: getRegularTextStyle(
+                                                fontSize: 10)),
                                       ),
                                       PostWidget(
                                         index: index,
@@ -393,6 +397,7 @@ class ImageWidget extends StatelessWidget {
         onDoubleTap: () {},
         child: InstaImageViewer(
           child: InstaLikeButton(
+            imageBoxfit: BoxFit.cover,
             icon: Iconsax.like_15,
             iconColor: ColorsManger.primary,
             onChanged: () async {

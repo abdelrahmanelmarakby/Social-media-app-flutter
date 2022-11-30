@@ -13,6 +13,8 @@ class SocialMediaUser {
   String? phoneNumber;
   String? address;
   String? bio;
+  bool? muteNotification;
+
   List<String>? following;
   List<String>? followers;
 
@@ -28,6 +30,7 @@ class SocialMediaUser {
     this.phoneNumber,
     this.address,
     this.bio,
+    this.muteNotification,
     this.following,
     this.followers,
   });
@@ -42,6 +45,7 @@ class SocialMediaUser {
     String? phoneNumber,
     String? address,
     String? bio,
+    bool? muteNotification,
     List<String>? following,
     List<String>? followers,
   }) {
@@ -55,6 +59,7 @@ class SocialMediaUser {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       address: address ?? this.address,
       bio: bio ?? this.bio,
+      muteNotification: muteNotification ?? this.muteNotification,
       following: following ?? this.following,
       followers: followers ?? this.followers,
     );
@@ -63,39 +68,18 @@ class SocialMediaUser {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    if (firstName != null) {
-      result.addAll({'firstName': firstName});
-    }
-    if (lastName != null) {
-      result.addAll({'lastName': lastName});
-    }
-    if (email != null) {
-      result.addAll({'email': email});
-    }
-    if (photoUrl != null) {
-      result.addAll({'photoUrl': photoUrl});
-    }
-    if (provider != null) {
-      result.addAll({'provider': provider});
-    }
-    if (uid != null) {
-      result.addAll({'uid': uid});
-    }
-    if (phoneNumber != null) {
-      result.addAll({'phoneNumber': phoneNumber});
-    }
-    if (address != null) {
-      result.addAll({'address': address});
-    }
-    if (bio != null) {
-      result.addAll({'bio': bio});
-    }
-    if (following != null) {
-      result.addAll({'following': following});
-    }
-    if (followers != null) {
-      result.addAll({'followers': followers});
-    }
+    result.addAll({'firstName': firstName});
+    result.addAll({'lastName': lastName});
+    result.addAll({'email': email});
+    result.addAll({'photoUrl': photoUrl});
+    result.addAll({'provider': provider});
+    result.addAll({'uid': uid});
+    result.addAll({'phoneNumber': phoneNumber});
+    result.addAll({'address': address});
+    result.addAll({'bio': bio});
+    result.addAll({'muteNotification': muteNotification});
+    result.addAll({'following': following});
+    result.addAll({'followers': followers});
 
     return result;
   }
@@ -111,6 +95,7 @@ class SocialMediaUser {
       phoneNumber: map['phoneNumber'],
       address: map['address'],
       bio: map['bio'],
+      muteNotification: map['muteNotification'],
       following: List<String>.from(map['following']),
       followers: List<String>.from(map['followers']),
     );
@@ -123,7 +108,7 @@ class SocialMediaUser {
 
   @override
   String toString() {
-    return 'SocialMediaUser(firstName: $firstName, lastName: $lastName, email: $email, photoUrl: $photoUrl, provider: $provider, uid: $uid, phoneNumber: $phoneNumber, address: $address, bio: $bio, following: $following, followers: $followers)';
+    return 'SocialMediaUser(firstName: $firstName, lastName: $lastName, email: $email, photoUrl: $photoUrl, provider: $provider, uid: $uid, phoneNumber: $phoneNumber, address: $address, bio: $bio, muteNotification: $muteNotification, following: $following, followers: $followers)';
   }
 
   @override
@@ -140,6 +125,7 @@ class SocialMediaUser {
         other.phoneNumber == phoneNumber &&
         other.address == address &&
         other.bio == bio &&
+        other.muteNotification == muteNotification &&
         listEquals(other.following, following) &&
         listEquals(other.followers, followers);
   }
@@ -155,6 +141,7 @@ class SocialMediaUser {
         phoneNumber.hashCode ^
         address.hashCode ^
         bio.hashCode ^
+        muteNotification.hashCode ^
         following.hashCode ^
         followers.hashCode;
   }

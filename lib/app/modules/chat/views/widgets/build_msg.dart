@@ -88,17 +88,13 @@ class _MessageBuilderState extends State<MessageBuilder> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if ((msg.image == null || msg.image == 'null') &&
-            msg.text != null &&
-            (msg.video == null || msg.video == 'null'))
+        if (msg.text != null)
           LinkPreviewText(
             url: '${msg.text?.decrypt}',
           )
         else
           const SizedBox(),
-        if (msg.image != null &&
-            (msg.text == null || msg.text == '') &&
-            (msg.video == null || msg.video == ''))
+        if (msg.image != null)
           InstaImageViewer(
             disposeLevel: DisposeLevel.high,
             child: Image.network(
@@ -128,9 +124,6 @@ class _MessageBuilderState extends State<MessageBuilder> {
           )
         else
           const SizedBox(),
-        const SizedBox(
-          height: 1,
-        ),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [

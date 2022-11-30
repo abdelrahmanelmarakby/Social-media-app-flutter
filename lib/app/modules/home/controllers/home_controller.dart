@@ -10,6 +10,8 @@ class HomeController extends GetxController {
   List<PostModel> posts = [];
 
   ScrollController scrollController = ScrollController();
+
+  TextEditingController storyReply = TextEditingController();
   @override
   void onInit() {
     scrollController.addListener(() {

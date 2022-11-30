@@ -1,8 +1,10 @@
+import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/modules/profile_notification/views/profile_notification_view.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
+import 'package:future_chat/core/services/dynamic_links.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -191,7 +193,14 @@ class ProfileView extends GetView<ProfileController> {
                           color: ColorsManger.black, fontSize: 16),
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () async {
+                    Uri? link = await DynamicLinkService().createDynamicLink(
+                        "invite", UserService.myUser?.uid ?? "");
+                    AppinioSocialShare().shareToSystem(
+                      "Join me on Future Chat",
+                      "Join me on Future Chat and let's chat by using this link ${link.toString()}",
+                    );
+                  },
                 )),
               ],
             ),
