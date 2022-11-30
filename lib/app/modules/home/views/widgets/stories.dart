@@ -1,19 +1,23 @@
 import 'package:advstory/advstory.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
-
+import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:future_chat/app/data/remote_firebase_services/stories_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/app/routes/app_pages.dart';
 
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/font_manger.dart';
+import '../../../../../core/services/chat/private/private_chat.dart';
+import '../../../../data/models/private_chat_message.dart';
 import '../../controllers/home_controller.dart';
 
 // ignore: must_be_immutable
@@ -157,6 +161,7 @@ class Stories extends StatelessWidget {
             footer: StoryFooter(
               text:
                   storiesForEachUser[storyIndex][contentIndex].storyText ?? '',
+              story: storiesForEachUser[storyIndex][contentIndex],
             ),
             errorBuilder: () {
               return Container(
@@ -207,12 +212,69 @@ class StoryHeader extends StatelessWidget {
   }
 }
 
-class StoryFooter extends StatelessWidget {
+class StoryFooter extends GetWidget<HomeController> {
   const StoryFooter({
     Key? key,
     required this.text,
+    required this.story,
   }) : super(key: key);
   final String text;
+  final StoryModel story;
+  void postMsg({
+    String? fluff,
+    String? image,
+    String? video,
+    String? audio,
+  }) async {
+    String? myId = UserService.myUser?.phoneNumber
+        ?.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "");
+    var myName = UserService.myUser?.firstName;
+    var myImage = UserService.myUser?.photoUrl;
+    ////
+    var hisId =
+        story.user?.phoneNumber?.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "");
+    var hisName = story.user?.firstName;
+    var hisImage = story.user?.photoUrl;
+
+    PrivateMessage newFluff = PrivateMessage(
+        sender: myId,
+        image: image?.encrypt,
+        text: fluff?.encrypt,
+        video: null,
+        audio: null,
+        time: Timestamp.now().toDate());
+
+    String userA, userB, aName, bName, aImage, bImage;
+    if (int.parse(myId ?? "") > int.parse(hisId ?? "")) {
+      userA = myId ?? "";
+      userB = hisId ?? "";
+      aName = myName ?? "";
+      bName = hisName ?? "";
+      aImage = myImage ?? "";
+      bImage = hisImage ?? "";
+    } else {
+      userA = hisId ?? "";
+      userB = myId ?? "";
+      aName = hisName ?? "";
+      bName = myName ?? "";
+      aImage = hisImage ?? "";
+
+      bImage = myImage ?? "";
+    }
+
+    await PrivateChatService(myId: myId ?? "", hisId: hisId).postPrivateMessage(
+        privateMessage: newFluff,
+        userA: userA,
+        userB: userB,
+        bName: bName,
+        bImage: bImage,
+        aName: aName,
+        aImage: aImage);
+    //String hisToken = await ApiProvider().getToken(hisId);
+    //todo : send Notification
+
+    controller.storyReply.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -234,6 +296,7 @@ class StoryFooter extends StatelessWidget {
             ),
           ),
           TextFormField(
+            controller: controller.storyReply,
             decoration: InputDecoration(
               hintText: "Add a comment...",
               filled: true,
@@ -241,13 +304,22 @@ class StoryFooter extends StatelessWidget {
               hintStyle: getLightTextStyle(
                   color: ColorsManger.white, fontSize: FontSize.medium),
               border: InputBorder.none,
-              suffixIcon: const Icon(
-                Icons.send,
-                color: ColorsManger.white,
+              suffixIcon: GestureDetector(
+                child: const Icon(
+                  Iconsax.send1,
+                  color: ColorsManger.white,
+                ),
+                onTap: () {
+                  postMsg(
+                      fluff: controller.storyReply.text,
+                      image: story.storyImageUrl);
+                },
               ),
             ),
             onFieldSubmitted: (value) {
-              //TODO: Post MSG to story comments
+              postMsg(
+                  fluff: controller.storyReply.text,
+                  image: story.storyImageUrl);
             },
           ).paddingAll(8),
         ],

@@ -106,14 +106,44 @@ class NotificationWidget extends StatelessWidget {
                   subtitle: Wrap(
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
-                      const Icon(
-                        Iconsax.like_1,
-                        color: ColorsManger.primary,
-                      ),
+                      if (type == "like")
+                        const Icon(
+                          Iconsax.like_1,
+                          color: ColorsManger.primary,
+                          size: 16,
+                        ),
+                      if (type == "comment")
+                        const Icon(
+                          Iconsax.message,
+                          color: ColorsManger.primary,
+                          size: 16,
+                        ),
+                      if (type == "post")
+                        const Icon(
+                          Iconsax.archive,
+                          color: ColorsManger.primary,
+                          size: 16,
+                        ),
+                      if (type == "story")
+                        const Icon(
+                          Iconsax.story,
+                          color: ColorsManger.primary,
+                          size: 16,
+                        ),
+                      if (type == "share")
+                        const Icon(
+                          Iconsax.export,
+                          color: ColorsManger.primary,
+                          size: 16,
+                        ),
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(title)
+                      Text(
+                        title,
+                        style: getRegularTextStyle(fontSize: 12),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
                 ),

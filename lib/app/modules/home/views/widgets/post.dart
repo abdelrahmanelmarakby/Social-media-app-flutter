@@ -80,6 +80,10 @@ class PostList extends GetWidget<HomeController> {
                                             "${controller.posts[index].user?.firstName ?? ''} ${controller.posts[index].user?.lastName ?? ''}  Shared a Post",
                                             style: getRegularTextStyle(
                                                 fontSize: 10)),
+                                        subtitle: Text(
+                                            " ${controller.posts[index].sharedComment ?? ''}",
+                                            style: getRegularTextStyle(
+                                                fontSize: 10)),
                                       ),
                                       PostWidget(
                                         index: index,

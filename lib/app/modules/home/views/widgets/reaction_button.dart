@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/data/models/notification_model.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
+import 'package:future_chat/app/data/remote_firebase_services/notification_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/post_services.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
@@ -70,7 +72,19 @@ class ReactionButton extends StatelessWidget {
               postId: post.id,
               uid: UserService.myUser?.uid ?? "",
               reaction: PostReactions.like.name,
-            ));
+            )).then((value) {
+          NotificationService.sendNotification(
+            NotificationModel(
+                body:
+                    "${UserService.myUser?.firstName} ${UserService.myUser?.lastName} Liked your post",
+                createdAt: DateTime.now(),
+                fromUser: UserService.myUser,
+                title: " New Like on your post",
+                toUsers: [post.user?.uid ?? ""],
+                type: "like"),
+          );
+          return value;
+        });
       },
     );
   }

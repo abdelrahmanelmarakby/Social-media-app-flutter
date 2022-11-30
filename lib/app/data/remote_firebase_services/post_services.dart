@@ -88,14 +88,13 @@ class PostService {
     return true;
   }
 
-  Future<List<Comment>> getComments(String postId) async {
-    return _firestore.collection("Posts").doc(postId).get().then((value) {
-      List<Comment> comments = [];
-      value.data()?["comments"].map((e) {
-        comments.add(Comment.fromMap(e));
-      }).toList();
-      return comments;
-    });
+  Stream<List<Comment>> getComments(String postId) {
+    return _firestore.collection("Posts").doc(postId).snapshots().map((event) =>
+        event
+            .data()!["comments"]
+            ?.map<Comment>((e) => Comment.fromMap(e))
+            .toList() ??
+        []);
   }
 
   static Future deletePostToUser({required String postId}) async {
