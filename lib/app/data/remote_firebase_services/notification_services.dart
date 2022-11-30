@@ -11,4 +11,11 @@ class NotificationService {
         .copyWith(id: docRef.id, createdAt: DateTime.now())
         .toMap());
   }
+
+  static Stream getAllNotifications() {
+    return notificationCollection
+        .orderBy('createdAt', descending: true)
+        //.where('toUsers', arrayContains: UserService.myUser?.uid)
+        .snapshots();
+  }
 }

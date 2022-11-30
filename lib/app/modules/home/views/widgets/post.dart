@@ -393,6 +393,7 @@ class ImageWidget extends StatelessWidget {
         onDoubleTap: () {},
         child: InstaImageViewer(
           child: InstaLikeButton(
+            imageBoxfit: BoxFit.cover,
             icon: Iconsax.like_15,
             iconColor: ColorsManger.primary,
             onChanged: () async {
