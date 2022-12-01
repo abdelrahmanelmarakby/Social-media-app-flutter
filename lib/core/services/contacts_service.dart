@@ -49,12 +49,12 @@ class ContactsService extends GetxService {
       for (var phone in contact.phones) {
         for (var user in firbaseUsers) {
           // ignore: avoid_print
-          print(user.phoneNumber);
+          Get.log(user.phoneNumber.toString());
           // ignore: avoid_print
-          print(phone.number);
+          Get.log(phone.number);
           if (phone.number == user.phoneNumber) {
             // ignore: avoid_print
-            print(" ${user.firstName} is registered");
+            Get.log(" ${user.firstName} is registered");
             registeredContacts.add(user.uid ?? "");
           }
         }
@@ -65,11 +65,9 @@ class ContactsService extends GetxService {
     Get.log("Updating user contacts $registeredContacts");
     await FirebaseFirestore.instance
         .collection('Users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update({
-      "followers": registeredContacts,
-      "following": registeredContacts.toSet().toList()
-    });
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update(
+            {"followers": registeredContacts, "following": registeredContacts});
 
     await FirebaseFirestore.instance
         .collection('Users')
@@ -84,16 +82,17 @@ class ContactsService extends GetxService {
           .get()
           .then((value) {
         UserService.myUser = SocialMediaUser(
-          email: value.data()?['email'],
-          firstName: value.data()?['firstName'],
-          lastName: value.data()?['lastName'],
-          phoneNumber: value.data()?['phoneNumber'],
-          uid: value.data()?['uid'],
-          photoUrl: value.data()?['photoUrl'],
-          bio: value.data()?['bio'],
+          email: value.data()?['email'] ?? "",
+          firstName: value.data()?['firstName'] ?? "",
+          lastName: value.data()?['lastName'] ?? "",
+          phoneNumber: value.data()?['phoneNumber'] ?? "",
+          uid: value.data()?['uid'] ?? "",
+          photoUrl: value.data()?['photoUrl'] ?? '',
+          bio: value.data()?['bio'] ?? "",
           followers: value.data()?['followers'] ?? [],
           following: value.data()?['following'] ?? [],
-          address: value.data()?['address'],
+          address: value.data()?['address'] ?? "",
+          muteNotification: value.data()?['muteNotification'] ?? false,
         );
       });
     });

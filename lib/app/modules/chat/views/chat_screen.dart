@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:future_chat/core/resourses/font_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -94,11 +93,14 @@ class ChatScreenX extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(
-              hisName,
-              style: getMediumTextStyle(
-                color: Colors.black,
-                fontSize: FontSize.medium,
+            Expanded(
+              child: Text(
+                hisName,
+                overflow: TextOverflow.fade,
+                style: getMediumTextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                ),
               ),
             ),
           ],
