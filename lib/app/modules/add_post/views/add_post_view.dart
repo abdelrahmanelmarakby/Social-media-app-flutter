@@ -209,7 +209,7 @@ class AddPostAppBar extends GetWidget<AddPostController> {
                                 toUsers: UserService.myUser?.followers,
                                 imageUrl: controller.imageUrl.value),
                           ))
-                      .then((value) => Get.offAllNamed(Routes.HOME))
+                      .then((value) => Get.offAllNamed(Routes.BOTTOM_NAV_BAR))
                       .catchError((e) => Get.snackbar('Error', e.toString()));
 
                   await Get.offNamedUntil(

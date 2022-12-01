@@ -1,3 +1,4 @@
+import 'package:advstory/advstory.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/post_model.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ class HomeController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   TextEditingController storyReply = TextEditingController();
+
+  AdvStoryController advStoryController = AdvStoryController();
   @override
   void onInit() {
     scrollController.addListener(() {

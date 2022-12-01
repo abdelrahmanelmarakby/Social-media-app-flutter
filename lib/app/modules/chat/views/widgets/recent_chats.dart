@@ -1,7 +1,10 @@
 import 'package:animations/animations.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/modules/profile/views/widget/contacts.dart';
+import 'package:future_chat/core/services/contacts_service.dart';
 
 import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -38,15 +41,12 @@ class _RecentChatsState extends State<RecentChats> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: const Text(
-          'Chats',
-          style: TextStyle(
-            fontSize: FontSize.xlarge,
-            color: ColorsManger.primary,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        centerTitle: false,
+        title: Text('Chats',
+            style: getBoldTextStyle(
+              color: Colors.black,
+              fontSize: 18,
+            )),
         actions: [
           IconButton(
             onPressed: () {},
@@ -56,16 +56,27 @@ class _RecentChatsState extends State<RecentChats> {
             ),
           ),
           PopupMenuButton(
-            onSelected: (value) {
+            onSelected: (value) async {
               if (value == 1) {
                 Get.toNamed(Routes.GROUP_CHAT);
+              } else if (value == 2) {
+                Get.bottomSheet(ContactsView(
+                    contacts: UserService.myUser?.following ?? []));
+              } else if (value == 3) {
+                BotToast.showLoading();
+                await ContactsService.getAllRegisterdContacts().then((value) {
+                  BotToast.closeAllLoading();
+                  return Get.snackbar("All contact loaded", "Success",
+                      snackPosition: SnackPosition.TOP,
+                      backgroundColor: Colors.green,
+                      colorText: Colors.white);
+                });
               }
             },
             itemBuilder: (context) {
               return [
                 PopupMenuItem(
                   value: 1,
-                  onTap: () {},
                   child: Text(
                     'New Group',
                     style: getMediumTextStyle(
@@ -74,14 +85,16 @@ class _RecentChatsState extends State<RecentChats> {
                   ),
                 ),
                 PopupMenuItem(
+                  value: 2,
                   child: Text(
                     'New Contact',
                     style: getMediumTextStyle(color: Colors.black),
                   ),
                 ),
                 PopupMenuItem(
+                  value: 3,
                   child: Text(
-                    'Settings',
+                    'Refresh Contacts',
                     style: getMediumTextStyle(color: Colors.black),
                   ),
                 ),

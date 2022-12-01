@@ -117,6 +117,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+
         // navigatorObservers: [BotToastNavigatorObserver()],
         title: "app name".tr,
         // initialRoute:token==null?AppPages.INITIAL:Routes.HOME,

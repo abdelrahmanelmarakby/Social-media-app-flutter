@@ -8,6 +8,7 @@ import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/add_story_controller.dart';
 
 class AddStoryView extends GetView<AddStoryController> {
@@ -22,6 +23,7 @@ class AddStoryView extends GetView<AddStoryController> {
             'Add story',
             style: TextStyle(color: Colors.black),
           ),
+          elevation: 0,
           centerTitle: true,
         ),
         body: Stack(
@@ -31,6 +33,7 @@ class AddStoryView extends GetView<AddStoryController> {
                 if (controller.imageUrl.value == "") {
                   return Center(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         CupertinoActivityIndicator(),
                         Text('Loading ...'),
@@ -84,8 +87,8 @@ class AddStoryView extends GetView<AddStoryController> {
                                       ),
                                     ),
                                     IconButton(
-                                        onPressed: () {
-                                          StoriesServices.addStory(
+                                        onPressed: () async {
+                                          await StoriesServices.addStory(
                                               StoryModel(
                                                 storyImageUrl:
                                                     controller.imageUrl.value,
@@ -94,7 +97,8 @@ class AddStoryView extends GetView<AddStoryController> {
                                                 user: UserService.myUser,
                                               ),
                                               UserService.myUser?.uid ?? "");
-                                          Get.back();
+                                          Get.offAllNamed(
+                                              Routes.BOTTOM_NAV_BAR);
                                           Get.forceAppUpdate();
                                         },
                                         icon: const Icon(

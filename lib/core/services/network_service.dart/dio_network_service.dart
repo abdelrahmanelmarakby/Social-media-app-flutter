@@ -46,6 +46,7 @@ class NetworkResponse<Model> with _$NetworkResponse {
 class PreparedNetworkRequest<Model> {
   const PreparedNetworkRequest(
     this.request,
+    //e.g. (json) => Model.fromJson(json)
     this.parser,
     this.dio,
     this.headers,

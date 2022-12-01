@@ -64,27 +64,34 @@ class ContactsView extends StatelessWidget {
                             "${snapshot.data?[index]?.firstName ?? 'N/A'} ${snapshot.data?[index]?.lastName ?? 'N/A'}"),
                         subtitle:
                             Text(snapshot.data?[index]?.phoneNumber ?? 'N/A'),
-                        trailing: IconButton(
-                          onPressed: () {
-                            Get.to(() => ChatScreen(
-                                myId: UserService.myUser?.phoneNumber
-                                        ?.replaceAll(
-                                            RegExp("[^a-zA-Z0-9 ]"), "") ??
-                                    "",
-                                hisId: snapshot.data?[index]?.phoneNumber
-                                        ?.replaceAll(
-                                            RegExp("[^a-zA-Z0-9 ]"), "") ??
-                                    "",
-                                hisImage: snapshot.data?[index]?.photoUrl ?? "",
-                                hisName:
-                                    "${snapshot.data?[index]?.firstName ?? 'N/A'} ${snapshot.data?[index]?.lastName ?? 'N/A'}",
-                                myImage: UserService.myUser?.photoUrl ?? "",
-                                myName:
-                                    "${UserService.myUser?.firstName ?? 'N/A'} ${UserService.myUser?.lastName ?? 'N/A'}"));
-                          },
-                          icon: const Icon(
-                            Iconsax.message,
-                            color: ColorsManger.primary,
+                        trailing: Container(
+                          decoration: BoxDecoration(
+                            color: ColorsManger.primary.withOpacity(.05),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              Get.to(() => ChatScreen(
+                                  myId: UserService.myUser?.phoneNumber
+                                          ?.replaceAll(
+                                              RegExp("[^a-zA-Z0-9 ]"), "") ??
+                                      "",
+                                  hisId: snapshot.data?[index]?.phoneNumber
+                                          ?.replaceAll(
+                                              RegExp("[^a-zA-Z0-9 ]"), "") ??
+                                      "",
+                                  hisImage:
+                                      snapshot.data?[index]?.photoUrl ?? "",
+                                  hisName:
+                                      "${snapshot.data?[index]?.firstName ?? 'N/A'} ${snapshot.data?[index]?.lastName ?? 'N/A'}",
+                                  myImage: UserService.myUser?.photoUrl ?? "",
+                                  myName:
+                                      "${UserService.myUser?.firstName ?? 'N/A'} ${UserService.myUser?.lastName ?? 'N/A'}"));
+                            },
+                            icon: const Icon(
+                              Iconsax.message,
+                              color: ColorsManger.primary,
+                            ),
                           ),
                         ),
                       );

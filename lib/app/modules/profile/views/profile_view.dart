@@ -18,16 +18,11 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-          Iconsax.arrow_left,
-          color: ColorsManger.black,
-        ),
-        title: Text(
-          "Profile",
-          style: getBoldTextStyle(
-            color: ColorsManger.black,
-          ),
-        ),
+        title: Text('Profile',
+            style: getBoldTextStyle(
+              color: Colors.black,
+              fontSize: 18,
+            )),
         centerTitle: false,
         backgroundColor: Colors.white,
         elevation: 0,
