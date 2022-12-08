@@ -147,6 +147,7 @@ class MyAppState extends State<MyApp> {
         //  logWriterCallback: (String text, {bool isError = false}) {
         //  Get.log("GET LOG CALLBACK : $text", isError: isError);
         //},
+
         builder: (context, child) {
           //  child = botToastBuilder(context, child);
           ErrorWidget.builder = (FlutterErrorDetails errorDetails) {

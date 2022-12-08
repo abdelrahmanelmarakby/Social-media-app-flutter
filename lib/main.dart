@@ -12,7 +12,7 @@ import 'core/services/shared_prefs.dart';
 
 Future<void> main() async {
   //============================================================================
-  WidgetsFlutterBinding.ensureInitialized();
+  await WidgetsFlutterBinding.ensureInitialized();
   //=============================== Firebase ====================================
   await Firebase.initializeApp();
   Get.put(DynamicLinkService());
