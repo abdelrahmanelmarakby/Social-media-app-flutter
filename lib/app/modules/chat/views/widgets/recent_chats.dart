@@ -48,13 +48,13 @@ class _RecentChatsState extends State<RecentChats> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              color: ColorsManger.primary,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Icons.search,
+          //     color: ColorsManger.primary,
+          //   ),
+          // ),
           PopupMenuButton(
             onSelected: (value) {
               if (value == 1) {

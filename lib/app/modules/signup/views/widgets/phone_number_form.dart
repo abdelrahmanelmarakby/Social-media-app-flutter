@@ -49,7 +49,7 @@ class MobileNumberForm extends GetWidget<SignupController> {
                   filled: true,
                   border: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(6))),
-              initialCountryCode: 'SA',
+              initialCountryCode: 'JO',
               onChanged: (phone) {
                 controller.fullNumber = phone.completeNumber;
               },

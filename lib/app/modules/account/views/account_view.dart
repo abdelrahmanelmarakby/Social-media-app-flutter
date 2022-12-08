@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../core/resourses/color_manger.dart';
+import '../../../../core/resourses/font_manger.dart';
 import '../../../../core/resourses/styles_manger.dart';
 import '../../delete_account/views/delete_account_view.dart';
 import '../../edit_profile/views/edit_profile_view.dart';
@@ -25,7 +26,9 @@ class AccountView extends GetView<AccountController> {
             title: Text(
               'Account',
               style: getBoldTextStyle(
+                fontSize: FontSize.xlarge,
                 color: ColorsManger.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
             centerTitle: false,
@@ -36,7 +39,6 @@ class AccountView extends GetView<AccountController> {
             Get.back();
           },
         ),
-
         Expanded(
           child: Column(
             children: [
