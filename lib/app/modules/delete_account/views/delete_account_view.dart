@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,32 +12,36 @@ import '../controllers/delete_account_controller.dart';
 
 class DeleteAccountView extends GetView<DeleteAccountController> {
   const DeleteAccountView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    bool isButtonActive = true;
+    final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
     return Scaffold(
         body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        AppBar(
-          leading: const Icon(
-            Iconsax.arrow_left,
-            color: ColorsManger.black,
-          ),
-          title: GestureDetector(
-            child: Text(
+        GestureDetector(
+          child: AppBar(
+            leading: const Icon(
+              Iconsax.arrow_left,
+              color: ColorsManger.black,
+            ),
+            title: Text(
               'Delete My Account',
               style: getBoldTextStyle(
                 color: ColorsManger.black,
               ),
             ),
-            onTap: () {
-              Get.back();
-            },
+            centerTitle: false,
+            backgroundColor: Colors.white,
+            elevation: 0,
           ),
-          centerTitle: false,
-          backgroundColor: Colors.white,
-          elevation: 0,
+          onTap: () {
+            Get.back();
+          },
         ),
         Expanded(
           flex: 1,
@@ -81,37 +87,37 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                     onTap: () {},
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Enter your phone number',
-                  style: getRegularTextStyle(
-                      fontSize: 12, color: ColorsManger.black),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  height: 50,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(50)),
-                  child: TextFormField(
-                    minLines: 1,
-                    maxLines: 1,
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      suffixIcon: const Icon(Iconsax.call),
-                      counterStyle: getLightTextStyle(),
-                      filled: true,
-                      fillColor: ColorsManger.light,
-                      hintText: '+20 ',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: ColorsManger.light)),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // Text(
+                //   'Enter your phone number',
+                //   style: getRegularTextStyle(
+                //       fontSize: 12, color: ColorsManger.black),
+                // ),
+                // const SizedBox(height: 10),
+                // Container(
+                //   height: 50,
+                //   decoration:
+                //       BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                //   child: TextFormField(
+                //     minLines: 1,
+                //     maxLines: 1,
+                //     keyboardType: TextInputType.phone,
+                //     decoration: InputDecoration(
+                //       suffixIcon: const Icon(Iconsax.call),
+                //       counterStyle: getLightTextStyle(),
+                //       filled: true,
+                //       fillColor: ColorsManger.light,
+                //       hintText: '+20 ',
+                //       border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(30),
+                //           borderSide:
+                //               const BorderSide(color: ColorsManger.light)),
+                //     ),
+                //     onTap: () {},
+                //   ),
+                // ),
                 const Spacer(
                   flex: 1,
                 ),
@@ -124,7 +130,39 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                         color: ColorsManger.error,
                         borderRadius: BorderRadius.circular(50)),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        TextEditingController editeController =
+                            TextEditingController();
+                        if (editeController.text.isEmpty) {
+                          isButtonActive = true;
+                          if (editeController.text ==
+                              'I want to delete my account') {
+                            Get.defaultDialog(
+                                title: 'Delete Account',
+                                middleText:
+                                    'Are you sure you want to delete your account?',
+                                textConfirm: 'Yes',
+                                textCancel: 'No',
+                                confirmTextColor: ColorsManger.white,
+                                cancelTextColor: ColorsManger.grey,
+                                buttonColor: ColorsManger.error,
+                                onConfirm: () {
+                                  deleteUser(String uid) {
+                                    firebaseFirestore
+                                        .collection("Users")
+                                        .doc(uid)
+                                        .delete();
+                                    FirebaseAuth.instance.currentUser!.delete();
+                                  }
+                                },
+                                onCancel: () {
+                                  Get.back();
+                                });
+                          }
+                        } else {
+                          isButtonActive = false;
+                        }
+                      },
                       child: Text("Delete My Account",
                           style: getBoldTextStyle(
                               fontSize: FontSize.medium,

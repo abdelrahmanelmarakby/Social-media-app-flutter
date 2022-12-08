@@ -41,20 +41,25 @@ class _RecentChatsState extends State<RecentChats> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        centerTitle: false,
-        title: Text('Chats',
-            style: getBoldTextStyle(
-              color: Colors.black,
-              fontSize: 18,
-            )),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              color: ColorsManger.primary,
-            ),
+
+        centerTitle: true,
+        title: const Text(
+          'Chats',
+          style: TextStyle(
+            fontSize: FontSize.xlarge,
+            color: ColorsManger.black,
+            fontWeight: FontWeight.bold,
           ),
+        ),
+
+        actions: [
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Icons.search,
+          //     color: ColorsManger.primary,
+          //   ),
+          // ),
           PopupMenuButton(
             onSelected: (value) async {
               if (value == 1) {
@@ -160,7 +165,6 @@ class _RecentChatsState extends State<RecentChats> {
                   offset: const Offset(5, 5),
                 )
               ],
-              //TODO: ADD read and unread Colors
               color: chatRoom.lastSender != widget.myId
                   ? const Color.fromARGB(255, 219, 225, 252)
                   : const Color.fromARGB(255, 255, 255, 255),

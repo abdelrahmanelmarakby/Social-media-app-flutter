@@ -12,12 +12,16 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../../../data/remote_firebase_services/notification_services.dart';
+import '../../add_post/controllers/add_post_controller.dart';
 import '../controllers/comments_controller.dart';
 
 class CommentsView extends GetView<CommentsController> {
   CommentsView({Key? key, required this.post}) : super(key: key);
   final PostModel post;
   final TextEditingController _commentController = TextEditingController();
+  //final AddPostController _postController = AddPostController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,9 +142,9 @@ class CommentsView extends GetView<CommentsController> {
                     color: ColorsManger.white,
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(UserService.myUser?.photoUrl ?? ""),
+                        ClipRRect(
+                          child:
+                              Image.network(UserService.myUser?.photoUrl ?? ""),
                         ),
                         Expanded(
                           child: TextFormField(
@@ -155,6 +159,24 @@ class CommentsView extends GetView<CommentsController> {
                                             comment: value,
                                             user: UserService.myUser,
                                             createdAt: DateTime.now()))
+                                    // .then((value) =>
+                                    //     NotificationService.sendNotification(
+                                    //         NotificationModel(
+                                    //             title:
+                                    //                 '${UserService.myUser?.firstName ?? ""} ${UserService.myUser?.lastName ?? ""} commented on your post',
+                                    //             body: _postController
+                                    //                         .postEditingController
+                                    //                         .text
+                                    //                         .length >
+                                    //                     20
+                                    //                 ? "${_postController.postEditingController.text.substring(0, 20)}..."
+                                    //                 : _postController
+                                    //                     .postEditingController
+                                    //                     .text,
+                                    //             fromUser: UserService.myUser,
+                                    //             toUsers: UserService
+                                    //                 .myUser?.followers,
+                                    //             type: 'comments')))
                                     .then((value) => Get.forceAppUpdate());
                                 _commentController.clear();
                               }

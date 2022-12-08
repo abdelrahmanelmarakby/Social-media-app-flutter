@@ -326,6 +326,7 @@ class StoryFooter extends GetWidget<HomeController> {
                   image: story.storyImageUrl);
               controller.advStoryController.resume();
             },
+
           ).paddingAll(8),
         ],
       ),

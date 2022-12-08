@@ -1,11 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeleteAccountController extends GetxController {
-  //TODO: Implement DeleteAccountController
+  //bool isButtonActive = true;
+  //final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-  final count = 0.obs;
+  // deleteAccount(){
+  //   if (){}
+  // }
 
-
-
-  void increment() => count.value++;
+  // deleteAccount() {
+  //   Future deleteUser(String uid) async {
+  //     await firebaseFirestore.collection("Users").doc(uid).delete();
+  //     await FirebaseAuth.instance.currentUser!.delete();
+  //   }
+  // }
 }

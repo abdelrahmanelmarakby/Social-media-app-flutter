@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../core/resourses/color_manger.dart';
+import '../../../../core/resourses/font_manger.dart';
 import '../../../../core/resourses/styles_manger.dart';
 import '../../../data/remote_firebase_services/user_services.dart';
 import '../controllers/edit_profile_controller.dart';
@@ -26,8 +27,9 @@ class EditProfileView extends GetView<EditProfileController> {
               title: Text(
                 'Edit Profile',
                 style: getBoldTextStyle(
+                  fontSize: FontSize.xlarge,
                   color: ColorsManger.black,
-                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               centerTitle: false,
@@ -52,7 +54,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     height: 150,
                     width: 150,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(80),
+                      borderRadius: BorderRadius.circular(100),
                       child: Image.network(UserService.myUser?.photoUrl ?? ''),
                     ),
                   ),
@@ -131,7 +133,9 @@ class EditProfileView extends GetView<EditProfileController> {
                         onPressed: () {},
                         child: Text("Save Changes",
                             style: getBoldTextStyle(
-                                fontSize: 18, color: ColorsManger.white)),
+                              fontSize: 18,
+                              color: ColorsManger.white,
+                            )),
                       ),
                     ),
                   ),

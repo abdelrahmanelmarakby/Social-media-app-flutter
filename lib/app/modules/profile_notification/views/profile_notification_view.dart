@@ -24,7 +24,7 @@ class ProfileNotificationView extends GetView<ProfileNotificationController> {
               title: Text(
                 'Notification',
                 style: getBoldTextStyle(
-                  color: ColorsManger.black,
+                  color: ColorsManger.black, fontWeight: null,
                 ),
               ),
               centerTitle: false,

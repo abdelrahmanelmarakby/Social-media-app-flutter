@@ -7,10 +7,12 @@ import '../models/post_model.dart';
 class StoriesServices {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+
   static Future addStory(StoryModel story, String uid) async {
     DocumentReference documentReference =
         _firestore.collection("Stories").doc();
     return await FirebaseFirestore.instance.runTransaction((transaction) async {
+
       transaction.set(
         documentReference,
         story
@@ -32,6 +34,7 @@ class StoriesServices {
         story.copyWith(id: documentReference.id).toMap(),
       );
     });
+    // ignore: avoid_print
     print("A story => ${story.toString()} added to user : $uid");
   }
 

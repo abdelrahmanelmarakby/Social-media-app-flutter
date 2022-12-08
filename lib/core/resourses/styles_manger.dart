@@ -46,7 +46,8 @@ TextStyle getMediumTextStyle({double fontSize = FontSize.small, Color? color}) {
 }
 
 ///bold TextStyle
-TextStyle getBoldTextStyle({double fontSize = FontSize.large, Color? color}) {
+TextStyle getBoldTextStyle(
+    {double fontSize = FontSize.large, Color? color, FontWeight? fontWeight}) {
   return _getTextStyle(
       fontSize: fontSize,
       fontFamily: FontConstants.fontName,

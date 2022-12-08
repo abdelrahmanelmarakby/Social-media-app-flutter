@@ -12,6 +12,7 @@ import '../../video_chat/views/video_chat_view.dart';
 import 'widgets/attachment.dart';
 import 'widgets/build_msg.dart';
 
+// ignore: must_be_immutable
 class ChatScreen extends StatelessWidget {
   String myId, hisId, hisName, hisImage, myName, myImage;
 
@@ -64,15 +65,6 @@ class ChatScreenX extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: false,
         elevation: 0.0,
-        leading: IconButton(
-          icon: const Icon(
-            Iconsax.arrow_left_2,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: Row(
           children: [
             ClipRRect(

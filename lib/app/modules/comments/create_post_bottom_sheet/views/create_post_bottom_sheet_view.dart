@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../core/resourses/color_manger.dart';
-import '../../../../core/resourses/font_manger.dart';
-import '../../../../core/resourses/styles_manger.dart';
+import '../../../../../core/resourses/color_manger.dart';
+import '../../../../../core/resourses/font_manger.dart';
+import '../../../../../core/resourses/styles_manger.dart';
 import '../controllers/create_post_bottom_sheet_controller.dart';
 
 class CreatePostBottomSheetView
