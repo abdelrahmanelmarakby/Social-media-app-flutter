@@ -12,7 +12,7 @@ import 'core/services/shared_prefs.dart';
 
 Future<void> main() async {
   //============================================================================
-  WidgetsFlutterBinding.ensureInitialized();
+  await WidgetsFlutterBinding.ensureInitialized();
   //=============================== Firebase ====================================
   await Firebase.initializeApp();
   Get.put(DynamicLinkService());
@@ -40,7 +40,6 @@ Future<void> main() async {
   //         'https://7d857f1766ca4c57a9a8e72e94ddc970@o1189629.ingest.sentry.io/4504112367599616';
   //     // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
   //     // We recommend adjusting this value in production.
-
   //     options.tracesSampleRate = 0.0;
   //   },
   //   //============================================================================

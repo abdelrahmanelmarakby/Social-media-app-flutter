@@ -185,6 +185,8 @@ class CommentsView extends GetView<CommentsController> {
                               filled: true,
                               fillColor: ColorsManger.white,
                               hintText: 'Add a comment',
+                              hintStyle: getMediumTextStyle(
+                                  fontSize: 14, color: ColorsManger.grey),
                               border: InputBorder.none,
                               suffixIcon: GestureDetector(
                                 onTap: () async {

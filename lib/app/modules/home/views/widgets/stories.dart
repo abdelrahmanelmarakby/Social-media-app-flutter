@@ -100,6 +100,7 @@ class Stories extends StatelessWidget {
                           child: SizedBox(
                             height: 60,
                             child: AdvStory(
+                                controller: controller.advStoryController,
                                 preloadStory: true,
                                 preloadContent: true,
                                 style: const AdvStoryStyle(
@@ -316,10 +317,14 @@ class StoryFooter extends GetWidget<HomeController> {
                 },
               ),
             ),
+            onTap: () {
+              controller.advStoryController.pause();
+            },
             onFieldSubmitted: (value) {
               postMsg(
                   fluff: controller.storyReply.text,
                   image: story.storyImageUrl);
+              controller.advStoryController.resume();
             },
 
           ).paddingAll(8),

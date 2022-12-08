@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../data/remote_firebase_services/notification_services.dart';
+
 import '../controllers/add_story_controller.dart';
 
 class AddStoryView extends GetView<AddStoryController> {
@@ -24,6 +25,7 @@ class AddStoryView extends GetView<AddStoryController> {
             'Add story',
             style: TextStyle(color: Colors.black),
           ),
+          elevation: 0,
           centerTitle: true,
         ),
         body: Stack(
@@ -33,6 +35,7 @@ class AddStoryView extends GetView<AddStoryController> {
                 if (controller.imageUrl.value == "") {
                   return Center(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         CupertinoActivityIndicator(),
                         Text('Loading ...'),
@@ -88,6 +91,7 @@ class AddStoryView extends GetView<AddStoryController> {
                                     IconButton(
                                         onPressed: () async {
                                           await StoriesServices.addStory(
+
                                                   StoryModel(
                                                     storyImageUrl: controller
                                                         .imageUrl.value,
@@ -118,6 +122,7 @@ class AddStoryView extends GetView<AddStoryController> {
                                                       imageUrl: controller
                                                           .imageUrl.value)));
                                           Get.back();
+
                                           Get.forceAppUpdate();
                                         },
                                         icon: const Icon(

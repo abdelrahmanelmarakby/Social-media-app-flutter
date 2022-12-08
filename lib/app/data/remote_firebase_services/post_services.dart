@@ -116,4 +116,21 @@ class PostService {
         .get();
     return data;
   }
+
+  static Future removeReactionFromPost(String postId, String uid) async {
+    DocumentReference documentReference =
+        _firestore.collection("Posts").doc(postId);
+    return await FirebaseFirestore.instance.runTransaction((transaction) async {
+      transaction.update(
+        documentReference,
+        {
+          "reactions": FieldValue.arrayRemove([
+            {
+              "uid": uid,
+            }
+          ])
+        },
+      );
+    });
+  }
 }

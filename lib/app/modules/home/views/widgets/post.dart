@@ -213,9 +213,9 @@ class InteractionsWidget extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Get.to(
-                  CommentsView(
-                    post: post,
-                  ),
+                  () => CommentsView(
+                        post: post,
+                      ),
                   transition: Transition.downToUp);
             },
             child: Row(

@@ -32,6 +32,9 @@ class ReactionButton extends StatelessWidget {
         dotThirdColor: ColorsManger.pink,
       ),
       likeBuilder: (bool isLiked) {
+        isLiked = post.reactions?.any(
+                (element) => element.user?.uid == UserService.myUser?.uid) ??
+            false;
         return isLiked
             ? const Icon(
                 Iconsax.like_15,
@@ -63,27 +66,33 @@ class ReactionButton extends StatelessWidget {
         return result;
       },
       onTap: (isLiked) async {
-        await PostService.addReactionToPost(
-            post.id ?? "",
-            Reaction(
-              user: UserService.myUser,
-              createdAt: DateTime.now(),
-              postId: post.id,
-              uid: UserService.myUser?.uid ?? "",
-              reaction: PostReactions.like.name,
-            )).then((value) {
-          NotificationService.sendNotification(
-            NotificationModel(
-                body:
-                    "${UserService.myUser?.firstName} ${UserService.myUser?.lastName} Liked your post",
-                createdAt: DateTime.now(),
-                fromUser: UserService.myUser,
-                title: " New Like on your post",
-                toUsers: [post.user?.uid ?? ""],
-                type: "like"),
-          );
-          return value;
-        });
+
+        return !isLiked
+            ? await PostService.addReactionToPost(
+                post.id ?? "",
+                Reaction(
+                  user: UserService.myUser,
+                  createdAt: DateTime.now(),
+                  postId: post.id,
+                  uid: UserService.myUser?.uid ?? "",
+                  reaction: PostReactions.like.name,
+                )).then((value) {
+                NotificationService.sendNotification(
+                  NotificationModel(
+                      body:
+                          "${UserService.myUser?.firstName} ${UserService.myUser?.lastName} Liked your post",
+                      createdAt: DateTime.now(),
+                      fromUser: UserService.myUser,
+                      title: " New Like on your post",
+                      toUsers: [post.user?.uid ?? ""],
+                      type: "like"),
+                );
+                return true;
+              })
+            : await PostService.removeReactionFromPost(
+                    post.id ?? "", UserService.myUser?.uid ?? "")
+                .then((value) => false);
+
       },
     );
   }

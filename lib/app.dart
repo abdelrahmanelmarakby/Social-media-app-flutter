@@ -117,6 +117,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+
         // navigatorObservers: [BotToastNavigatorObserver()],
         title: "app name".tr,
         // initialRoute:token==null?AppPages.INITIAL:Routes.HOME,
@@ -146,6 +147,7 @@ class MyAppState extends State<MyApp> {
         //  logWriterCallback: (String text, {bool isError = false}) {
         //  Get.log("GET LOG CALLBACK : $text", isError: isError);
         //},
+
         builder: (context, child) {
           //  child = botToastBuilder(context, child);
           ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
