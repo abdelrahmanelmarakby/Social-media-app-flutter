@@ -64,6 +64,7 @@ class ChatScreenX extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFCAF0F8).withOpacity(.3),
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         centerTitle: false,
         elevation: 0.0,
