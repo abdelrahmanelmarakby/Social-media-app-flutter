@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:future_chat/app/modules/contact_us/views/contact_us_view.dart';
+import 'package:future_chat/app/modules/other_profile/views/other_profile_view.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -122,47 +124,48 @@ class ChatScreenX extends StatelessWidget {
           PopupMenuButton(
             itemBuilder: (context) {
               return [
-                const PopupMenuItem(
-                  child: Text('View Contact'),
+                PopupMenuItem(
+                  child: const Text('View Contact'),
+                  onTap: () {
+                    Get.to(() => const OtherProfileView(),
+                        arguments: {'userId': hisId});
+                  },
                 ),
-                const PopupMenuItem(
-                  child: Text('Wallpaper'),
-                ),
-                const PopupMenuItem(
-                  child: Text('Report'),
+                PopupMenuItem(
+                  child: const Text('Report'),
+                  onTap: () {
+                    Get.to(() => const ContactUsView());
+                  },
                 ),
                 const PopupMenuItem(
                   child: Text('Clear Chat'),
                 ),
-                const PopupMenuItem(
-                  child: Text('Mute Notification'),
-                ),
-                PopupMenuItem(
-                  onTap: () {
-                    Get.dialog(
-                      AlertDialog(
-                        title: const Text('Report Chat'),
-                        content: const Text(
-                            'Are you sure you want to report this chat?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            child: const Text('report'),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  child: const Text('Report'),
-                ),
+                // PopupMenuItem(
+                //   onTap: () {
+                //     Get.dialog(
+                //       AlertDialog(
+                //         title: const Text('Report Chat'),
+                //         content: const Text(
+                //             'Are you sure you want to report this chat?'),
+                //         actions: [
+                //           TextButton(
+                //             onPressed: () {
+                //               Get.back();
+                //             },
+                //             child: const Text('Cancel'),
+                //           ),
+                //           TextButton(
+                //             onPressed: () {
+                //               Get.back();
+                //             },
+                //             child: const Text('report'),
+                //           ),
+                //         ],
+                //       ),
+                //     );
+                //   },
+                //   child: const Text('Report'),
+                // ),
               ];
             },
             icon: const Icon(

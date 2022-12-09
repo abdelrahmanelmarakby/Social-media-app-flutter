@@ -41,7 +41,6 @@ class _RecentChatsState extends State<RecentChats> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-
         centerTitle: true,
         title: const Text(
           'Chats',
@@ -51,7 +50,6 @@ class _RecentChatsState extends State<RecentChats> {
             fontWeight: FontWeight.bold,
           ),
         ),
-
         actions: [
           // IconButton(
           //   onPressed: () {},
@@ -60,6 +58,7 @@ class _RecentChatsState extends State<RecentChats> {
           //     color: ColorsManger.primary,
           //   ),
           // ),
+
           PopupMenuButton(
             onSelected: (value) async {
               if (value == 1) {
