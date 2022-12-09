@@ -117,12 +117,17 @@ class UserInfoWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Row(
           children: [
-            SizedBox(
+            Container(
               height: 50,
               width: 50,
-              child: CircleAvatar(
-                backgroundImage:
-                    NetworkImage(UserService.myUser?.photoUrl ?? " "),
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: ColorsManger.primary),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: Image.network(
+                  UserService.myUser?.photoUrl ?? "",
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(

@@ -1,7 +1,6 @@
 import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
-import 'package:future_chat/app/modules/profile_notification/views/profile_notification_view.dart';
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:future_chat/core/services/dynamic_links.dart';
@@ -28,7 +27,6 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ),
         centerTitle: true,
-
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -105,38 +103,6 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                   onTap: () {
                     Get.to(() => const AccountView());
-                  },
-                )),
-                Expanded(
-                    child: GestureDetector(
-                  child: ListTile(
-                    leading: ClipRRect(
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: ColorsManger.light,
-                        ),
-                        child: const Icon(
-                          Iconsax.notification,
-                          color: ColorsManger.primary,
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      'Notifications',
-                      style: getMediumTextStyle(
-                          color: ColorsManger.black, fontSize: 16),
-                    ),
-                    subtitle: Text(
-                      'messages, group and others',
-                      style: getMediumTextStyle(
-                          color: ColorsManger.grey, fontSize: 12),
-                    ),
-                  ),
-                  onTap: () {
-                    Get.to(() => const ProfileNotificationView());
                   },
                 )),
                 Expanded(

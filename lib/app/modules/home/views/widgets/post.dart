@@ -300,10 +300,22 @@ class UserWidget extends StatelessWidget {
           Get.toNamed(Routes.OTHER_PROFILE,
               arguments: {'userId': post.user?.uid});
         },
-        child: CircleAvatar(
-          radius: 18,
-          backgroundImage: NetworkImage(
-            post.user?.photoUrl ?? '',
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: const BoxDecoration(
+              shape: BoxShape.circle, color: ColorsManger.primary),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.network(
+              post.user?.photoUrl ?? "",
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => const Icon(
+                Iconsax.user,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
           ),
         ),
       ),

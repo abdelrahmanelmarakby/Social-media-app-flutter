@@ -6,7 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../core/resourses/color_manger.dart';
 import '../../../../core/resourses/font_manger.dart';
 import '../../../../core/resourses/styles_manger.dart';
-import '../../delete_account/views/delete_account_view.dart';
+import '../../../routes/app_pages.dart';
 import '../../edit_profile/views/edit_profile_view.dart';
 import '../controllers/account_controller.dart';
 
@@ -95,7 +95,7 @@ class AccountView extends GetView<AccountController> {
                         color: ColorsManger.black, fontSize: 16),
                   ),
                   onTap: () {
-                    Get.to(() => const DeleteAccountView());
+                    Get.toNamed(Routes.DELETE_ACCOUNT);
                   },
                 ),
               )),

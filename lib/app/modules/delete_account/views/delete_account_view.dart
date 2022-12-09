@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -74,6 +73,7 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                   child: TextFormField(
                     minLines: 1,
                     maxLines: 1,
+                    controller: controller.deleteController,
                     decoration: InputDecoration(
                       counterStyle: getLightTextStyle(),
                       filled: true,
@@ -84,13 +84,21 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                           borderSide:
                               const BorderSide(color: ColorsManger.light)),
                     ),
+                    onChanged: (value) {
+                      if (value.toLowerCase() ==
+                          "I confirm to delete my account".toLowerCase()) {
+                        controller.isButtonActive.value = true;
+                      } else {
+                        controller.isButtonActive.value = false;
+                      }
+                    },
                     onTap: () {},
                   ),
                 ),
                 // const SizedBox(
                 //   height: 10,
                 // ),
-                // Text(
+                // Text
                 //   'Enter your phone number',
                 //   style: getRegularTextStyle(
                 //       fontSize: 12, color: ColorsManger.black),
@@ -123,20 +131,18 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 30, left: 30),
-                  child: Container(
-                    height: 56,
-                    width: 342,
-                    decoration: BoxDecoration(
-                        color: ColorsManger.error,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: TextButton(
-                      onPressed: () {
-                        TextEditingController editeController =
-                            TextEditingController();
-                        if (editeController.text.isEmpty) {
-                          isButtonActive = true;
-                          if (editeController.text ==
-                              'I want to delete my account') {
+                  child: Obx(
+                    () => Container(
+                      height: 56,
+                      width: 342,
+                      decoration: BoxDecoration(
+                          color: controller.isButtonActive.value
+                              ? ColorsManger.error
+                              : ColorsManger.grey,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: TextButton(
+                        onPressed: () {
+                          if (controller.isButtonActive.value) {
                             Get.defaultDialog(
                                 title: 'Delete Account',
                                 middleText:
@@ -147,26 +153,18 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                                 cancelTextColor: ColorsManger.grey,
                                 buttonColor: ColorsManger.error,
                                 onConfirm: () {
-                                  deleteUser(String uid) {
-                                    firebaseFirestore
-                                        .collection("Users")
-                                        .doc(uid)
-                                        .delete();
-                                    FirebaseAuth.instance.currentUser!.delete();
-                                  }
+                                  controller.deleteAccount();
                                 },
                                 onCancel: () {
                                   Get.back();
                                 });
                           }
-                        } else {
-                          isButtonActive = false;
-                        }
-                      },
-                      child: Text("Delete My Account",
-                          style: getBoldTextStyle(
-                              fontSize: FontSize.medium,
-                              color: ColorsManger.white)),
+                        },
+                        child: Text("Delete My Account",
+                            style: getBoldTextStyle(
+                                fontSize: FontSize.medium,
+                                color: ColorsManger.white)),
+                      ),
                     ),
                   ),
                 ),
