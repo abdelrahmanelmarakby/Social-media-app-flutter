@@ -11,8 +11,11 @@ import '../controllers/edit_profile_controller.dart';
 
 class EditProfileView extends GetView<EditProfileController> {
   const EditProfileView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    Get.put(EditProfileController());
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,9 +57,18 @@ class EditProfileView extends GetView<EditProfileController> {
                     height: 150,
                     width: 150,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.network(UserService.myUser?.photoUrl ?? ''),
-                    ),
+                        borderRadius: BorderRadius.circular(100),
+                        child: controller.imagePicked.value
+                            ? Image.file(
+                                controller.image,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                fit: BoxFit.cover,
+                                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+                              )
+                        //child: Image.network(UserService.myUser?.photoUrl ?? ''),
+                        ),
                   ),
                   Positioned(
                     right: 5,
@@ -66,7 +78,9 @@ class EditProfileView extends GetView<EditProfileController> {
                       height: 38,
                       child: FloatingActionButton(
                         backgroundColor: ColorsManger.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.pickImage();
+                        },
                         child: const Icon(
                           Iconsax.camera,
                           color: ColorsManger.primary,
@@ -107,7 +121,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     padding:
                         const EdgeInsets.only(top: 30, left: 25, right: 25),
                     child: Text(
-                      'About',
+                      'Phone Number',
                       style: getMediumTextStyle(
                           color: ColorsManger.grey, fontSize: 14),
                     ),
@@ -116,7 +130,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     padding: const EdgeInsets.only(
                         top: 5, left: 25, bottom: 250, right: 25),
                     child: Text(
-                      '${UserService.myUser?.bio}',
+                      '${UserService.myUser?.phoneNumber}',
                       style: getMediumTextStyle(
                           color: ColorsManger.black, fontSize: 18),
                     ),
@@ -130,7 +144,10 @@ class EditProfileView extends GetView<EditProfileController> {
                           gradient: ColorsManger.buttonGradient,
                           borderRadius: BorderRadius.circular(50)),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.back();
+                          //controller.updateProfile();
+                        },
                         child: Text("Save Changes",
                             style: getBoldTextStyle(
                               fontSize: 18,
