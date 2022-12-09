@@ -37,6 +37,15 @@ class GroupChatService {
     required String groupChatId,
   }) async {
     try {
+      final DocumentReference groupRef =
+          FirebaseFirestore.instance.collection("GroupChats").doc(groupChatId);
+      groupRef.update(
+        {
+          "lastMessage": groupChatMessage.text,
+          "lastMessageSender": groupChatMessage.sender?.uid,
+          "lastMessageTime": groupChatMessage.sentAt,
+        },
+      );
       final DocumentReference docRef = FirebaseFirestore.instance
           .collection("GroupChats")
           .doc(groupChatMessage.groupChatId)

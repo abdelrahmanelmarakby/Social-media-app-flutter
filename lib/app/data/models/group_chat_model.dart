@@ -75,51 +75,22 @@ class GroupChatModel {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    if (id != null) {
-      result.addAll({'id': id});
-    }
-    if (creatorId != null) {
-      result.addAll({'creatorId': creatorId});
-    }
-    if (name != null) {
-      result.addAll({'name': name});
-    }
-    if (image != null) {
-      result.addAll({'image': image});
-    }
-    if (lastMessage != null) {
-      result.addAll({'lastMessage': lastMessage});
-    }
-    if (lastMessageTime != null) {
-      result.addAll({'lastMessageTime': lastMessageTime});
-    }
-    if (lastMessageSender != null) {
-      result.addAll({'lastMessageSender': lastMessageSender});
-    }
-    if (unreadMessages != null) {
-      result.addAll({'unreadMessages': unreadMessages});
-    }
-    if (members != null) {
-      result.addAll({'members': members});
-    }
-    if (admins != null) {
-      result.addAll({'admins': admins});
-    }
-    if (blocked != null) {
-      result.addAll({'blocked': blocked});
-    }
-    if (muted != null) {
-      result.addAll({'muted': muted});
-    }
-    if (keywords != null) {
-      result.addAll({'keywords': keywords});
-    }
-    if (createdAt != null) {
-      result.addAll({'createdAt': createdAt!.millisecondsSinceEpoch});
-    }
-    if (updatedAt != null) {
-      result.addAll({'updatedAt': updatedAt!.millisecondsSinceEpoch});
-    }
+    result.addAll({'id': id});
+
+    result.addAll({'creatorId': creatorId});
+    result.addAll({'name': name});
+    result.addAll({'image': image});
+    result.addAll({'lastMessage': lastMessage});
+    result.addAll({'lastMessageTime': lastMessageTime});
+    result.addAll({'lastMessageSender': lastMessageSender});
+    result.addAll({'unreadMessages': unreadMessages});
+    result.addAll({'members': members});
+    result.addAll({'admins': admins});
+    result.addAll({'blocked': blocked});
+    result.addAll({'muted': muted});
+    result.addAll({'keywords': keywords});
+    result.addAll({'createdAt': createdAt?.millisecondsSinceEpoch});
+    result.addAll({'updatedAt': updatedAt?.millisecondsSinceEpoch});
 
     return result;
   }

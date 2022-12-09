@@ -15,6 +15,7 @@ class GroupChatController extends GetxController {
   List<SocialMediaUser?> users = [];
   List<SocialMediaUser?> selectedUsers = [];
   TextEditingController messageController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
 
   void selectUser(SocialMediaUser? user) {
     if (selectedUsers.contains(user)) {

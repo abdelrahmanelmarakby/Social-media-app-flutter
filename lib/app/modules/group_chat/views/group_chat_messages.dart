@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/group_chat_message.dart';
@@ -74,6 +75,7 @@ class GroupChatMessagesScreen extends GetView<GroupChatController> {
                   List<GroupChatMessage> messages = snapshot.data!;
 
                   return ListView.builder(
+                      controller: controller.scrollController,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
                         List<Widget> userDetails = [
@@ -97,45 +99,48 @@ class GroupChatMessagesScreen extends GetView<GroupChatController> {
                               style: const TextStyle(
                                   color: ColorsManger.primary, fontSize: 12)),
                         ];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: messages[index].sender!.uid ==
-                                    UserService.myUser!.uid
-                                ? CrossAxisAlignment.end
-                                : CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      messages[index].sender!.uid ==
-                                              UserService.myUser!.uid
-                                          ? MainAxisAlignment.end
-                                          : MainAxisAlignment.start,
-                                  children: messages[index].sender!.uid ==
-                                          UserService.myUser!.uid
-                                      ? userDetails.reversed.toList()
-                                      : userDetails,
+                        return FadeInUp(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: messages[index].sender!.uid ==
+                                      UserService.myUser!.uid
+                                  ? CrossAxisAlignment.end
+                                  : CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        messages[index].sender!.uid ==
+                                                UserService.myUser!.uid
+                                            ? MainAxisAlignment.end
+                                            : MainAxisAlignment.start,
+                                    children: messages[index].sender!.uid ==
+                                            UserService.myUser!.uid
+                                        ? userDetails.reversed.toList()
+                                        : userDetails,
+                                  ),
                                 ),
-                              ),
-                              Bubble(
-                                  nip: messages[index].sender!.uid ==
-                                          UserService.myUser!.uid
-                                      ? BubbleNip.rightTop
-                                      : BubbleNip.leftTop,
-                                  color: messages[index].sender!.uid ==
-                                          UserService.myUser!.uid
-                                      ? ColorsManger.primary
-                                      : Colors.white,
-                                  elevation: 5,
-                                  child: Text(
-                                    messages[index].text!,
-                                    style: const TextStyle(color: Colors.white),
-                                  )),
-                            ],
+                                Bubble(
+                                    nip: messages[index].sender!.uid ==
+                                            UserService.myUser!.uid
+                                        ? BubbleNip.rightTop
+                                        : BubbleNip.leftTop,
+                                    color: messages[index].sender!.uid ==
+                                            UserService.myUser!.uid
+                                        ? ColorsManger.primary
+                                        : Colors.white,
+                                    elevation: 5,
+                                    child: Text(
+                                      messages[index].text!,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    )),
+                              ],
+                            ),
                           ),
                         );
                       });
@@ -161,7 +166,7 @@ class GroupChatMessagesScreen extends GetView<GroupChatController> {
                   )),
                   IconButton(
                       onPressed: () async {
-                        await GroupChatService.sendChatMessage(
+                        GroupChatService.sendChatMessage(
                             groupChatId: groupChat.id!,
                             groupChatMessage: GroupChatMessage(
                               groupChatId: groupChat.id!,
@@ -172,6 +177,11 @@ class GroupChatMessagesScreen extends GetView<GroupChatController> {
                               unread: true,
                             ));
                         controller.messageController.clear();
+                        controller.scrollController.animateTo(
+                            controller
+                                .scrollController.position.maxScrollExtent,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeOut);
                       },
                       icon: const Icon(
                         Icons.send,
