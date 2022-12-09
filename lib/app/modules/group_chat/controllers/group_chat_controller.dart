@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:future_chat/app/data/models/group_chat_model.dart';
 import 'package:future_chat/app/data/models/user_model.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
@@ -13,6 +14,7 @@ class GroupChatController extends GetxController {
   ////////////////////////////////SELECTEDUSERS ////////////////////////////////
   List<SocialMediaUser?> users = [];
   List<SocialMediaUser?> selectedUsers = [];
+  TextEditingController messageController = TextEditingController();
 
   void selectUser(SocialMediaUser? user) {
     if (selectedUsers.contains(user)) {

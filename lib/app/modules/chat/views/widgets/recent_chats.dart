@@ -3,22 +3,25 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:future_chat/app/modules/profile/views/widget/contacts.dart';
-import 'package:future_chat/core/services/contacts_service.dart';
+import 'package:future_chat/app/modules/group_chat/controllers/group_chat_controller.dart';
+import 'package:future_chat/app/modules/group_chat/views/group_chats.dart';
 
 import 'package:future_chat/core/services/encryption_service.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:future_chat/app/data/remote_firebase_services/user_services.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../../../core/resourses/color_manger.dart';
 import '../../../../../core/resourses/font_manger.dart';
 import '../../../../../core/resourses/values_manger.dart';
+import '../../../../../core/services/contacts_service.dart';
 import '../../../../data/models/chat_model.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../profile/views/widget/contacts.dart';
 import '../chat_screen.dart';
 
 class RecentChats extends StatefulWidget {
@@ -41,7 +44,6 @@ class _RecentChatsState extends State<RecentChats> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-
         centerTitle: true,
         title: const Text(
           'Chats',
@@ -51,7 +53,6 @@ class _RecentChatsState extends State<RecentChats> {
             fontWeight: FontWeight.bold,
           ),
         ),
-
         actions: [
           // IconButton(
           //   onPressed: () {},
@@ -60,7 +61,122 @@ class _RecentChatsState extends State<RecentChats> {
           //     color: ColorsManger.primary,
           //   ),
           // ),
-          PopupMenuButton(
+          GestureDetector(
+            onTap: () async {
+              Get.defaultDialog(
+                  title: "",
+                  content: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              color: ColorsManger.primary.withOpacity(.2),
+                              height: 1,
+                            ),
+                          ),
+                          Text("  Chats  ",
+                              style: getBoldTextStyle(
+                                  fontSize: 14, color: ColorsManger.primary)),
+                          Expanded(
+                            child: Container(
+                              color: ColorsManger.primary.withOpacity(.2),
+                              height: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      MenuButton(
+                        text: "New Group chat with friends",
+                        icon: Icons.group_add_outlined,
+                        onTap: () {
+                          Get.toNamed(Routes.GROUP_CHAT);
+                        },
+                      ),
+                      MenuButton(
+                        text: "Your group chats with friends",
+                        icon: Iconsax.people,
+                        onTap: () {
+                          Get.to(() => const GroupChats(),
+                              binding: BindingsBuilder.put(
+                                () => GroupChatController(),
+                              ));
+                        },
+                      ),
+                      MenuButton(
+                        text: "New private chat with a friend",
+                        icon: Iconsax.user_add,
+                        onTap: () {
+                          Get.bottomSheet(ContactsView(
+                              contacts: UserService.myUser?.following ?? []));
+                        },
+                      ),
+                      MenuButton(
+                        text: "Load all contacts from phone",
+                        icon: Iconsax.user_tag,
+                        onTap: () async {
+                          BotToast.showLoading();
+                          await ContactsService.getAllRegisterdContacts()
+                              .then((value) {
+                            BotToast.closeAllLoading();
+                            return Get.snackbar(
+                                "All contact loaded ", "Success",
+                                snackPosition: SnackPosition.TOP,
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white);
+                          });
+                        },
+                      ),
+                    ],
+                  ));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorsManger.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                          color: ColorsManger.primary.withOpacity(.05),
+                          blurRadius: 15,
+                          spreadRadius: 5,
+                          offset: const Offset(1, 1))
+                    ],
+                  ),
+                  //width: 80,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Start",
+                          style: getMediumTextStyle(
+                              color: ColorsManger.primary,
+                              fontSize: FontSize.medium),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: ColorsManger.primary)),
+                          child: const Icon(
+                            Iconsax.add,
+                            size: 20,
+                            color: ColorsManger.primary,
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+            ),
+          ),
+          /* PopupMenuButton(
             onSelected: (value) async {
               if (value == 1) {
                 Get.toNamed(Routes.GROUP_CHAT);
@@ -105,11 +221,7 @@ class _RecentChatsState extends State<RecentChats> {
                 ),
               ];
             },
-            icon: const Icon(
-              Icons.more_vert,
-              color: ColorsManger.primary,
-            ),
-          )
+          )*/
         ],
       ),
       body: AnimationLimiter(
@@ -270,6 +382,48 @@ class _RecentChatsState extends State<RecentChats> {
               )
             ],
           )),
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  const MenuButton({
+    required this.text,
+    required this.icon,
+    this.onTap,
+    Key? key,
+  }) : super(key: key);
+  final String text;
+  final IconData icon;
+  final Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: const Color.fromARGB(255, 216, 239, 251),
+      shadowColor: ColorsManger.primary.withOpacity(.3),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
+          onTap: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(
+                icon,
+                color: ColorsManger.primary,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                text,
+                style: getLightTextStyle(
+                    color: ColorsManger.primary, fontSize: FontSize.medium),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

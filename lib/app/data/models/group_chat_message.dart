@@ -3,14 +3,16 @@ import 'dart:convert';
 import 'package:future_chat/app/data/models/user_model.dart';
 
 class GroupChatMessage {
-  final String groupChatId;
+  final String? groupChatId;
   final String? id;
-  final SocialMediaUser sender;
-  final String text;
-  final DateTime sentAt;
-  final bool isLiked;
-  final bool unread;
+  final SocialMediaUser? sender;
+  final String? text;
+  final DateTime? sentAt;
+  final bool? isLiked;
+  final bool? unread;
   final String? imageUrl;
+  final String? videoUrl;
+  final String? audioUrl;
   GroupChatMessage({
     required this.groupChatId,
     this.id,
@@ -20,6 +22,8 @@ class GroupChatMessage {
     required this.isLiked,
     required this.unread,
     this.imageUrl,
+    this.videoUrl,
+    this.audioUrl,
   });
 
   GroupChatMessage copyWith({
@@ -31,6 +35,8 @@ class GroupChatMessage {
     bool? isLiked,
     bool? unread,
     String? imageUrl,
+    String? videoUrl,
+    String? audioUrl,
   }) {
     return GroupChatMessage(
       groupChatId: groupChatId ?? this.groupChatId,
@@ -41,38 +47,42 @@ class GroupChatMessage {
       isLiked: isLiked ?? this.isLiked,
       unread: unread ?? this.unread,
       imageUrl: imageUrl ?? this.imageUrl,
+      videoUrl: videoUrl ?? this.videoUrl,
+      audioUrl: audioUrl ?? this.audioUrl,
     );
   }
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-
     result.addAll({'groupChatId': groupChatId});
-    if (id != null) {
-      result.addAll({'id': id});
-    }
-    result.addAll({'sender': sender.toMap()});
+    result.addAll({'id': id});
+    result.addAll({'sender': sender?.toMap()});
     result.addAll({'text': text});
-    result.addAll({'sentAt': DateTime.now().millisecondsSinceEpoch});
+    result.addAll({'sentAt': sentAt!.millisecondsSinceEpoch});
     result.addAll({'isLiked': isLiked});
     result.addAll({'unread': unread});
-    if (imageUrl != null) {
-      result.addAll({'imageUrl': imageUrl});
-    }
+    result.addAll({'imageUrl': imageUrl});
+    result.addAll({'videoUrl': videoUrl});
+    result.addAll({'audioUrl': audioUrl});
 
     return result;
   }
 
   factory GroupChatMessage.fromMap(Map<String, dynamic> map) {
     return GroupChatMessage(
-      groupChatId: map['groupChatId'] ?? '',
+      groupChatId: map['groupChatId'],
       id: map['id'],
-      sender: SocialMediaUser.fromMap(map['sender']),
-      text: map['text'] ?? '',
-      sentAt: DateTime.fromMillisecondsSinceEpoch(map['sentAt']),
-      isLiked: map['isLiked'] ?? false,
-      unread: map['unread'] ?? false,
+      sender:
+          map['sender'] != null ? SocialMediaUser.fromMap(map['sender']) : null,
+      text: map['text'],
+      sentAt: map['sentAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['sentAt'])
+          : null,
+      isLiked: map['isLiked'],
+      unread: map['unread'],
       imageUrl: map['imageUrl'],
+      videoUrl: map['videoUrl'],
+      audioUrl: map['audioUrl'],
     );
   }
 
@@ -83,7 +93,7 @@ class GroupChatMessage {
 
   @override
   String toString() {
-    return 'GroupChatMessage(groupChatId: $groupChatId, id: $id, sender: $sender, text: $text, sentAt: $sentAt, isLiked: $isLiked, unread: $unread, imageUrl: $imageUrl)';
+    return 'GroupChatMessage(groupChatId: $groupChatId, id: $id, sender: $sender, text: $text, sentAt: $sentAt, isLiked: $isLiked, unread: $unread, imageUrl: $imageUrl, videoUrl: $videoUrl, audioUrl: $audioUrl)';
   }
 
   @override
@@ -98,7 +108,9 @@ class GroupChatMessage {
         other.sentAt == sentAt &&
         other.isLiked == isLiked &&
         other.unread == unread &&
-        other.imageUrl == imageUrl;
+        other.imageUrl == imageUrl &&
+        other.videoUrl == videoUrl &&
+        other.audioUrl == audioUrl;
   }
 
   @override
@@ -110,6 +122,8 @@ class GroupChatMessage {
         sentAt.hashCode ^
         isLiked.hashCode ^
         unread.hashCode ^
-        imageUrl.hashCode;
+        imageUrl.hashCode ^
+        videoUrl.hashCode ^
+        audioUrl.hashCode;
   }
 }

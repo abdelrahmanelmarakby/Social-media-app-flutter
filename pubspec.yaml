@@ -51,6 +51,7 @@ dependencies:
   intl_phone_field: ^3.1.0
   like_button: ^2.0.5
   lottie: ^2.0.0
+  motion_toast: ^2.6.4
   pandabar: any
   permission_handler: ^10.2.0
   pin_code_fields: ^7.4.0

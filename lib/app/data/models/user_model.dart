@@ -14,10 +14,8 @@ class SocialMediaUser {
   String? address;
   String? bio;
   bool? muteNotification;
-
   List<String>? following;
   List<String>? followers;
-
   //List<ChatRoom> chats;
 
   SocialMediaUser({
@@ -96,8 +94,8 @@ class SocialMediaUser {
       address: map['address'],
       bio: map['bio'],
       muteNotification: map['muteNotification'],
-      following: List<String>.from(map['following']),
-      followers: List<String>.from(map['followers']),
+      following: List.from(map['following']),
+      followers: List.from(map['followers']),
     );
   }
 

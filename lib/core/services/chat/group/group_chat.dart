@@ -43,7 +43,7 @@ class GroupChatService {
           .collection('messages')
           .doc();
       groupChatMessage = groupChatMessage.copyWith(id: docRef.id);
-      await docRef.set(groupChatMessage.toJson());
+      await docRef.set(groupChatMessage.toMap());
     } catch (e) {
       print(e);
     }
@@ -71,7 +71,7 @@ class GroupChatService {
         .collection("GroupChats")
         .doc(groupChatId)
         .collection('messages')
-        .orderBy('sentAt', descending: true)
+        .orderBy('sentAt', descending: false)
         .snapshots()
         .map((event) =>
             event.docs.map((e) => GroupChatMessage.fromMap(e.data())).toList());

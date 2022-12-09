@@ -5,6 +5,9 @@ import 'package:future_chat/app/modules/group_chat/controllers/group_chat_contro
 import 'package:future_chat/core/resourses/color_manger.dart';
 import 'package:future_chat/core/services/chat/group/group_chat.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+
+import 'group_chat_messages.dart';
 
 class GroupChats extends GetView<GroupChatController> {
   const GroupChats({super.key});
@@ -38,10 +41,31 @@ class GroupChats extends GetView<GroupChatController> {
                   itemCount: groupChats.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      onTap: () {},
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(groupChats[index].image ?? ""),
+                      onTap: () {
+                        Get.to(() => GroupChatMessagesScreen(
+                              groupChat: groupChats[index],
+                            ));
+                      },
+                      leading: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: ColorsManger.primary.withOpacity(0.2),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.network(
+                            groupChats[index].image ?? "",
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(
+                                Iconsax.people,
+                                color: ColorsManger.primary,
+                              );
+                            },
+                          ),
+                        ),
                       ),
                       title: Text(
                         groupChats[index].name ?? "",
