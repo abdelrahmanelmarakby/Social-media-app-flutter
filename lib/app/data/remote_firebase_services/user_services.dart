@@ -35,7 +35,7 @@ class UserService {
     // print("sent");
   }
 
-  void updateUser({required SocialMediaUser user}) async {
+  updateUser({required SocialMediaUser user}) async {
     DocumentReference documentReference =
         firebaseFirestore.collection("Users").doc(user.uid);
     FirebaseFirestore.instance.runTransaction((transaction) async {

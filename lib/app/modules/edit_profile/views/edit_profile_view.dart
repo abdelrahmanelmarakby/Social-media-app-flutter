@@ -63,10 +63,11 @@ class EditProfileView extends GetView<EditProfileController> {
                                 controller.image,
                                 fit: BoxFit.cover,
                               )
-                            : Image.network(
+                            : Image.network(UserService.myUser?.photoUrl ?? '',
                                 fit: BoxFit.cover,
-                                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-                              )
+                                errorBuilder: (context, error, stackTrace) {
+                                return const Icon(Iconsax.user);
+                              })
                         //child: Image.network(UserService.myUser?.photoUrl ?? ''),
                         ),
                   ),

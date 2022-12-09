@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:future_chat/app/modules/contact_us/views/contact_us_view.dart';
-import 'package:future_chat/app/modules/other_profile/views/other_profile_view.dart';
 import 'package:future_chat/core/resourses/styles_manger.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -122,50 +122,71 @@ class ChatScreenX extends StatelessWidget {
             },
           ),
           PopupMenuButton(
+            onSelected: (value) async {
+              switch (value) {
+                case 0:
+                  await FirebaseFirestore.instance
+                      .collection('Users')
+                      .where("phoneNumber", isEqualTo: "+$hisId")
+                      .get()
+                      .then((value) {
+                    Get.toNamed(Routes.OTHER_PROFILE,
+                        arguments: {'userId': value.docs[0].id});
+                  });
+                  break;
+                case 1:
+                  Get.to(() => const ContactUsView());
+                  break;
+                case 2:
+                  Get.dialog(
+                    AlertDialog(
+                      title: const Text('Delete Chat'),
+                      content: const Text(
+                          'Are you sure you want to delete this chat?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            int aId = int.parse(myId);
+                            int bId = int.parse(hisId);
+                            String chatId = aId > bId
+                                ? "id:$aId+id:$bId+"
+                                : "id:$bId+id:$aId+";
+
+                            FirebaseFirestore.instance
+                                .collection('Chats')
+                                .doc(chatId)
+                                .delete();
+
+                            Get.offAllNamed(Routes.BOTTOM_NAV_BAR);
+                          },
+                          child: const Text('delete'),
+                        ),
+                      ],
+                    ),
+                  );
+                  break;
+              }
+            },
             itemBuilder: (context) {
               return [
-                PopupMenuItem(
-                  child: const Text('View Contact'),
-                  onTap: () {
-                    Get.to(() => const OtherProfileView(),
-                        arguments: {'userId': hisId});
-                  },
-                ),
-                PopupMenuItem(
-                  child: const Text('Report'),
-                  onTap: () {
-                    Get.to(() => const ContactUsView());
-                  },
+                const PopupMenuItem(
+                  value: 0,
+                  child: Text('View Contact'),
                 ),
                 const PopupMenuItem(
-                  child: Text('Clear Chat'),
+                  value: 1,
+                  child: Text('Report'),
                 ),
-                // PopupMenuItem(
-                //   onTap: () {
-                //     Get.dialog(
-                //       AlertDialog(
-                //         title: const Text('Report Chat'),
-                //         content: const Text(
-                //             'Are you sure you want to report this chat?'),
-                //         actions: [
-                //           TextButton(
-                //             onPressed: () {
-                //               Get.back();
-                //             },
-                //             child: const Text('Cancel'),
-                //           ),
-                //           TextButton(
-                //             onPressed: () {
-                //               Get.back();
-                //             },
-                //             child: const Text('report'),
-                //           ),
-                //         ],
-                //       ),
-                //     );
-                //   },
-                //   child: const Text('Report'),
-                // ),
+                const PopupMenuItem(
+                  value: 2,
+                  child: Text('Delete Chat'),
+                ),
               ];
             },
             icon: const Icon(
