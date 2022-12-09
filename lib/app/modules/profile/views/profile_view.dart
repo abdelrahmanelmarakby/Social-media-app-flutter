@@ -28,7 +28,6 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ),
         centerTitle: true,
-
         backgroundColor: Colors.white,
         elevation: 0,
       ),
