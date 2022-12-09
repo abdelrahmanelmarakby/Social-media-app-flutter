@@ -31,6 +31,7 @@ abstract class Routes {
   static const VIDEO_CHAT = _Paths.VIDEO_CHAT;
   static const SEARCH = _Paths.SEARCH;
   static const GROUP_CHAT = _Paths.GROUP_CHAT;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -61,4 +62,5 @@ abstract class _Paths {
   static const VIDEO_CHAT = '/video-chat';
   static const SEARCH = '/search';
   static const GROUP_CHAT = '/group-chat';
+  static const SPLASH = '/splash';
 }

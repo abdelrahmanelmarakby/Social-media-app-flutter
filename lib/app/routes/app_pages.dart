@@ -43,6 +43,8 @@ import '../modules/share_bottom_sheet/bindings/share_bottom_sheet_binding.dart';
 import '../modules/share_bottom_sheet/views/share_bottom_sheet_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
+import '../modules/splash/bindings/splash_binding.dart';
+import '../modules/splash/views/splash_view.dart';
 
 part 'app_routes.dart';
 
@@ -50,7 +52,7 @@ class AppPages {
   AppPages._();
 
   // ignore: constant_identifier_names
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -161,6 +163,11 @@ class AppPages {
       name: _Paths.GROUP_CHAT,
       page: () => const GroupChatView(),
       binding: GroupChatBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => const SplashView(),
+      binding: SplashBinding(),
     ),
   ];
 }

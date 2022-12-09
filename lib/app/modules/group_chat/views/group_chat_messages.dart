@@ -166,6 +166,9 @@ class GroupChatMessagesScreen extends GetView<GroupChatController> {
                   )),
                   IconButton(
                       onPressed: () async {
+                        if (controller.messageController.text.isEmpty) {
+                          return;
+                        }
                         GroupChatService.sendChatMessage(
                             groupChatId: groupChat.id!,
                             groupChatMessage: GroupChatMessage(
