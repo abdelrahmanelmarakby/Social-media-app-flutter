@@ -127,8 +127,13 @@ class GroupChatDetails extends GetView<GroupChatController> {
               itemCount: users.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: ClipRRect(
-                    child: Image.network(users[index]?.photoUrl ?? ""),
+                  leading: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.network(users[index]?.photoUrl ?? ""),
+                    ),
                   ),
                   title: Text(
                       "${users[index]?.firstName ?? " "} ${users[index]?.lastName ?? " "}"),

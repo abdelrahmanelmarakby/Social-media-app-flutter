@@ -212,6 +212,7 @@ class InteractionsWidget extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
+              // Get.bottomSheet(bottomsheet)
               Get.to(
                   () => CommentsView(
                         post: post,

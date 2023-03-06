@@ -14,6 +14,7 @@ TextStyle _getTextStyle({
     fontFamily: fontFamily,
     color: color,
     fontWeight: fontWeight,
+    overflow: TextOverflow.ellipsis
   );
 }
 
