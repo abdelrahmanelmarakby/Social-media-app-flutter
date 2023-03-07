@@ -8,11 +8,16 @@ This documentation provides a comprehensive guide to the features and functional
 
 ## Coming Features:
 
-- [ ] Improved search functionality
-- [ ] Dark mode option
-- [ ] Integration with third-party apps
-- [ ] Customizable user profiles
-- [ ] Enhanced security features
+- [ ] search functionality with algolia.
+- [ ] Dark mode option .
+- [ ] Smooth animations .
+- [ ] ui/ux themes switching.
+- [ ] Integration with third-party apps.
+- [ ] Customizable user profiles.
+- [ ] Enhanced post and stories features like post videos and converting all images to wepb.
+- [ ] Enhanced chat features.
+- [ ] Enhanced security features.
+- [ ] Enhanced AI features.
 
 ## Screenshots:
 [Screen shots will be added here]
