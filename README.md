@@ -9,6 +9,7 @@ This documentation provides a comprehensive guide to the features and functional
 ## Coming Features:
 
 - [ ] search functionality with algolia.
+- [ ] Fix all bugs.
 - [ ] Dark mode option .
 - [ ] Smooth animations .
 - [ ] ui/ux themes switching.
