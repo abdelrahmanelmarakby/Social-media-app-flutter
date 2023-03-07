@@ -8,11 +8,11 @@ This documentation provides a comprehensive guide to the features and functional
 
 Coming Features:
 
-[ ] Improved search functionality
-[ ] Dark mode option
-[ ] Integration with third-party apps
-[ ] Customizable user profiles
-[ ] Enhanced security features
+- [ ] Improved search functionality
+- [ ] Dark mode option
+- [ ] Integration with third-party apps
+- [ ] Customizable user profiles
+- [ ] Enhanced security features
 
 Screenshots:
 [Screen shots will be added here]
