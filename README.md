@@ -6,7 +6,7 @@ This documentation provides a comprehensive guide to the features and functional
 
 
 
-Coming Features:
+## Coming Features:
 
 - [ ] Improved search functionality
 - [ ] Dark mode option
@@ -14,7 +14,7 @@ Coming Features:
 - [ ] Customizable user profiles
 - [ ] Enhanced security features
 
-Screenshots:
+## Screenshots:
 [Screen shots will be added here]
 
 ## Features
