@@ -4,6 +4,19 @@
 
 This documentation provides a comprehensive guide to the features and functionalities of our Social Media App built with Flutter and Firebase. The app provides users with a clean and intuitive UI/UX and offers end-to-end encryption chat, dynamic links, adding new posts or stories, and much more.
 
+
+
+Coming Features:
+
+[ ] Improved search functionality
+[ ] Dark mode option
+[ ] Integration with third-party apps
+[ ] Customizable user profiles
+[ ] Enhanced security features
+
+Screenshots:
+[Screen shots will be added here]
+
 ## Features
 
 The app comes with a wide range of features that provide a seamless and engaging user experience. Some of the key features are:
