@@ -22,7 +22,8 @@ This documentation provides a comprehensive guide to the features and functional
 - [ ] Enhanced AI features.
 
 ## Screenshots:
-[Screen shots will be added here]
+
+[future chat.webm](https://user-images.githubusercontent.com/43115402/223583216-13c790e1-cbee-4306-9c9b-1282b21398e7.webm)
 
 ## Features
 
